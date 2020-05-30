@@ -39,6 +39,11 @@ dependencies {
     implementation "com.android.support:design:$kotlin_version"
 }
 
+task sourceJar(type: Jar) {
+    from 'src/main'
+}
+
+
 
 afterEvaluate {
     publishing {
@@ -47,13 +52,19 @@ afterEvaluate {
                 from components.debug
                 groupId = 'com.tminus1010.tmcommonkotlin'
                 artifactId = 'tmcommonkotlin'
-                version = '1.0.1'
+                version = '1.0.2'
+                artifact sourceJar {
+                    classifier "sources"
+                }
             }
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.tminus1010.tmcommonkotlin'
                 artifactId = 'tmcommonkotlin'
-                version = '1.0.1'
+                version = '1.0.2'
+                artifact sourceJar {
+                    classifier "sources"
+                }
             }
         }
     }
