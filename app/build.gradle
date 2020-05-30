@@ -40,7 +40,7 @@ dependencies {
 }
 
 task sourceJar(type: Jar) {
-    from android.sourceSets.main
+    from 'src/main'
 }
 
 
@@ -52,7 +52,7 @@ afterEvaluate {
                 from components.debug
                 groupId = 'com.tminus1010.tmcommonkotlin'
                 artifactId = 'tmcommonkotlin'
-                version = '1.0.1'
+                version = '1.0.2'
                 artifact sourceJar {
                     classifier "sources"
                 }
@@ -61,7 +61,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.tminus1010.tmcommonkotlin'
                 artifactId = 'tmcommonkotlin'
-                version = '1.0.1'
+                version = '1.0.2'
                 artifact sourceJar {
                     classifier "sources"
                 }
