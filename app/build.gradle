@@ -3,8 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 
-group 'com.example'
-version '1.0'
+group 'tminus1010.tmcommonkotlin'
+version '1.0.7'
 
 android {
     compileSdkVersion 29
@@ -47,18 +47,14 @@ afterEvaluate {
         publications {
             debug(MavenPublication) {
                 from components.debug
-                groupId = 'com.tminus1010.tmcommonkotlin'
                 artifactId = 'tmcommonkotlin'
-                version = '1.0.5'
                 artifact sourceJar {
                     classifier "sources"
                 }
             }
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.tminus1010.tmcommonkotlin'
                 artifactId = 'tmcommonkotlin'
-                version = '1.0.5'
                 artifact sourceJar {
                     classifier "sources"
                 }
