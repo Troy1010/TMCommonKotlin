@@ -8,6 +8,6 @@ fun logz (msg:String) {
     Log.d("TMLog", "TM`$msg")
 }
 
-fun easyToast(context:Context, s: String) {
-    Toast.makeText(context, s, Toast.LENGTH_SHORT).show()
+fun easyToast(context: Context, msg: String, lengthID:Int=Toast.LENGTH_SHORT) {
+    Toast.makeText(context, msg, lengthID).show()
 }
