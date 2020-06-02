@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.tmcommonkotlin.CAMERA_REQUEST_CODE
+import com.example.tmcommonkotlin.easyToast
 import com.example.tmcommonkotlin.logz
 
 abstract class TMActivity(val layout: Int?=null, val theme: Int? = null) :
     AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         theme?.run { setTheme(theme) }
@@ -27,19 +29,23 @@ abstract class TMActivity(val layout: Int?=null, val theme: Int? = null) :
         when (requestCode) {
             CAMERA_REQUEST_CODE -> {
                 if ((!grantResults.isEmpty()) and (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    this.startActivityForResult(
-                        Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                        CAMERA_REQUEST_CODE
-                    )
+                    takePhoto()
+                } else {
+                    easyToast(this, "Action requires Camera permissions")
                 }
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+    private fun takePhoto() {
+        startActivityForResult(
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+            CAMERA_REQUEST_CODE
+        )
+    }
 
     fun easyPhoto() {
-        // *Remember to add <uses-permission android:name="android.permission.CAMERA"/>
-        // to manifest
+        // *Remember Manifest: <uses-permission android:name="android.permission.CAMERA"/>
         val permission = ContextCompat.checkSelfPermission(
             this, Manifest.permission.CAMERA
         )
@@ -50,10 +56,7 @@ abstract class TMActivity(val layout: Int?=null, val theme: Int? = null) :
                 CAMERA_REQUEST_CODE
             )
         } else {
-            startActivityForResult(
-                Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-                CAMERA_REQUEST_CODE
-            )
+            takePhoto()
         }
     }
 }

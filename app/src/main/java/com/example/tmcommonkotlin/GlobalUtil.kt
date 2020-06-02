@@ -11,3 +11,9 @@ fun logz (msg:String) {
 fun easyToast(context: Context, msg: String, lengthID:Int=Toast.LENGTH_SHORT) {
     Toast.makeText(context, msg, lengthID).show()
 }
+
+//fun invokeHiddenMethod(name: String) {
+//    val method = sut.javaClass.getDeclaredMethod(name)
+//    method.isAccessible = true
+//    method.invoke(testSubject)
+//}
