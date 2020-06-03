@@ -1,7 +1,6 @@
 package com.example.grocerygo.activities_and_frags.Inheritables
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -37,22 +36,11 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
-
-    fun tryPermissibleAction(
-        permissions: Array<String>,
-        code: Int,
-        action: () -> Unit
-    ) {
-        tryPermissibleAction(
-            PermissibleAction(
-                permissions, code, action
-            )
-        )
-    }
-
-    fun tryPermissibleAction(permissibleAction: PermissibleAction) {
-        // *Don't forget manifest
+    fun tryPermissibleAction(permissions: Array<String>, code: Int,
+                             startAction: () -> Unit) {
+        // *Don't forget manifest uses-permission
         // save code, action, permissions in permissibleActions
+        val permissibleAction = PermissibleAction(permissions, code, startAction)
         permissibleActions[permissibleAction.code] = permissibleAction
         //
         if (permissibleAction.permissions.isEmpty()) {
@@ -90,8 +78,6 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
         val permissions = arrayOf(
             Manifest.permission.CAMERA
         )
-        tryPermissibleAction(
-            PermissibleAction(permissions, code, takePhoto)
-        )
+        tryPermissibleAction(permissions, code, takePhoto)
     }
 }
