@@ -15,10 +15,5 @@ data class PermissibleAction(
 )
 
 fun hasAllPermissionsGranted(grantResults: IntArray): Boolean {
-    for (grantResult in grantResults) {
-        if (grantResult == PackageManager.PERMISSION_DENIED) {
-            return false
-        }
-    }
-    return true
+    return grantResults.all { it != PackageManager.PERMISSION_DENIED }
 }
