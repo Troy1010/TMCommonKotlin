@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 
 group 'tminus1010.tmcommonkotlin'
-version '1.0.9'
+version '1.0.10'
 
 android {
     compileSdkVersion 29
