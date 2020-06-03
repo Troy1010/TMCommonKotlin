@@ -27,7 +27,7 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
         for (permissibleAction in permissibleActions.values) {
             if (permissibleAction.code == requestCode) {
                 if ((grantResults.isNotEmpty()) and hasAllPermissionsGranted(grantResults)) {
-                    permissibleAction.action()
+                    permissibleAction.startingAction()
                 } else {
                     easyToast(this, "Action requires permissions", Toast.LENGTH_LONG)
                 }
@@ -36,15 +36,26 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    // helps tryPermissibleAction
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        for (permissibleAction in permissibleActions.values) {
+            if (permissibleAction.code == requestCode && resultCode == RESULT_OK) {
+                permissibleAction.resultHandlingAction?.let { it(data) }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     fun tryPermissibleAction(permissions: Array<String>, code: Int,
-                             startAction: () -> Unit) {
+                             startAction: () -> Unit,
+                             resultHandlingAction: ((Intent?) -> Unit)?=null) {
         // *Don't forget manifest uses-permission
-        // save code, action, permissions in permissibleActions
-        val permissibleAction = PermissibleAction(permissions, code, startAction)
+        // save params in permissibleActions
+        val permissibleAction = PermissibleAction(permissions, code, startAction, resultHandlingAction)
         permissibleActions[permissibleAction.code] = permissibleAction
         //
         if (permissibleAction.permissions.isEmpty()) {
-            permissibleAction.action()
+            permissibleAction.startingAction()
             return
         }
         val listPermission: ArrayList<String> = ArrayList()
@@ -57,7 +68,7 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
                 listPermission.add(permission)
         }
         if (listPermission.isEmpty()) {
-            permissibleAction.action()
+            permissibleAction.startingAction()
             return
         }
         ActivityCompat.requestPermissions(
