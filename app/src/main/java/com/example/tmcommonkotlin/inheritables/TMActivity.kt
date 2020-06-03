@@ -12,7 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.tmcommonkotlin.*
 
-abstract class TMActivity(val layout: Int?=null, val theme: Int? = null) :
+abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
     AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ abstract class TMActivity(val layout: Int?=null, val theme: Int? = null) :
     ) {
         for (permissibleAction in permissibleActions.values) {
             if (permissibleAction.code == requestCode) {
-                if ((!grantResults.isEmpty()) and hasAllPermissionsGranted(grantResults)) {
+                if ((grantResults.isNotEmpty()) and hasAllPermissionsGranted(grantResults)) {
                     permissibleAction.action()
                 } else {
                     easyToast(this, "Action requires permissions", Toast.LENGTH_LONG)
@@ -38,33 +38,60 @@ abstract class TMActivity(val layout: Int?=null, val theme: Int? = null) :
     }
 
 
-    val takePhoto = {
-        startActivityForResult(
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE),
-            CAMERA_REQUEST_CODE
+    fun tryPermissibleAction(
+        permissions: Array<String>,
+        code: Int,
+        action: () -> Unit
+    ) {
+        tryPermissibleAction(
+            PermissibleAction(
+                permissions, code, action
+            )
         )
     }
 
-    fun easyPhoto() {
-        tryPermissibleAction(this,
-        PermissibleAction(arrayOf(
-            Manifest.permission.CAMERA
-        ),
-        CAMERA_REQUEST_CODE,
-        takePhoto)
+    fun tryPermissibleAction(permissibleAction: PermissibleAction) {
+        // *Don't forget manifest
+        // save code, action, permissions in permissibleActions
+        permissibleActions[permissibleAction.code] = permissibleAction
+        //
+        if (permissibleAction.permissions.isEmpty()) {
+            permissibleAction.action()
+            return
+        }
+        val listPermission: ArrayList<String> = ArrayList()
+        for (permission in permissibleAction.permissions) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    permission
+                ) == PackageManager.PERMISSION_DENIED
+            )
+                listPermission.add(permission)
+        }
+        if (listPermission.isEmpty()) {
+            permissibleAction.action()
+            return
+        }
+        ActivityCompat.requestPermissions(
+            this,
+            listPermission.toTypedArray(),
+            permissibleAction.code
         )
-        // *Remember Manifest: <uses-permission android:name="android.permission.CAMERA"/>
-//        val permission = ContextCompat.checkSelfPermission(
-//            this, Manifest.permission.CAMERA
-//        )
-//        if (permission != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(
-//                this,
-//                arrayOf(Manifest.permission.CAMERA),
-//                CAMERA_REQUEST_CODE
-//            )
-//        } else {
-//            takePhoto()
-//        }
+    }
+
+
+    fun easyPhoto(code:Int) {
+        val takePhoto = {
+            startActivityForResult(
+                Intent(MediaStore.ACTION_IMAGE_CAPTURE),
+                code
+            )
+        }
+        val permissions = arrayOf(
+            Manifest.permission.CAMERA
+        )
+        tryPermissibleAction(
+            PermissibleAction(permissions, code, takePhoto)
+        )
     }
 }
