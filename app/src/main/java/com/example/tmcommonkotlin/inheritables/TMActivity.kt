@@ -46,9 +46,9 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun tryPermissibleAction(permissions: Array<String>, code: Int,
-                             startAction: () -> Unit,
-                             resultHandlingAction: ((Intent?) -> Unit)?=null) {
+    fun tryPermissionAction(permissions: Array<String>, code: Int,
+                            startAction: () -> Unit,
+                            resultHandlingAction: ((Intent?) -> Unit)?=null) {
         // *Don't forget manifest uses-permission
         // save params in permissibleActions
         val permissibleAction = PermissibleAction(permissions, code, startAction, resultHandlingAction)
@@ -89,6 +89,6 @@ abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
         val permissions = arrayOf(
             Manifest.permission.CAMERA
         )
-        tryPermissibleAction(permissions, code, takePhoto)
+        tryPermissionAction(permissions, code, takePhoto)
     }
 }
