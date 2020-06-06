@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 // TODO make non-global
-class TMRecyclerViewAdapter(
+open class TMRecyclerViewAdapter(
     var binder: Callbacks,
     var context: Context,
     val item_layout: Int
