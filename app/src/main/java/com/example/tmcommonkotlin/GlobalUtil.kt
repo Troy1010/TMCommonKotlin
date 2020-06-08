@@ -11,8 +11,13 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
-fun logz (msg:String) {
-    Log.d("TMLog", "TM`$msg")
+
+fun shortClassName(className:String):String {
+    val periodMatches = Regex("""\..""").findAll(className)
+    if (periodMatches.count()==0)
+        return className
+    val periodPos = periodMatches.last().range.last
+    return className.substring(periodPos)
 }
 
 fun easyToast(context: Context, msg: String, lengthID:Int=Toast.LENGTH_SHORT) {
