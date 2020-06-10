@@ -10,7 +10,12 @@ import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
 
+
+fun getToday() : String {
+    return SimpleDateFormat("yyyy-MM-dd").format(java.util.Calendar.getInstance().getTime()).toString()
+}
 
 fun shortClassName(className:String):String {
     val periodMatches = Regex("""\..""").findAll(className)
