@@ -16,11 +16,18 @@ fun logz (msg:String) {
     Log.d(LOG_TAG, "TM`$msg")
 }
 
-fun logx (msg:String) {
-    Log.d(LOG_TAG, "TM`${Throwable().stackTrace[1].methodName}`$msg")
+// includes the method name
+fun logx (msg:String?=null) {
+    val msgZ = if (msg==null) "" else "$msg`"
+    val level = if(msg==null) 2 else 1
+    val throwable = Throwable()
+    Log.d(LOG_TAG, "TM`${throwable.stackTrace[level].methodName}`$msgZ")
 }
 
-fun logc (msg:String) {
+// includes the class and method names
+fun logc (msg:String?=null) {
+    val msgZ = if (msg==null) "" else "$msg`"
+    val level = if(msg==null) 2 else 1
     val throwable = Throwable()
-    Log.d(LOG_TAG, "TM`${shortClassName(throwable.stackTrace[1].className)}`${throwable.stackTrace[1].methodName}`$msg")
+    Log.d(LOG_TAG, "TM`${shortClassName(throwable.stackTrace[level].className)}`${throwable.stackTrace[level].methodName}`$msgZ")
 }
