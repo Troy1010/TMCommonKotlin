@@ -11,13 +11,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.tmcommonkotlin.*
 
-abstract class TMActivity(val layout: Int? = null, val theme: Int? = null) :
+abstract class TMActivity(open val layout: Int? = null, open val theme: Int? = null) :
     AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        theme?.run { setTheme(theme) }
-        layout?.run { setContentView(layout) }
+        val tempTheme = theme
+        tempTheme?.run { setTheme(tempTheme) }
+        val tempLayout = layout
+        tempLayout?.run { setContentView(tempLayout) }
     }
 
     // helps tryPermissibleAction
