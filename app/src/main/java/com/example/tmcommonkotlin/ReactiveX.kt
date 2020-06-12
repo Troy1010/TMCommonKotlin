@@ -2,47 +2,37 @@ package com.example.tmcommonkotlin
 
 import android.annotation.SuppressLint
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
 @SuppressLint("CheckResult")
-fun <T> Observable<T>.logO(msgPrefix: String?=null) : Observable<T> {
-    val msgPrefixZ : String = if (msgPrefix==null) "" else { "$msgPrefix`" }
-    this
-        .subscribeOn(Schedulers.io())
-        .subscribe({ logz("$msgPrefixZ$it") }, {logz("logO`Error`$msgPrefixZ$it")})
-    return this
+fun <T> Observable<T>.logO(msgPrefix: String? = null): Observable<T> {
+    val tempMsgPrefix: String = if (msgPrefix == null) "" else { "$msgPrefix`" }
+    return this.doOnNext { logz("$tempMsgPrefix$it") }
 }
 
 @SuppressLint("CheckResult")
 fun <T> Observable<T>.log(msgPrefix:String? = null, bType:Boolean=false) : Observable<T> {
-    val msgPrefixZ : String = if (msgPrefix==null) "" else { "$msgPrefix`" }
-    this
-        .subscribeOn(Schedulers.io())
-        .subscribe({
+    val tempMsgPrefix : String = if (msgPrefix==null) "" else { "$msgPrefix`" }
+    return this
+        .doOnNext {
             if (bType) {
                 val typeName = if (it==null) {
                     "null"
                 } else {
                     (it as Any)::class.java.simpleName
                 }
-                logz("$msgPrefixZ$typeName`$it")
+                logz("$tempMsgPrefix$typeName`$it")
             } else {
-                logz("$msgPrefixZ$it")
+                logz("$tempMsgPrefix$it")
             }
-        }, {logz("log`Error`$msgPrefixZ$it")})
-    return this
+        }
 }
 
 
 val TMAlphabet = "abcdefghijklmnopqrstuvwxyz"
 var TMRXCounter = 0
-fun <T> Observable<T>.loga(bType:Boolean=false) : Observable<T> {
+fun <T> Observable<T>.loga(msgPrefix:String? = null, bType:Boolean=false) : Observable<T> {
     val alphabetCharacter = TMAlphabet[TMRXCounter%TMAlphabet.length].toString().repeat(3)
     TMRXCounter++
-    return this.log(alphabetCharacter, bType=bType)
-}
-fun <T> Observable<T>.logb() : Observable<T> {
-    val alphabetCharacter = TMAlphabet[TMRXCounter%TMAlphabet.length].toString().repeat(3)
-    TMRXCounter++
-    return this.log(alphabetCharacter, bType=true)
+    val tempMsgPrefix = if (msgPrefix==null) "" else "`$msgPrefix"
+    return this.log("$alphabetCharacter$tempMsgPrefix", bType=bType)
 }
