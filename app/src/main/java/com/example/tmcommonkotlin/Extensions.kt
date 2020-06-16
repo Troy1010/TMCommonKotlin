@@ -1,8 +1,15 @@
 package com.example.tmcommonkotlin
 
+import android.content.Context
+import android.widget.Toast
+
 val <T> T.exhaustive: T
     get() = this
 
+
+fun Context.easyToast(msg:String, lengthID:Int= Toast.LENGTH_SHORT) {
+    Toast.makeText(this, msg, lengthID).show()
+}
 
 
 fun String.isAllDigits(): Boolean {
