@@ -1,6 +1,7 @@
 package com.example.tmcommonkotlin
 
 import android.annotation.SuppressLint
+import io.reactivex.Flowable
 import io.reactivex.Observable
 
 //// very simple version
@@ -13,6 +14,28 @@ import io.reactivex.Observable
 
 // bType prints the type
 fun <T> Observable<T>.log(msgPrefix: String? = null, bType: Boolean = false): Observable<T> {
+    val tempMsgPrefix: String = if (msgPrefix == null) "" else {
+        "$msgPrefix`"
+    }
+    return this
+        .doOnNext {
+            if (bType) {
+                val typeName = if (it == null) {
+                    "null"
+                } else {
+                    (it as Any)::class.java.simpleName
+                }
+                logz("$tempMsgPrefix$typeName`$it")
+            } else {
+                logz("$tempMsgPrefix$it")
+            }
+        }
+        .doOnError {
+            logz("${tempMsgPrefix}Error`$it")
+        }
+}
+
+fun <T> Flowable<T>.log(msgPrefix: String? = null, bType: Boolean = false): Flowable<T> {
     val tempMsgPrefix: String = if (msgPrefix == null) "" else {
         "$msgPrefix`"
     }
@@ -47,6 +70,28 @@ fun <T> Observable<T>.loga(msgPrefix: String? = null, bType: Boolean = false): O
 
 @SuppressLint("CheckResult")
 fun <T> Observable<T>.logSubscribe(msgPrefix: String? = null, bType: Boolean = false) {
+    val tempMsgPrefix: String = if (msgPrefix == null) "" else {
+        "$msgPrefix`"
+    }
+    this
+        .subscribe({
+            if (bType) {
+                val typeName = if (it == null) {
+                    "null"
+                } else {
+                    (it as Any)::class.java.simpleName
+                }
+                logz("$tempMsgPrefix$typeName`$it")
+            } else {
+                logz("$tempMsgPrefix$it")
+            }
+        }, {
+            logz("${tempMsgPrefix}Error`$it")
+        })
+}
+
+@SuppressLint("CheckResult")
+fun <T> Flowable<T>.logSubscribe(msgPrefix: String? = null, bType: Boolean = false) {
     val tempMsgPrefix: String = if (msgPrefix == null) "" else {
         "$msgPrefix`"
     }
