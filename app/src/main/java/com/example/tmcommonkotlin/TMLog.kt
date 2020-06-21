@@ -12,22 +12,33 @@ fun getFnName(level:Int=1) {
 
 const val LOG_TAG = "TMLog"
 
+//
+fun TMLog (msg:String?, bClass:Boolean=false, bMethod:Boolean=false) {
+    var msgZ = msg ?: ""
+    val level = if(msg==null) 2 else 1
+    val throwable = Throwable()
+    if (bClass)
+        msgZ = "${shortClassName(throwable.stackTrace[level].className)}`"+msgZ
+    if (bMethod)
+        msgZ = "${shortClassName(throwable.stackTrace[level].className)}`"+msgZ
+    Log.d(LOG_TAG, "TM`$msgZ")
+}
+
 fun logz (msg:String) {
-    Log.d(LOG_TAG, "TM`$msg")
+    TMLog(msg)
 }
 
 // includes the method name
 fun logx (msg:String?=null) {
-    val msgZ = msg ?: ""
-    val level = if(msg==null) 2 else 1
-    val throwable = Throwable()
-    Log.d(LOG_TAG, "TM`${throwable.stackTrace[level].methodName}`$msgZ")
+    TMLog(msg, bMethod = true)
 }
 
 // includes the class and method names
 fun logc (msg:String?=null) {
-    val msgZ = msg ?: ""
-    val level = if(msg==null) 2 else 1
-    val throwable = Throwable()
-    Log.d(LOG_TAG, "TM`${shortClassName(throwable.stackTrace[level].className)}`${throwable.stackTrace[level].methodName}`$msgZ")
+    TMLog(msg, bClass = true, bMethod = true)
+}
+
+// includes the class names
+fun logv (msg:String?=null) {
+    TMLog(msg, bClass = true)
 }
