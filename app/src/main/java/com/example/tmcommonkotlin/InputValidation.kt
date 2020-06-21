@@ -1,26 +1,26 @@
 package com.example.tmcommonkotlin
 
-class InputValidation {
+open class InputValidation {
     companion object {
-        val asCardNumber = {cardNumber:String ->
+        val asCardNumber = { cardNumber: String ->
             if (cardNumber.isEmpty()) {
                 Result.Error("Required")
             } else if (Regex("""[A-z]""").containsMatchIn(cardNumber)) {
                 Result.Error("Must not contain letters")
-            } else if (Regex("""[0-9]""").findAll(cardNumber).count()!=16) {
+            } else if (Regex("""[0-9]""").findAll(cardNumber).count() != 16) {
                 Result.Error("Must contain 16 digits")
             } else {
                 Result.Success(cardNumber)
             }
         }
-        val asExpirationDate = {expirationDate:String ->
+        val asExpirationDate = { expirationDate: String ->
             if (expirationDate.isEmpty()) {
                 Result.Error("Required")
             } else {
                 Result.Success(expirationDate)
             }
         }
-        val asStreetAddress = { streetAddress :String ->
+        val asStreetAddress = { streetAddress: String ->
             if (streetAddress.isEmpty()) {
                 Result.Error("Required")
             } else if (!Regex("""[0-9][0-9]*""").containsMatchIn(streetAddress)) {
@@ -29,18 +29,22 @@ class InputValidation {
                 Result.Error("Must have a street name")
             } else {
                 val numMatch = Regex("""[0-9][0-9]*""").find(streetAddress)
-                val streetNameMatch = Regex("""..*""").find(streetAddress, (numMatch?.range?.last?:-1)+1)
-                Result.Success(numMatch?.value + " " + streetNameMatch?.value?.trim()?.capitalize()?.noDoubleSpaces())
+                val streetNameMatch =
+                    Regex("""..*""").find(streetAddress, (numMatch?.range?.last ?: -1) + 1)
+                Result.Success(
+                    numMatch?.value + " " + streetNameMatch?.value?.trim()?.capitalize()
+                        ?.noDoubleSpaces()
+                )
             }
         }
-        val asAptNum = { aptNum:String ->
+        val asAptNum = { aptNum: String ->
             if (Regex(""".\s.""").containsMatchIn(aptNum)) {
                 Result.Error("Must not contain spaces")
             } else {
                 Result.Success(aptNum.trim())
             }
         }
-        val asCity = { city :String ->
+        val asCity = { city: String ->
             if (city.isEmpty()) {
                 Result.Error("Required")
             } else if (Regex(""".\s.""").containsMatchIn(city)) {
@@ -49,7 +53,7 @@ class InputValidation {
                 Result.Success(city.trim().capitalize())
             }
         }
-        val asState = { state :String ->
+        val asState = { state: String ->
             if (state.isEmpty()) {
                 Result.Error("Required")
             } else if (!Regex("""[A-z][A-z]""").matches(state)) {
@@ -58,7 +62,7 @@ class InputValidation {
                 Result.Success(state.trim().toUpperCase())
             }
         }
-        val asZipCode = { zipCode :String ->
+        val asZipCode = { zipCode: String ->
             if (zipCode.isEmpty()) {
                 Result.Error("Required")
             } else if (Regex("""[A-z]""").containsMatchIn(zipCode)) {
@@ -109,6 +113,22 @@ class InputValidation {
                 Result.Error("Must have 10 characters")
             } else {
                 Result.Success(phone)
+            }
+        }
+        val asRequired = { s: String ->
+            if (s.isEmpty()) {
+                Result.Error("Required")
+            } else {
+                Result.Success(s)
+            }
+        }
+        val asMoney = { s: String ->
+            if (s.isEmpty()) {
+                Result.Error("Required")
+            } else if (Regex("""[A-z]""").containsMatchIn(s)) {
+                Result.Error("Must not contain letters")
+            } else {
+                Result.Success(s)
             }
         }
     }
