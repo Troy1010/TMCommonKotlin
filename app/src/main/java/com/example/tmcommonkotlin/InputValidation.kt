@@ -13,6 +13,7 @@ open class InputValidation {
                 Result.Success(cardNumber)
             }
         }
+        // This is for expiration dates
         val asExpirationDate = { expirationDate: String ->
             if (expirationDate.isEmpty()) {
                 Result.Error("Required")
