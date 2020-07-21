@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin
+package com.example.tmcommonkotlin.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ open class TMRecyclerViewAdapter(
 ): RecyclerView.Adapter<TMRecyclerViewAdapter.ViewHolder>() {
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TMRecyclerViewAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(item_layout, parent, false)
         return ViewHolder(view)
     }
@@ -23,7 +23,7 @@ open class TMRecyclerViewAdapter(
         return binder.getRecyclerDataSize()
     }
 
-    override fun onBindViewHolder(holder: TMRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         binder.bindRecyclerItemView(holder.itemView, position)
     }
 

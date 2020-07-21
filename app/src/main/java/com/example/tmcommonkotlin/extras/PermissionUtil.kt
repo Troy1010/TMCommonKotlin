@@ -1,10 +1,7 @@
-package com.example.tmcommonkotlin
+package com.example.tmcommonkotlin.extras
 
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 
 
 val permissibleActions = HashMap<Int, PermissibleAction>()

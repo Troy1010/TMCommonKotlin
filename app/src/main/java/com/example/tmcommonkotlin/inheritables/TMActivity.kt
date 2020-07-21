@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.tmcommonkotlin.*
+import com.example.tmcommonkotlin.extras.PermissibleAction
+import com.example.tmcommonkotlin.extras.easyToast
+import com.example.tmcommonkotlin.extras.hasAllPermissionsGranted
+import com.example.tmcommonkotlin.extras.permissibleActions
 
 abstract class TMActivity(open val layout: Int? = null, open val theme: Int? = null) :
     AppCompatActivity() {
@@ -28,10 +31,17 @@ abstract class TMActivity(open val layout: Int? = null, open val theme: Int? = n
     ) {
         for (permissibleAction in permissibleActions.values) {
             if (permissibleAction.code == requestCode) {
-                if ((grantResults.isNotEmpty()) and hasAllPermissionsGranted(grantResults)) {
+                if ((grantResults.isNotEmpty()) and hasAllPermissionsGranted(
+                        grantResults
+                    )
+                ) {
                     permissibleAction.startingAction()
                 } else {
-                    easyToast(this, "Action requires permissions", Toast.LENGTH_LONG)
+                    easyToast(
+                        this,
+                        "Action requires permissions",
+                        Toast.LENGTH_LONG
+                    )
                 }
             }
         }
@@ -53,7 +63,13 @@ abstract class TMActivity(open val layout: Int? = null, open val theme: Int? = n
                             resultHandlingAction: ((Intent?) -> Unit)?=null) {
         // *Don't forget manifest uses-permission
         // save params in permissibleActions
-        val permissibleAction = PermissibleAction(permissions, code, startAction, resultHandlingAction)
+        val permissibleAction =
+            PermissibleAction(
+                permissions,
+                code,
+                startAction,
+                resultHandlingAction
+            )
         permissibleActions[permissibleAction.code] = permissibleAction
         //
         if (permissibleAction.permissions.isEmpty()) {
