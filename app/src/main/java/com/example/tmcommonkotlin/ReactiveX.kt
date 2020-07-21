@@ -3,6 +3,7 @@ package com.example.tmcommonkotlin
 import android.annotation.SuppressLint
 import io.reactivex.Flowable
 import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 //// very simple version
 //fun <T> Observable<T>.logO(msgPrefix: String? = null): Observable<T> {
@@ -36,6 +37,28 @@ fun <T> Observable<T>.log(msgPrefix: String? = null, bType: Boolean = false): Ob
 }
 
 fun <T> Flowable<T>.log(msgPrefix: String? = null, bType: Boolean = false): Flowable<T> {
+    val tempMsgPrefix: String = if (msgPrefix == null) "" else {
+        "$msgPrefix`"
+    }
+    return this
+        .doOnNext {
+            if (bType) {
+                val typeName = if (it == null) {
+                    "null"
+                } else {
+                    (it as Any)::class.java.simpleName
+                }
+                logz("$tempMsgPrefix$typeName`$it")
+            } else {
+                logz("$tempMsgPrefix$it")
+            }
+        }
+        .doOnError {
+            logz("${tempMsgPrefix}Error`$it")
+        }
+}
+
+fun <T> PublishSubject<T>.log(msgPrefix: String? = null, bType: Boolean = false): Observable<T> {
     val tempMsgPrefix: String = if (msgPrefix == null) "" else {
         "$msgPrefix`"
     }
@@ -92,6 +115,28 @@ fun <T> Observable<T>.logSubscribe(msgPrefix: String? = null, bType: Boolean = f
 
 @SuppressLint("CheckResult")
 fun <T> Flowable<T>.logSubscribe(msgPrefix: String? = null, bType: Boolean = false) {
+    val tempMsgPrefix: String = if (msgPrefix == null) "" else {
+        "$msgPrefix`"
+    }
+    this
+        .subscribe({
+            if (bType) {
+                val typeName = if (it == null) {
+                    "null"
+                } else {
+                    (it as Any)::class.java.simpleName
+                }
+                logz("$tempMsgPrefix$typeName`$it")
+            } else {
+                logz("$tempMsgPrefix$it")
+            }
+        }, {
+            logz("${tempMsgPrefix}Error`$it")
+        })
+}
+
+@SuppressLint("CheckResult")
+fun <T> PublishSubject<T>.logSubscribe(msgPrefix: String? = null, bType: Boolean = false) {
     val tempMsgPrefix: String = if (msgPrefix == null) "" else {
         "$msgPrefix`"
     }
