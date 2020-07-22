@@ -11,8 +11,9 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.Subject
 import java.lang.Math.round
 
-class RxDatabinding {
+object RxDatabinding {
     @BindingAdapter("rxClick")
+    @JvmStatic
     fun rxClick(view: View, subject: Subject<Unit>) {
         view.setOnClickListener { view1: View? ->
             subject.onNext(Unit)
@@ -20,6 +21,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxLongClick")
+    @JvmStatic
     fun rxLongClick(
         view: View,
         subject: Subject<Unit>
@@ -31,6 +33,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxTouch")
+    @JvmStatic
     fun rxTouch(
         view: View,
         subject: Subject<MotionEvent?>
@@ -42,6 +45,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxText")
+    @JvmStatic
     fun rxText(
         editText: EditText,
         subject: BehaviorSubject<String?>
@@ -74,6 +78,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxChecked")
+    @JvmStatic
     fun rxChecked(
         compoundButton: CompoundButton,
         subject: BehaviorSubject<Boolean?>
@@ -91,6 +96,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxItem")
+    @JvmStatic
     fun rxItem(
         radioGroup: RadioGroup,
         subject: BehaviorSubject<String>
@@ -113,6 +119,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxProgress", "rxMin", "rxMax", requireAll = false)
+    @JvmStatic
     fun rxProgress(
         seekBar: SeekBar,
         subject: BehaviorSubject<Int>,
@@ -124,6 +131,7 @@ class RxDatabinding {
     }
 
     @BindingAdapter("rxProgress", "rxMin", "rxMax", "rxStep", requireAll = false)
+    @JvmStatic
     fun rxProgressWithStep(
         seekBar: SeekBar, subject: BehaviorSubject<Int>,
         min: Int, max: Int, step: Int
