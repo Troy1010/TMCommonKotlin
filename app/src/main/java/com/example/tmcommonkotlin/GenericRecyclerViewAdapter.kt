@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 // TODO make non-global
-open class TMRecyclerViewAdapter(
+open class GenericRecyclerViewAdapter(
     var binder: Callbacks,
     var context: Context,
     val item_layout: Int
-): RecyclerView.Adapter<TMRecyclerViewAdapter.ViewHolder>() {
+): RecyclerView.Adapter<GenericRecyclerViewAdapter.ViewHolder>() {
     inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
