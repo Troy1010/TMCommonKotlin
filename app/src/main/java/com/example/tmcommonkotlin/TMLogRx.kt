@@ -1,9 +1,9 @@
 package com.example.tmcommonkotlin
 
 import android.annotation.SuppressLint
-import io.reactivex.Flowable
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.subjects.PublishSubject
 
 //// very simple version
 //fun <T> Observable<T>.logO(msgPrefix: String? = null): Observable<T> {
