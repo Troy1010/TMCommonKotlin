@@ -1,5 +1,6 @@
 package com.example.tmcommonkotlin
 
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
@@ -24,4 +25,17 @@ fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
 
 fun <T> Observable<T>.toLiveData(): LiveData<T> {
     return convertRXToLiveData(this)
+}
+
+// Experimental
+
+// This is a silly hack to make LiveData act as a life-cycle aware non-replaying observable.
+// In the future, when a good life-cycle aware non-replaying observable exists, this will be unnecessary.
+fun <T> LiveData<T>.onlyNew(lifecycleOwner: LifecycleOwner): LiveData<T> {
+    if (this.value != null) {
+        var x = Flowable.fromPublisher(LiveDataReactiveStreams.toPublisher(lifecycleOwner, this))
+        x = x.skip(1)
+        return LiveDataReactiveStreams.fromPublisher(x)
+    }
+    return this
 }
