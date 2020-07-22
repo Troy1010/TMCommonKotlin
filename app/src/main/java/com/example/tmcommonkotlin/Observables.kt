@@ -1,30 +1,27 @@
 package com.example.tmcommonkotlin
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
-fun <T> MutableLiveData<T>.postResult(viewModelScope: CoroutineScope, function: suspend () -> T) {
-    viewModelScope.launch {
-        val result = function()
-        this@postResult.postValue(result)
-    }
-}
-
-suspend fun <T> MutableLiveData<T>.postResult(function: suspend () -> T) {
+suspend fun <T> MutableLiveData<T>.postValue(function: suspend () -> T) {
     val result = function()
-    this@postResult.postValue(result)
+    this@postValue.postValue(result)
 }
 
-fun <T> PublishSubject<T>.postResult(viewModelScope: CoroutineScope, function: suspend () -> T) {
-    viewModelScope.launch {
-        val result = function()
-        this@postResult.onNext(result)
-    }
-}
-
-suspend fun <T> PublishSubject<T>.postResult(function: suspend () -> T) {
+suspend fun <T> PublishSubject<T>.onNext(function: suspend () -> T) {
     val result = function()
-    this@postResult.onNext(result)
+    this@onNext.onNext(result)
+}
+
+fun <T> convertRXToLiveData (observable: Observable<T>): LiveData<T> {
+    return LiveDataReactiveStreams.fromPublisher(Flowable.fromObservable(observable, BackpressureStrategy.DROP))
+}
+
+fun <T> Observable<T>.toLiveData(): LiveData<T> {
+    return convertRXToLiveData(this)
 }
