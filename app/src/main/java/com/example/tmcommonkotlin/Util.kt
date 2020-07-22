@@ -10,6 +10,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 fun getToday() : String {
@@ -54,4 +55,8 @@ fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
     val path =
         MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
     return Uri.parse(path)
+}
+
+fun generateUniqueID(): String {
+    return UUID.randomUUID().toString().replace("-", "").toUpperCase()
 }
