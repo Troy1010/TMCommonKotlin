@@ -1,8 +1,7 @@
 package com.example.tmcommonkotlin.pure_method_objects
 
-import com.example.tmcommonkotlin.hasDigit
-import com.example.tmcommonkotlin.isAllDigits
-import com.example.tmcommonkotlin.noDoubleSpaces
+import com.example.tmcommonkotlin.extensions.isAllDigits
+import com.example.tmcommonkotlin.extensions.noDoubleSpaces
 
 open class InputValidation {
     companion object {
@@ -150,26 +149,26 @@ open class InputValidation {
                 )
             }
         }
-        val asPassword = { password: String ->
-            if (password.isEmpty()) {
+        val asPassword = { s: String ->
+            if (s.isEmpty()) {
                 Result.Error(
                     "Required"
                 )
-            } else if (password.length < 6) {
+            } else if (s.length < 6) {
                 Result.Error(
                     "Must have at least 6 characters"
                 )
-            } else if (!password.hasDigit()) {
+            } else if (!Regex("""[0-9]""").containsMatchIn(s)) {
                 Result.Error(
                     "Must contain at least 1 digit"
                 )
-            } else if (password == password.toLowerCase()) {
+            } else if (s == s.toLowerCase()) {
                 Result.Warning(
                     "It is recommended that passwords have at least 1 uppercase character"
                 )
             } else {
                 Result.Success(
-                    password
+                    s
                 )
             }
         }
