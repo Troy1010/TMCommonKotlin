@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.logging
+package com.example.tmcommonkotlin
 
 import android.annotation.SuppressLint
 import io.reactivex.Flowable

@@ -9,10 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.tmcommonkotlin.extras.PermissibleAction
-import com.example.tmcommonkotlin.extras.easyToast
-import com.example.tmcommonkotlin.extras.hasAllPermissionsGranted
-import com.example.tmcommonkotlin.extras.permissibleActions
+import com.example.tmcommonkotlin.PermissibleAction
+import com.example.tmcommonkotlin.easyToast
+import com.example.tmcommonkotlin.hasAllPermissionsGranted
+import com.example.tmcommonkotlin.permissibleActions
 
 abstract class TMActivity(open val layout: Int? = null, open val theme: Int? = null) :
     AppCompatActivity() {

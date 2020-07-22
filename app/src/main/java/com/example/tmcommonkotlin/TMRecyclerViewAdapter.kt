@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.adapters
+package com.example.tmcommonkotlin
 
 import android.content.Context
 import android.view.LayoutInflater

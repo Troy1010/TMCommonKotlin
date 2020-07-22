@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.extensions
+package com.example.tmcommonkotlin
 
 
 fun String.isAllDigits(): Boolean {

@@ -1,7 +1,6 @@
-package com.example.tmcommonkotlin.logging
+package com.example.tmcommonkotlin
 
 import android.util.Log
-import com.example.tmcommonkotlin.extras.shortClassName
 
 
 val fnName

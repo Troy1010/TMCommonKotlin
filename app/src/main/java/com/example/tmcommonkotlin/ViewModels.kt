@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.extensions
+package com.example.tmcommonkotlin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

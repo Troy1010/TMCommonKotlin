@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.extras
+package com.example.tmcommonkotlin
 
 import android.content.Context
 import android.graphics.Bitmap

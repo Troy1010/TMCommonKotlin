@@ -1,7 +1,4 @@
-package com.example.tmcommonkotlin.pure_method_objects
-
-import com.example.tmcommonkotlin.extensions.isAllDigits
-import com.example.tmcommonkotlin.extensions.noDoubleSpaces
+package com.example.tmcommonkotlin
 
 open class InputValidation {
     companion object {
