@@ -43,6 +43,9 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
     // Rx+LiveData
     implementation "androidx.lifecycle:lifecycle-reactivestreams:2.2.0"
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
 }
 
 task sourceJar(type: Jar) {
