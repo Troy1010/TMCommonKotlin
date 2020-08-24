@@ -31,10 +31,7 @@ abstract class TMActivity(open val layout: Int? = null, open val theme: Int? = n
     ) {
         for (permissibleAction in permissibleActions.values) {
             if (permissibleAction.code == requestCode) {
-                if ((grantResults.isNotEmpty()) and hasAllPermissionsGranted(
-                        grantResults
-                    )
-                ) {
+                if ((grantResults.isNotEmpty()) and hasAllPermissionsGranted(grantResults)) {
                     permissibleAction.startingAction()
                 } else {
                     easyToast(
