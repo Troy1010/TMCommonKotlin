@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin
+package com.tminus1010.tmcommonkotlin
 
 import android.content.Intent
 import android.content.pm.PackageManager

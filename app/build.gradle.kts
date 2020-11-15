@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
 }
 
-val groupIdZ = "tminus1010.tmcommonkotlin"
+val groupIdZ = "com.tminus1010.tmcommonkotlin"
 val versionZ = "1.0.15"
 
 android {

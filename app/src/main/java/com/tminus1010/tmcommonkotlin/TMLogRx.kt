@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin
+package com.tminus1010.tmcommonkotlin
 
 import android.annotation.SuppressLint
 import io.reactivex.rxjava3.core.Flowable
