@@ -1,3 +1,5 @@
+import com.tminus1010.tmcommonkotlin.Misc
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -5,11 +7,8 @@ plugins {
     `maven-publish`
 }
 
-val groupIdZ = "com.tminus1010.tmcommonkotlin"
-val versionZ = "1.0.26"
-
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(Misc.compileSDK)
     buildToolsVersion = "30.0.2"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -17,10 +16,10 @@ android {
     kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 
     defaultConfig {
-        minSdkVersion(22)
-        targetSdkVersion(29)
+        minSdkVersion(Misc.minSDK)
+        targetSdkVersion(Misc.targetSDK)
         versionCode = 1
-        versionName = versionZ
+        versionName = Misc.versionStr
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -72,9 +71,9 @@ afterEvaluate {
             register("mavenPublication", MavenPublication::class) {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
-                groupId = groupIdZ
+                groupId = Misc.groupId
                 artifactId = "tmcommonkotlin-tuple"
-                version = versionZ
+                version = Misc.versionStr
             }
         }
     }
