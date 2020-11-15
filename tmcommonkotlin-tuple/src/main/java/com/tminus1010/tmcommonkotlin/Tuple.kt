@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin_tuple
+package com.tminus1010.tmcommonkotlin
 
 import java.io.Serializable
 

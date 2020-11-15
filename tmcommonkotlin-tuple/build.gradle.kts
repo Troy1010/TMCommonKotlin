@@ -6,7 +6,7 @@ plugins {
 }
 
 val groupIdZ = "com.tminus1010.tmcommonkotlin"
-val versionZ = "1.0.23"
+val versionZ = "1.0.24"
 
 android {
     compileSdkVersion(29)
