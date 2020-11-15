@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin
+package com.tminus1010.tmcommonkotlin.misc
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel

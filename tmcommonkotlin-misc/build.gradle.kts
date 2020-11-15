@@ -7,7 +7,7 @@ plugins {
 }
 
 val groupIdZ = "com.tminus1010.tmcommonkotlin"
-val versionZ = "1.0.23"
+val versionZ = "1.0.26"
 
 android {
     compileSdkVersion(29)
@@ -73,7 +73,7 @@ afterEvaluate {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = groupIdZ
-                artifactId = "tmcommonkotlin"
+                artifactId = "tmcommonkotlin-misc"
                 version = versionZ
             }
         }
