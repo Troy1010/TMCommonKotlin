@@ -10,7 +10,7 @@ val groupIdZ = "tminus1010.tmcommonkotlin"
 val versionZ = "1.0.15"
 
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(29)
     buildToolsVersion = "30.0.2"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
