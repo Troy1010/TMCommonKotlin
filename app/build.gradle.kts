@@ -7,7 +7,7 @@ plugins {
 }
 
 val groupIdZ = "com.tminus1010.tmcommonkotlin"
-val versionZ = "1.0.15"
+val versionZ = "1.0.23"
 
 android {
     compileSdkVersion(29)
@@ -69,18 +69,11 @@ tasks.register("sourceJar", Jar::class) {
 afterEvaluate {
     publishing {
         publications {
-            register("debug", MavenPublication::class) {
-                artifact("$buildDir/outputs/aar/${artifactId}-debug.aar")
-                artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
-                groupId = groupIdZ
-                artifactId = "tmcommonkotlin"
-                version = versionZ
-            }
-            register("release", MavenPublication::class) {
+            register("mavenPublication", MavenPublication::class) {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = groupIdZ
-                artifactId = "tmcommonkotlin-release"
+                artifactId = "tmcommonkotlin"
                 version = versionZ
             }
         }
