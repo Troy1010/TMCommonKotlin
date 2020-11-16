@@ -1,3 +1,4 @@
+include ':tmcommonkotlin-rx'
 include ':tmcommonkotlin-logz'
 include ':tmcommonkotlin-tuple'
 rootProject.name='TMCommonKotlin'
