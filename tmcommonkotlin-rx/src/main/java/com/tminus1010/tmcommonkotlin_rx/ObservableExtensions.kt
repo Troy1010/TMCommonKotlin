@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.functions.Action
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.internal.functions.Functions
 import io.reactivex.rxjava3.internal.observers.LambdaObserver
+import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 /**
  * Using observe instead of subscribe makes observables lifecycle-aware.. which means
@@ -47,4 +48,15 @@ fun <T> Observable<T>.observe(
     observer: Observer<T>
 ) {
     this.bindToLifecycle(lifecycleOwner).subscribe(observer)
+}
+
+//
+
+fun <T> Observable<T>.toBehaviorSubject(): BehaviorSubject<T> {
+    return BehaviorSubject.create<T>()
+        .also { this.subscribe(it) }
+}
+fun <T> Observable<T>.toBehaviorSubjectWithDefault(defaultValue: T): BehaviorSubject<T> {
+    return BehaviorSubject.createDefault(defaultValue)
+        .also { this.subscribe(it) }
 }
