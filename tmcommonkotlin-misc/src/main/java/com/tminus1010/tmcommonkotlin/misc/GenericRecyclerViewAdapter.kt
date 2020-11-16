@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 open class GenericRecyclerViewAdapter(
-    var binder: Callbacks,
     var context: Context,
+    var binder: Callbacks,
     val item_layout: Int
 ): RecyclerView.Adapter<GenericRecyclerViewAdapter.ViewHolder>() {
-    inner class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)
+    class ViewHolder (view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(item_layout, parent, false)
@@ -23,12 +23,12 @@ open class GenericRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        binder.bindRecyclerItemView(holder.itemView, position)
+        binder.bindRecyclerItem(holder, holder.itemView)
     }
 
     interface Callbacks
     {
-        fun bindRecyclerItemView(view: View, i: Int)
+        fun bindRecyclerItem(holder: ViewHolder, view: View)
         fun getRecyclerDataSize() : Int
     }
 

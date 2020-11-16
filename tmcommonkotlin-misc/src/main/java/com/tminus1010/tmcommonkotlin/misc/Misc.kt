@@ -17,18 +17,6 @@ fun getToday() : String {
     return SimpleDateFormat("yyyy-MM-dd").format(java.util.Calendar.getInstance().getTime()).toString()
 }
 
-fun shortClassName(className:String):String {
-    val periodMatches = Regex("""\..""").findAll(className)
-    if (periodMatches.count()==0)
-        return className
-    val periodPos = periodMatches.last().range.last
-    return className.substring(periodPos)
-}
-
-fun easyToast(context: Context, msg: String, lengthID:Int=Toast.LENGTH_SHORT) {
-    Toast.makeText(context, msg, lengthID).show()
-}
-
 fun easySnackbar(
     coordinatorLayout: CoordinatorLayout,
     msg: String,
