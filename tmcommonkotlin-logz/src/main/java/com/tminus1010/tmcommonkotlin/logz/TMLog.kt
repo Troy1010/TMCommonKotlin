@@ -1,7 +1,14 @@
-package com.tminus1010.tmcommonkotlin.misc
+package com.tminus1010.tmcommonkotlin.logz
 
 import android.util.Log
 
+fun shortClassName(className:String):String {
+    val periodMatches = Regex("""\..""").findAll(className)
+    if (periodMatches.count()==0)
+        return className
+    val periodPos = periodMatches.last().range.last
+    return className.substring(periodPos)
+}
 
 val fnName
     get() = Throwable().stackTrace[1].methodName
@@ -28,17 +35,14 @@ fun logz (msg:String) {
     TMLog(msg)
 }
 
+// TODO("does not always work")
 // includes the method name
 fun logx (msg:String?=null) {
     TMLog(msg, bMethod = true)
 }
 
+// TODO("does not always work")
 // includes the class and method names
 fun logc (msg:String?=null) {
     TMLog(msg, bClass = true, bMethod = true)
-}
-
-// includes the class names
-fun logv (msg:String?=null) {
-    TMLog(msg, bClass = true)
 }
