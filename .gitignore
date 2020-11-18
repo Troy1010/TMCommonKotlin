@@ -12,3 +12,10 @@
 /captures
 .externalNativeBuild
 .cxx
+
+#TM
+*.log
+
+.idea/
+
+buildSrc/build/
