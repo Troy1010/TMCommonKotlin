@@ -10,13 +10,6 @@ fun shortClassName(className:String):String {
     return className.substring(periodPos)
 }
 
-val fnName
-    get() = Throwable().stackTrace[1].methodName
-
-fun getFnName(level:Int=1) {
-    Throwable().stackTrace[level].methodName
-}
-
 const val TAG = "TMLog"
 
 //
