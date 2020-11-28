@@ -10,14 +10,7 @@ fun shortClassName(className:String):String {
     return className.substring(periodPos)
 }
 
-val fnName
-    get() = Throwable().stackTrace[1].methodName
-
-fun getFnName(level:Int=1) {
-    Throwable().stackTrace[level].methodName
-}
-
-const val LOG_TAG = "TMLog"
+const val TAG = "TMLog"
 
 //
 fun TMLog (msg:String?, bClass:Boolean=false, bMethod:Boolean=false) {
@@ -28,7 +21,7 @@ fun TMLog (msg:String?, bClass:Boolean=false, bMethod:Boolean=false) {
         msgZ = "${shortClassName(throwable.stackTrace[level].className)}`"+msgZ
     if (bMethod)
         msgZ = "${shortClassName(throwable.stackTrace[level].className)}`"+msgZ
-    Log.d(LOG_TAG, "TM`$msgZ")
+    Log.d(TAG, "TM`$msgZ")
 }
 
 fun logz (msg:String) {

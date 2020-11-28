@@ -54,9 +54,13 @@ fun <T> Observable<T>.observe(
 
 fun <T> Observable<T>.toBehaviorSubject(): BehaviorSubject<T> {
     return BehaviorSubject.create<T>()
-        .also { this.subscribe(it) }
+        .also { bs -> this.subscribe { bs.onNext(it) } }
+    // *Subscribing directly causes the BehaviorSubject to loose replay functionality:
+//        .also { bs -> this.subscribe(bs) }
 }
-fun <T> Observable<T>.toBehaviorSubjectWithDefault(defaultValue: T): BehaviorSubject<T> {
-    return BehaviorSubject.createDefault(defaultValue)
-        .also { this.subscribe(it) }
+
+fun <T> Observable<T>.toBehaviorSubject(defaultValue: T): BehaviorSubject<T> {
+    return this
+            .startWithItem(defaultValue)
+            .toBehaviorSubject()
 }
