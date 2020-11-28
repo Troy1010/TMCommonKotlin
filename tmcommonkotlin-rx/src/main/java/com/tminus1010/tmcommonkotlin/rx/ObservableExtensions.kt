@@ -13,7 +13,8 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 /**
  * Using observe instead of subscribe makes observables lifecycle-aware.. which means
- * their subscriptions are automatically disposed when the lifecycle owner (aka activity) is destroyed.
+ * their subscriptions are automatically disposed when the lifecycle owner (aka activity)
+ * is destroyed.
  */
 // *Not using default values allows for last-lambda syntax.
 fun <T> Observable<T>.observe(
