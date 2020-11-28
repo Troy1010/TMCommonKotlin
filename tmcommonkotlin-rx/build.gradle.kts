@@ -36,14 +36,14 @@ android {
 }
 
 dependencies {
-    // Kotlin
+    // # Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.61")
-    // JUnit
+    // # JUnit
     testImplementation("junit:junit:4.13")
-    // Rx
+    // # Rx
     implementation("io.reactivex.rxjava3:rxjava:3.0.7")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
-    // Rx + Lifecycle
+    // ## Rx + Lifecycle
     implementation("com.trello.rxlifecycle4:rxlifecycle-android:4.0.0")
     implementation("com.trello.rxlifecycle4:rxlifecycle-components:4.0.0")
     implementation("com.trello.rxlifecycle4:rxlifecycle-components-preference:4.0.0")
