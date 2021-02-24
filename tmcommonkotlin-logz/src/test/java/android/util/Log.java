@@ -14,6 +14,7 @@ public class Log {
 
     public static int d(String tag, String msg, Throwable e) {
         System.out.println("D/" + tag + ": " + msg);
+        e.printStackTrace();
         return 0;
     }
 
@@ -24,6 +25,7 @@ public class Log {
 
     public static int i(String tag, String msg, Throwable e) {
         System.out.println("I/" + tag + ": " + msg);
+        e.printStackTrace();
         return 0;
     }
 
@@ -34,6 +36,7 @@ public class Log {
 
     public static int w(String tag, String msg, Throwable e) {
         System.out.println("W/" + tag + ": " + msg);
+        e.printStackTrace();
         return 0;
     }
 
@@ -44,6 +47,7 @@ public class Log {
 
     public static int e(String tag, String msg, Throwable e) {
         System.out.println("E/" + tag + ": " + msg);
+        e.printStackTrace();
         return 0;
     }
 }
