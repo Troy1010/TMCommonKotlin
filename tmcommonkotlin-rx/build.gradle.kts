@@ -49,8 +49,9 @@ dependencies {
     implementation("com.trello.rxlifecycle4:rxlifecycle-components-preference:4.0.0")
     implementation("com.trello.rxlifecycle4:rxlifecycle-kotlin:4.0.0")
     implementation("com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.0")
-    // # Tuple
+    // # This Project
     implementation(project(":tmcommonkotlin-tuple"))
+    implementation(project(":tmcommonkotlin-logz"))
 }
 
 

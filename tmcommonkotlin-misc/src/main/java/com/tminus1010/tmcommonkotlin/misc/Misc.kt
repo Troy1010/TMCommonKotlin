@@ -28,10 +28,3 @@ fun easySnackbar(
 fun generateUniqueID(): String {
     return UUID.randomUUID().toString().replace("-", "").toUpperCase()
 }
-
-val fnName
-    get() = Throwable().stackTrace[1].methodName
-
-fun getFnName(level:Int=1) {
-    Throwable().stackTrace[level].methodName
-}
