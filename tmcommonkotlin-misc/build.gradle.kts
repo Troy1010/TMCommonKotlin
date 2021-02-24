@@ -58,6 +58,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.2")
     // # Espresso
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    // # Apache Commons
+    implementation("commons-io:commons-io:2.8.0")
 }
 
 tasks.register("sourceJar", Jar::class) {
