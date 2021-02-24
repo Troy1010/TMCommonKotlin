@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc.extensions
+package com.tminus1010.tmcommonkotlin.view.extensions
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
-import com.tminus1010.tmcommonkotlin.misc.createViewModelFactory
+import com.tminus1010.tmcommonkotlin.view.createViewModelFactory
 
 fun Fragment.toast(msg: String, lengthID: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireContext(), msg, lengthID).show()
