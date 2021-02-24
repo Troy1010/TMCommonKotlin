@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdkVersion(Misc.compileSDK)
-    buildToolsVersion = "30.0.2"
+    buildToolsVersion = "30.0.3"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
     compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
@@ -36,10 +36,8 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.61")
-    // JUnit
-    testImplementation("junit:junit:4.13")
+    // # Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
 }
 
 
