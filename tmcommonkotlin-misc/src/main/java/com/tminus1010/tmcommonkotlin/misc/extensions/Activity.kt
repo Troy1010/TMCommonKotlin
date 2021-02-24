@@ -1,8 +1,10 @@
 package com.tminus1010.tmcommonkotlin.misc.extensions
 
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.tminus1010.tmcommonkotlin.misc.createViewModelFactory
 import java.util.HashSet
 
 inline fun <reified T: ViewModel> AppCompatActivity.scopeVMToDestinations(
@@ -15,3 +17,6 @@ inline fun <reified T: ViewModel> AppCompatActivity.scopeVMToDestinations(
         }
     }
 }
+
+inline fun <reified VM : ViewModel> AppCompatActivity.viewModels2(noinline function: () -> VM) =
+    this.viewModels<VM> { createViewModelFactory(function) }
