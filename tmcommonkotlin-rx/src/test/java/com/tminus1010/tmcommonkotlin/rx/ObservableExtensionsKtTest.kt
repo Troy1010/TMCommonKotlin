@@ -1,6 +1,6 @@
 package com.tminus1010.tmcommonkotlin.rx
 
-import com.tminus1010.tmcommonkotlin_rx.toBehaviorSubject
+import com.tminus1010.tmcommonkotlin.rx.extensions.toBehaviorSubject
 import io.reactivex.rxjava3.core.Observable
 import org.junit.Assert.assertEquals
 import org.junit.Test

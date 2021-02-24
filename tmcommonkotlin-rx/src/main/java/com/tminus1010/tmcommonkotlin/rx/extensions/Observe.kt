@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin_rx
+package com.tminus1010.tmcommonkotlin.rx.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import com.trello.rxlifecycle4.android.lifecycle.kotlin.bindToLifecycle
@@ -9,12 +9,15 @@ import io.reactivex.rxjava3.functions.Action
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.internal.functions.Functions
 import io.reactivex.rxjava3.internal.observers.LambdaObserver
-import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 /**
  * Using observe instead of subscribe makes observables lifecycle-aware.. which means
- * their subscriptions are automatically disposed when the lifecycle owner (aka activity)
+ * their subscriptions are automatically disposed when the lifecycle owner (ie activity)
  * is destroyed.
+ *
+ * Be careful when using with fragments.
+ * Most of the time, you will want to use the fragment's viewLifecycleOwner as the lifecycleOwner.
+ * Using the fragment itself as the lifecycleOwner is usually not what you want.
  */
 // *Not using default values allows for last-lambda syntax.
 fun <T> Observable<T>.observe(
@@ -49,19 +52,4 @@ fun <T> Observable<T>.observe(
     observer: Observer<T>
 ) {
     this.bindToLifecycle(lifecycleOwner).subscribe(observer)
-}
-
-//
-
-fun <T> Observable<T>.toBehaviorSubject(): BehaviorSubject<T> {
-    return BehaviorSubject.create<T>()
-        .also { bs -> this.subscribe { bs.onNext(it) } }
-    // *Subscribing directly causes the BehaviorSubject to loose replay functionality:
-//        .also { bs -> this.subscribe(bs) }
-}
-
-fun <T> Observable<T>.toBehaviorSubject(defaultValue: T): BehaviorSubject<T> {
-    return this
-            .startWithItem(defaultValue)
-            .toBehaviorSubject()
 }
