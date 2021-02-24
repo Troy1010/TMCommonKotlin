@@ -58,7 +58,7 @@ afterEvaluate {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
-                artifactId = "tmcommonkotlin-tuple"
+                artifactId = "tmcommonkotlin-view"
                 version = Misc.versionStr
             }
         }
