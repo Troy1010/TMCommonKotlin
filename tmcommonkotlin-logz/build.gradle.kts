@@ -37,10 +37,11 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.61")
-    // JUnit
-    testImplementation("junit:junit:4.13")
+    // # Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+    // # JUnit
+    testImplementation("junit:junit:4.13.2")
+    // #
 }
 
 tasks.register("sourceJar", Jar::class) {
