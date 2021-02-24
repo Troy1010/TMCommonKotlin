@@ -9,3 +9,10 @@ fun String.noDoubleSpaces(): String {
         this
     }
 }
+
+fun String.toByteArray(): ByteArray {
+    require(this.isAllDigits()) { "String must only contain digits" }
+    return this
+        .map { it.toString().toByte() }
+        .fold(ByteArray(0)) { acc, bytes -> acc + bytes }
+}
