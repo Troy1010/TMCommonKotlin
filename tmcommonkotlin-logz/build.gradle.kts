@@ -41,7 +41,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
     // # JUnit
     testImplementation("junit:junit:4.13.2")
-    // #
+    // # Rx
+    implementation("io.reactivex.rxjava3:rxjava:3.0.7")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
 }
 
 tasks.register("sourceJar", Jar::class) {
