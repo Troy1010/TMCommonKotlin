@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc.extensions
+package com.tminus1010.tmcommonkotlin.view.extensions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStore

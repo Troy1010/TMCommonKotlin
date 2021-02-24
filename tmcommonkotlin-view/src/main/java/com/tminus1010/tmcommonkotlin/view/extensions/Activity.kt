@@ -1,10 +1,10 @@
-package com.tminus1010.tmcommonkotlin.misc.extensions
+package com.tminus1010.tmcommonkotlin.view.extensions
 
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.tminus1010.tmcommonkotlin.misc.createViewModelFactory
+import com.tminus1010.tmcommonkotlin.view.createViewModelFactory
 import java.util.HashSet
 
 inline fun <reified T: ViewModel> AppCompatActivity.scopeVMToDestinations(
