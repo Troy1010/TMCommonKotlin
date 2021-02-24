@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc
+package com.tminus1010.tmcommonkotlin.misc.extensions
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment

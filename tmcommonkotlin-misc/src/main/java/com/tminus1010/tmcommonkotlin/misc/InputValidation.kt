@@ -1,5 +1,8 @@
 package com.tminus1010.tmcommonkotlin.misc
 
+import com.tminus1010.tmcommonkotlin.misc.extensions.isAllDigits
+import com.tminus1010.tmcommonkotlin.misc.extensions.noDoubleSpaces
+
 open class InputValidation {
     companion object {
         val asCardNumber = { cardNumber: String ->
