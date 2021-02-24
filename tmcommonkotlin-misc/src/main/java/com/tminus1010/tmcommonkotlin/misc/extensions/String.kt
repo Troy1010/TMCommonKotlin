@@ -16,13 +16,3 @@ fun String.noDoubleSpaces():String {
         this
     }
 }
-
-
-fun String.hasDigit(): Boolean {
-    for (ch in this) {
-        if (ch.isDigit()) {
-            return true
-        }
-    }
-    return false
-}
