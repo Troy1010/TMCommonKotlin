@@ -24,11 +24,15 @@ inline fun <reified T> T.logx(prefix: Any? = null): T {
             else -> Log.d(TAG, "TM`${prefixLogStr}$any")
         }
     }
-    return when(T::class.java) {
-        Observable::class.java -> (this as Observable<*>).doOnNext { logWithPrefix(it) }.doOnComplete { logWithPrefix("Completed") }.doOnError { logWithPrefix(it) } as T
-        Single::class.java -> (this as Single<*>).doOnSuccess { logWithPrefix(it) }.doOnError { logWithPrefix(it) } as T
-        Completable::class.java -> (this as Completable).doOnComplete { logWithPrefix("Completed") }.doOnError { logWithPrefix(it) } as T
-        else -> this.apply { logWithPrefix(this) }
-    }
+    return this.apply { logWithPrefix(this) }
 }
+
+inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
+    this.doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }
+
+inline fun <reified T> Single<T>.doLogx(prefix: Any? = null): Single<T> =
+    this.doOnSuccess { it.logx(prefix) }.doOnError { it.logx(prefix) }
+
+fun Completable.doLogx(prefix: Any? = null): Completable =
+    this.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx("prefix") }
 
