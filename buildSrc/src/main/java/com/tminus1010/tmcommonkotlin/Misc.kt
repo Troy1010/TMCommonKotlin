@@ -1,7 +1,7 @@
 package com.tminus1010.tmcommonkotlin
 
 object Misc {
-    const val versionStr = "1.0.33"
+    const val versionStr = "1.0.34"
     const val groupId = "com.tminus1010.tmcommonkotlin"
     const val compileSDK = 29
     const val targetSDK = 29

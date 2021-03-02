@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.rx.extensions
+package com.tminus1010.tmcommonkotlin.misc.extensions
 
 import io.reactivex.rxjava3.core.Observable
 import java.math.BigDecimal
@@ -6,18 +6,6 @@ import java.util.Comparator
 
 fun Iterable<BigDecimal>.sum() =
     this.fold(BigDecimal.ZERO, BigDecimal::add)
-
-fun <T : Observable<BigDecimal>> Iterable<T>.total(): Observable<BigDecimal> {
-    return Observable.fromIterable(this)
-        .flatMap {
-            it
-                .startWithItem(BigDecimal.ZERO)
-                .distinctUntilChanged()
-                .pairwise()
-                .map { it.second - it.first }
-        }
-        .scan(BigDecimal.ZERO, BigDecimal::add)
-}
 
 fun <T> Iterable<T>.pairwise(): Iterable<Pair<T, T>> =
     this.zip(this.drop(1)) { a, b -> Pair(a, b) }
