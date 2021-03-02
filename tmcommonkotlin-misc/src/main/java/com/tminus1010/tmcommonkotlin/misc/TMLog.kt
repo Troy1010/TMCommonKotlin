@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.logz
+package com.tminus1010.tmcommonkotlin.misc
 
 import android.util.Log
 import io.reactivex.rxjava3.core.Completable
@@ -7,7 +7,6 @@ import io.reactivex.rxjava3.core.Single
 
 const val TAG = "TMLog"
 
-@JvmName("logz2")
 fun logz(any: Any?) {
     when (any) {
         is Throwable -> Log.e(TAG, "TM`Error:", any)
@@ -15,7 +14,6 @@ fun logz(any: Any?) {
     }
 }
 
-@JvmName("logz1")
 inline fun <reified T> T.logx(prefix: Any? = null): T {
     val logWithPrefix = { any:Any? ->
         val prefixLogStr = prefix?.let { "$prefix`" } ?: ""
