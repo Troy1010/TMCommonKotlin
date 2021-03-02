@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.logz
+package com.tminus1010.tmcommonkotlin.misc
 
 val fnName
     get() = Throwable().stackTrace[1].methodName

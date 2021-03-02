@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.logz
+package com.tminus1010.tmcommonkotlin.misc
 
 import android.util.Log
 import io.reactivex.rxjava3.core.Completable

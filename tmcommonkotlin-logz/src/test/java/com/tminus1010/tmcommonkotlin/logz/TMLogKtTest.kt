@@ -5,11 +5,11 @@ import junit.framework.TestCase
 
 class TMLogKtTest : TestCase() {
     fun testLogz() {
-        logz("AAA")
-        "qwer".logx("BBB")
-        Observable.just("LOGZ").logx("CCC").subscribe()
-
-        logz(Exception("It's error time"))
-        Exception("It's error time").logx("EEE")
+//        logz("AAA")
+//        "qwer".logx("BBB")
+//        Observable.just("LOGZ").logx("CCC").subscribe()
+//
+//        logz(Exception("It's error time"))
+//        Exception("It's error time").logx("EEE")
     }
 }
