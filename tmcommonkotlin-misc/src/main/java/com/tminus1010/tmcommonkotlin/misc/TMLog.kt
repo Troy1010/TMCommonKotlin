@@ -14,7 +14,6 @@ fun logz(any: Any?) {
     }
 }
 
-@JvmName("logz1")
 inline fun <reified T> T.logx(prefix: Any? = null): T {
     val logWithPrefix = { any:Any? ->
         val prefixLogStr = prefix?.let { "$prefix`" } ?: ""
