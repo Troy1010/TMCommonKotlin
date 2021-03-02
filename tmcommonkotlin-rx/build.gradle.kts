@@ -47,7 +47,6 @@ dependencies {
     api("com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.0")
     // # This Project
     implementation(project(":tmcommonkotlin-tuple"))
-    implementation(project(":tmcommonkotlin-logz"))
 }
 
 
