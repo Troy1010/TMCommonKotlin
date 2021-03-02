@@ -8,7 +8,7 @@ import java.util.*
 
 
 fun getToday() : String {
-    return SimpleDateFormat("yyyy-MM-dd").format(java.util.Calendar.getInstance().getTime()).toString()
+    return SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time).toString()
 }
 
 fun easySnackbar(
@@ -17,12 +17,10 @@ fun easySnackbar(
     actionText: String? = null,
     action: View.OnClickListener? = null
 ) {
-    var sb = Snackbar
+    Snackbar
         .make(coordinatorLayout, msg, Snackbar.LENGTH_LONG)
-    if ((actionText != null) and (action != null)) {
-        sb.setAction(actionText, action)
-    }
-    sb.show()
+        .also { if ((actionText != null) and (action != null)) it.setAction(actionText, action) }
+        .apply { show() }
 }
 
 fun generateUniqueID(): String {
