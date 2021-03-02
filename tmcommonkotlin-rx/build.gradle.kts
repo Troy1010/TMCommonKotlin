@@ -40,15 +40,13 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
     // # JUnit
     testImplementation("junit:junit:4.13.2")
+    //
+    implementation("androidx.recyclerview:recyclerview:1.2.0-beta02")
     // # Rx
-    implementation("io.reactivex.rxjava3:rxjava:3.0.7")
-    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    api("io.reactivex.rxjava3:rxjava:3.0.7")
+    api("io.reactivex.rxjava3:rxandroid:3.0.0")
     // ## Rx + Lifecycle
-    implementation("com.trello.rxlifecycle4:rxlifecycle-android:4.0.0")
-    implementation("com.trello.rxlifecycle4:rxlifecycle-components:4.0.0")
-    implementation("com.trello.rxlifecycle4:rxlifecycle-components-preference:4.0.0")
-    implementation("com.trello.rxlifecycle4:rxlifecycle-kotlin:4.0.0")
-    implementation("com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.0")
+    api("com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.0")
     // # This Project
     implementation(project(":tmcommonkotlin-tuple"))
     implementation(project(":tmcommonkotlin-logz"))
