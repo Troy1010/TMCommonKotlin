@@ -7,7 +7,6 @@ import io.reactivex.rxjava3.core.Single
 
 const val TAG = "TMLog"
 
-@JvmName("logz2")
 fun logz(any: Any?) {
     when (any) {
         is Throwable -> Log.e(TAG, "TM`Error:", any)
