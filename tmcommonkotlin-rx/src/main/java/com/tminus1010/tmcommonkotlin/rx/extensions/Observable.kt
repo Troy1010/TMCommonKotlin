@@ -1,6 +1,7 @@
 package com.tminus1010.tmcommonkotlin.rx.extensions
 
 import io.reactivex.rxjava3.core.Observable
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 fun <T : Any> Observable<T>.pairwise(initialValue: T) = this.startWithItem(initialValue).pairwise()
@@ -25,4 +26,16 @@ fun <IN, OUT> Observable<IN>.emitIfTimeout(timespan: Long, timeUnit: TimeUnit, i
         .timeout(timespan, timeUnit, Observable.just(true))
         .filter { it }
         .map { item }
+}
+
+fun <T : Observable<BigDecimal>> Iterable<T>.total(): Observable<BigDecimal> {
+    return Observable.fromIterable(this)
+        .flatMap {
+            it
+                .startWithItem(BigDecimal.ZERO)
+                .distinctUntilChanged()
+                .pairwise()
+                .map { it.second - it.first }
+        }
+        .scan(BigDecimal.ZERO, BigDecimal::add)
 }

@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.rx.extensions
+package com.tminus1010.tmcommonkotlin.misc.extensions
 
 fun <K, V> MutableMap<K, V>.removeIf(function: (Map.Entry<K, V>) -> Boolean): MutableMap<K, V> {
     return this.apply {

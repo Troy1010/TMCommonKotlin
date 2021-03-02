@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.rx.extensions
+package com.tminus1010.tmcommonkotlin.misc.extensions
 
 import android.media.AudioFormat
 import android.media.AudioRecord
