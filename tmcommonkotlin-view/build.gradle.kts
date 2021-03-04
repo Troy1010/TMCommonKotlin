@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Misc.compileSDK)
+    compileSdkVersion(Misc.targetSDK)
     buildToolsVersion = "30.0.3"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
