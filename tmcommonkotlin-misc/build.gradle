@@ -2,15 +2,15 @@ import com.tminus1010.tmcommonkotlin.Misc
 
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("android.extensions")
-    kotlin("kapt")
-    `maven-publish`
+    id("kotlin-android")
+    id("kotlin-android-extensions")
+    id("kotlin-kapt")
+    id("maven-publish")
 }
 
 android {
     compileSdkVersion(Misc.targetSDK)
-    buildToolsVersion = "30.0.2"
+    buildToolsVersion = "30.0.3"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
     compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            minifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -59,14 +59,14 @@ dependencies {
     implementation("commons-io:commons-io:2.8.0")
 }
 
-tasks.register("sourceJar", Jar::class) {
+tasks.register("sourceJar", Jar) {
     from("src/main")
 }
 
 afterEvaluate {
     publishing {
         publications {
-            register("mavenPublication", MavenPublication::class) {
+            register("mavenPublication", MavenPublication) {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
