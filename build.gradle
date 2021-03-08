@@ -1,7 +1,3 @@
-plugins {
-    id("TMPlugin")
-}
-
 allprojects {
     repositories {
         google()
