@@ -7,10 +7,10 @@ import io.reactivex.rxjava3.core.Single
 
 const val TAG = "TMLog"
 
-fun logz(any: Any?) {
+fun logz(any: Any?, e: Throwable? = null) {
     when (any) {
         is Throwable -> Log.e(TAG, "TM`Error:", any)
-        else -> Log.d(TAG, "TM`$any")
+        else -> Log.d(TAG, "TM`$any", e)
     }
 }
 
