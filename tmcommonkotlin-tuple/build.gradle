@@ -2,31 +2,32 @@ import com.tminus1010.tmcommonkotlin.Misc
 
 plugins {
     id("com.android.library")
-    kotlin("android")
-    kotlin("android.extensions")
-    `maven-publish`
+    id("kotlin-android")
+    id("kotlin-android-extensions")
+    id("maven-publish")
+    id("TMPlugin")
 }
 
 android {
-    compileSdkVersion(Misc.compileSDK)
+    compileSdkVersion(Misc.targetSDK)
     buildToolsVersion = "30.0.3"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
     compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = "1.8"
 
     defaultConfig {
         minSdkVersion(Misc.minSDK)
         targetSdkVersion(Misc.targetSDK)
         versionCode = 1
-        versionName = Misc.versionStr
+        versionName = "1.0.36"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            minifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -38,27 +39,21 @@ android {
 dependencies {
     // # Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
-    // # Android
-    implementation("androidx.core:core-ktx:1.3.2")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    // # Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.3")
 }
 
 
-tasks.register("sourceJar", Jar::class) {
+tasks.register("sourceJar", Jar) {
     from("src/main")
 }
 
 afterEvaluate {
     publishing {
         publications {
-            register("mavenPublication", MavenPublication::class) {
+            register("mavenPublication", MavenPublication) {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
-                artifactId = "tmcommonkotlin-view"
+                artifactId = "tmcommonkotlin-tuple"
                 version = Misc.versionStr
             }
         }
