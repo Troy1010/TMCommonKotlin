@@ -5,7 +5,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-android-extensions")
     id("maven-publish")
-    id("TMPlugin")
 }
 
 android {
