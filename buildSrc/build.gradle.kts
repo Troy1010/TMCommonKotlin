@@ -1,3 +1,5 @@
+// # BuildSrc
+
 plugins {
     `kotlin-dsl`
 }
