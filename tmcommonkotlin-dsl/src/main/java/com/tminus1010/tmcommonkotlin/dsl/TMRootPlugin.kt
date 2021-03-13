@@ -15,6 +15,13 @@ open class TMRootPlugin : Plugin<Project> {
                 dependsOn(allCleanTasks, allAssemblePublishTasks)
                 allAssemblePublishTasks.forEach { it.mustRunAfter(allCleanTasks) }
             }
+            tasks.register("clean_assemble") {
+                group = "build"
+                val allCleanTasks = project.getTasksByName("clean", true)
+                val allAssembleTasks = subprojects.map { it.tasks.getByName("assemble") }
+                dependsOn(allCleanTasks, allAssembleTasks)
+                allAssembleTasks.forEach { it.mustRunAfter(allCleanTasks) }
+            }
         }
     }
 }
