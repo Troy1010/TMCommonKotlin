@@ -8,7 +8,7 @@ open class TMRootPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.afterEvaluate {
             subprojects.forEach { it.tasks.tryRegisterOrderedPair("assemble", "publishToMavenLocal") }
-            tasks.register("easyCleanPublishLocal") {
+            tasks.register("clean_assemble_publish") {
                 group = "publishing"
                 val allCleanTasks = project.getTasksByName("clean", true)
                 val allAssemblePublishTasks = subprojects.map { it.tasks.getByName("assemble_publishToMavenLocal") }
