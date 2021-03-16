@@ -2,13 +2,20 @@ package com.tminus1010.tmcommonkotlin.rx.extensions
 
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
+import java.lang.ref.WeakReference
 
 
 fun <T> Observable<T>.toBehaviorSubject(): BehaviorSubject<T> {
     return BehaviorSubject.create<T>()
-        .also { bs ->
+        .also { behaviorSubject ->
             // Direct subscription (ie: this.subscribe(behaviorSubject)) is ignored by behaviorSubject.value.
-            this.subscribe { bs.onNext(it) }
+            val behaviorSubjectWeakRef = WeakReference<BehaviorSubject<T>>(behaviorSubject)
+            this
+                .takeUntil { behaviorSubjectWeakRef.get() == null }
+                .subscribe(
+                    { behaviorSubjectWeakRef.get()?.onNext(it) },
+                    { behaviorSubjectWeakRef.get()?.onError(it) },
+                    { behaviorSubjectWeakRef.get()?.onComplete() })
         }
 }
 
