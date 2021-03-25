@@ -23,7 +23,13 @@ fun <T> Observable<T>.toBehaviorSubject(defaultValue: T) =
     this.startWithItem(defaultValue).toBehaviorSubject()
 
 fun <T> Observable<T>.isCold(): Boolean {
-    return this
-        .toBehaviorSubject()
-        .value != null
+    return this.value != null
+}
+
+val <T> Observable<T>.value: T? get() {
+    var errorToThrow: Throwable? = null
+    var emission: T? = null
+    this.subscribe({ emission = it }, { errorToThrow = it }).apply { dispose() }
+    errorToThrow?.also { throw it }
+    return emission
 }
