@@ -1,4 +1,4 @@
-// # tmcommonkotlin-rx
+// # tmcommonkotlin-rx2
 
 import com.tminus1010.tmcommonkotlin.Misc
 
@@ -61,7 +61,7 @@ afterEvaluate {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
-                artifactId = "tmcommonkotlin-rx"
+                artifactId = "tmcommonkotlin-rx2"
                 version = Misc.versionStr
             }
         }
