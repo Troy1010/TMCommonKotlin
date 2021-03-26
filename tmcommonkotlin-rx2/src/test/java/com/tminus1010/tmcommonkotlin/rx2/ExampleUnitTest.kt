@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin_rx2
+package com.tminus1010.tmcommonkotlin.rx2
 
 import org.junit.Test
 
