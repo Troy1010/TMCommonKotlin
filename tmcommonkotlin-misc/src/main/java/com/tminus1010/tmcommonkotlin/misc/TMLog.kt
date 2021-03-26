@@ -5,6 +5,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
+// TODO("Move to rx module")
 inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
     this.doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }
 
