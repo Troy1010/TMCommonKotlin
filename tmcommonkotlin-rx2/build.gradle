@@ -46,6 +46,7 @@ dependencies {
     api("io.reactivex.rxjava3:rxandroid:2.+")
     // # This Project
     api(project(":tmcommonkotlin-tuple"))
+    api(project(":tmcommonkotlin-core"))
 }
 
 

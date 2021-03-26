@@ -58,6 +58,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
     // # Apache Commons
     implementation("commons-io:commons-io:2.8.0")
+    // # This Project
+    api(project(":tmcommonkotlin-core"))
 }
 
 tasks.register("sourceJar", Jar) {
