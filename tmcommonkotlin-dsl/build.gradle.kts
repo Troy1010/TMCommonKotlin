@@ -28,7 +28,7 @@ publishing {
             from(project.components["java"])
             groupId = Misc.groupId
             artifactId = "tmcommonkotlin-dsl"
-            version = Misc.versionStr
+            version = Misc.versionName
         }
     }
 }

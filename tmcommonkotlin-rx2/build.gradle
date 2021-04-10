@@ -20,7 +20,7 @@ android {
         minSdkVersion(Misc.minSDK)
         targetSdkVersion(Misc.targetSDK)
         versionCode = 1
-        versionName = Misc.versionStr
+        versionName = Misc.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,7 +62,7 @@ afterEvaluate {
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
                 artifactId = "tmcommonkotlin-rx2"
-                version = Misc.versionStr
+                version = Misc.versionName
             }
         }
     }
