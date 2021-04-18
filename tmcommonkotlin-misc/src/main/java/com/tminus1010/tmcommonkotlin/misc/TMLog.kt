@@ -6,12 +6,14 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 // TODO("Move to rx module")
-inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
-    this.doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }
+inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null, crossinline toLoggable: (T) -> Any? = { it }): Observable<T> =
+    doOnNext { toLoggable(it).logx(prefix) }
+        .doOnComplete { "Completed".logx(prefix) }
+        .doOnError { it.logx(prefix) }
 
 inline fun <reified T> Single<T>.doLogx(prefix: Any? = null): Single<T> =
-    this.doOnSuccess { it.logx(prefix) }.doOnError { it.logx(prefix) }
+    doOnSuccess { it.logx(prefix) }.doOnError { it.logx(prefix) }
 
 fun Completable.doLogx(prefix: Any? = null): Completable =
-    this.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx("prefix") }
+    doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx("prefix") }
 
