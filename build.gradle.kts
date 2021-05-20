@@ -29,3 +29,10 @@ tasks.register("easyCleanPublishLocalForAll") {
     dependsOn(allCleanTasks, allAssemblePublishTasks)
     allAssemblePublishTasks.forEach { it.mustRunAfter(allCleanTasks) }
 }
+
+tasks.register("bumpVersion") {
+    group = "publishing"
+    doLast {
+        println("Hi")
+    }
+}
