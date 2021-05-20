@@ -34,5 +34,12 @@ tasks.register("bumpVersion") {
     group = "publishing"
     doLast {
         println("Hi")
+//        val version_ = version as String
+        val version_ = "1.0.1"
+        val minor=version_.substring(version_.lastIndexOf('.')+1)
+        val m=minor.toInt()+1
+        val major= version_.substring(0,version_.length-1)
+        val s=buildFile.readText().replaceFirst("version='$version_'", "version='$major$m'")
+        buildFile.writeText(s)
     }
 }
