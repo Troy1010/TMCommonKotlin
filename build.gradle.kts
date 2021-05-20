@@ -39,7 +39,8 @@ tasks.register("bumpVersion") {
         val minor=version_.substring(version_.lastIndexOf('.')+1)
         val m=minor.toInt()+1
         val major= version_.substring(0,version_.length-1)
-        val s=buildFile.readText().replaceFirst("version='$version_'", "version='$major$m'")
+        val s=buildFile.readText().replaceFirst("publishing", "version='$major$m'")
+        println("s:$s")
         buildFile.writeText(s)
     }
 }
