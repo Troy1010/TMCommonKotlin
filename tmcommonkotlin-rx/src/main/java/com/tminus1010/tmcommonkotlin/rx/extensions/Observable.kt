@@ -3,8 +3,6 @@ package com.tminus1010.tmcommonkotlin.rx.extensions
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableSource
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.subjects.Subject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -58,14 +56,3 @@ fun <T> Observable<T>.timeoutOnce(duration: Long, timeUnit: TimeUnit, observable
  */
 fun <T> Observable<T>.toSingle(): Single<T> =
     Single.fromObservable(take(1))
-
-
-
-private fun <T> Observable<T>.divertErrors(errorSubject: Subject<Throwable>) =
-    onErrorResumeNext { errorSubject.onNext(it); Observable.empty() }
-
-private fun <T> Observable<T>.nonLazyCache(compositeDisposable: CompositeDisposable) =
-    replay(1).also { compositeDisposable.add(it.connect()) }
-
-fun <T> Observable<T>.toState(errorSubject: Subject<Throwable>, compositeDisposable: CompositeDisposable) =
-    replay(1).also { compositeDisposable.add(it.connect()) }
