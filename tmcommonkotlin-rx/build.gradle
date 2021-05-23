@@ -37,18 +37,21 @@ android {
 }
 
 dependencies {
+    // # This Project
+    api(project(":tmcommonkotlin-tuple"))
+    api(project(":tmcommonkotlin-core"))
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.31")
     // # JUnit
     testImplementation("junit:junit:4.13.2")
     // # Rx
     api("io.reactivex.rxjava3:rxjava:3.0.7")
+    // ## Rx & Android
     api("io.reactivex.rxjava3:rxandroid:3.0.0")
-    // ## Rx + Lifecycle
+    // ## Rx & Kotlin
+    api("io.reactivex.rxjava3:rxkotlin:3.0.1")
+    // ## Rx & Lifecycle
     api("com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.0")
-    // # This Project
-    api(project(":tmcommonkotlin-tuple"))
-    api(project(":tmcommonkotlin-core"))
 }
 
 
