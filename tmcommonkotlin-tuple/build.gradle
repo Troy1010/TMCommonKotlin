@@ -1,11 +1,11 @@
+// # tmcommonkotlin-tuple
+
 import com.tminus1010.tmcommonkotlin.Misc
 
 plugins {
     id("com.android.library")
     id("kotlin-android")
-    id("kotlin-android-extensions")
     id("maven-publish")
-    id("TMPlugin")
 }
 
 android {
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         minSdkVersion(Misc.minSDK)
         targetSdkVersion(Misc.targetSDK)
-        versionCode = 1
+        versionCode = Misc.versionCode
         versionName = "1.0.36"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -54,7 +54,7 @@ afterEvaluate {
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
                 artifactId = "tmcommonkotlin-tuple"
-                version = Misc.versionStr
+                version = Misc.versionName
             }
         }
     }

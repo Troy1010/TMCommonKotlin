@@ -1,4 +1,4 @@
-// # tmcommonkotlin-rx
+// # tmcommonkotlin-rx2
 
 import com.tminus1010.tmcommonkotlin.Misc
 
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         minSdkVersion(Misc.minSDK)
         targetSdkVersion(Misc.targetSDK)
-        versionCode = Misc.versionCode
+        versionCode = 1
         versionName = Misc.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -29,8 +29,8 @@ android {
         getByName("release") {
             minifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -42,10 +42,8 @@ dependencies {
     // # JUnit
     testImplementation("junit:junit:4.13.2")
     // # Rx
-    api("io.reactivex.rxjava3:rxjava:3.0.7")
-    api("io.reactivex.rxjava3:rxandroid:3.0.0")
-    // ## Rx + Lifecycle
-    api("com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.0")
+    api("io.reactivex.rxjava2:rxjava:2.2.21")
+    api("io.reactivex.rxjava2:rxandroid:2.1.1")
     // # This Project
     api(project(":tmcommonkotlin-tuple"))
     api(project(":tmcommonkotlin-core"))
@@ -63,7 +61,7 @@ afterEvaluate {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Misc.groupId
-                artifactId = "tmcommonkotlin-rx"
+                artifactId = "tmcommonkotlin-rx2"
                 version = Misc.versionName
             }
         }
