@@ -221,6 +221,12 @@ val <T> Maybe<T>.value: T?
 // ### Lifecycle
 fun Completable.observe(
     lifecycle: LifecycleOwner,
+): Disposable =
+    bindToLifecycle(lifecycle)
+        .subscribe()
+
+fun Completable.observe(
+    lifecycle: LifecycleOwner,
     onComplete: () -> Unit,
 ): Disposable =
     bindToLifecycle(lifecycle)
@@ -238,6 +244,12 @@ fun Completable.observe(
             { onComplete() },
             { onError(it) })
 // ### Composite Disposable
+fun Completable.observe(
+    compositeDisposable: CompositeDisposable,
+): Disposable =
+    subscribe()
+        .also { compositeDisposable += it }
+
 fun Completable.observe(
     compositeDisposable: CompositeDisposable,
     onComplete: () -> Unit,

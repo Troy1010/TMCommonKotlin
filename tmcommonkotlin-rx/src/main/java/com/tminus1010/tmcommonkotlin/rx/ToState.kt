@@ -1,9 +1,11 @@
 package com.tminus1010.tmcommonkotlin.rx
 
 import com.tminus1010.tmcommonkotlin.rx.extensions.toSingle
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.subjects.Subject
 import java.util.concurrent.Semaphore
 
@@ -22,12 +24,13 @@ private class ToStateHelper<T> {
         return Observable.defer {
             semaphore.acquireUninterruptibly()
             (cache ?: source
+                .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext { cache = null; errorSubject.onNext(it); Observable.empty() }
-                .replay(1)
-                .also { compositeDisposable.add(it.connect()) }
+                .replay(1).refCount()
                 .also { cache = it })
                 .also { semaphore.release() }
         }
+            .also { compositeDisposable += it.subscribe({}, {}) }
     }
 }
 
