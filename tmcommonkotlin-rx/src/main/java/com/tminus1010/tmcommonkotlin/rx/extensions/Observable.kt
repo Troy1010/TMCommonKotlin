@@ -1,7 +1,9 @@
 package com.tminus1010.tmcommonkotlin.rx.extensions
 
+import com.tminus1010.tmcommonkotlin.core.logx
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableSource
+import io.reactivex.rxjava3.core.Single
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -49,3 +51,13 @@ fun <T> Observable<T>.timeoutOnce(duration: Long, timeUnit: TimeUnit, observable
             upstream.skip(1)
         )
     }
+
+/**
+ * Emits the first onNext().
+ */
+fun <T> Observable<T>.toSingle(): Single<T> =
+    Single.fromObservable(take(1))
+
+inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
+    doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }
+
