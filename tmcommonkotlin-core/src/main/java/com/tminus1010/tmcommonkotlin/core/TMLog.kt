@@ -10,8 +10,8 @@ inline fun <reified T> T.logx(prefix: Any? = null): T {
                 is Throwable -> Log.e("TMLog", "TM`${prefixLogStr}Error:", this)
                 else -> Log.d("TMLog", "TM`${prefixLogStr}$this")
             }
-        } catch (e2: java.lang.RuntimeException) {
-            if (e2.message?.matches(Regex(""".*in android.util.Log not mocked.*""")) ?: false)
+        } catch (e2: Throwable) {
+            if (e2.message?.matches(Regex(""".*android.util.Log.d.*""")) ?: false)
                 when (this) {
                     is Throwable -> println("TM`Error:${this.message}")
                     else -> println("TM`${prefixLogStr}$this")
