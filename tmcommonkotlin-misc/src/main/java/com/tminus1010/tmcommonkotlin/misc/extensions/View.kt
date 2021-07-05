@@ -11,3 +11,9 @@ fun View.easySetWidth(width: Int) =
 
 fun View.easyGetLayoutParams() =
     this.layoutParams ?: ViewGroup.LayoutParams(-1, -1).also { this.layoutParams = it }
+
+fun View.measureUnspecified() =
+    measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+
+fun View.measureExact() =
+    measure(View.MeasureSpec.EXACTLY, View.MeasureSpec.EXACTLY)
