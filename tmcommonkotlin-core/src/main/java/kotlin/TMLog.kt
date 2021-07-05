@@ -18,3 +18,6 @@ fun logz(any: Any?, e: Throwable? = null) {
         else throw e2
     }
 }
+
+fun logThread(prefix: Any?) =
+    logz("$prefix. Thread:${Thread.currentThread().name}")
