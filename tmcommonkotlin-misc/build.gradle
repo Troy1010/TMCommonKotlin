@@ -60,6 +60,8 @@ dependencies {
     implementation("commons-io:commons-io:2.8.0")
     // # This Project
     api(project(":tmcommonkotlin-core"))
+    // # Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
 }
 
 tasks.register("sourceJar", Jar) {
