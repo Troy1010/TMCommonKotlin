@@ -21,8 +21,8 @@ fun <T> Observable<T>.observe(
     lifecycle: LifecycleOwner,
     onNext: (T) -> Unit,
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe { onNext(it) }
 
 fun <T> Observable<T>.observe(
@@ -30,8 +30,8 @@ fun <T> Observable<T>.observe(
     onNext: (T) -> Unit,
     onError: (Throwable) -> Unit,
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe(
             { onNext(it) },
             { onError(it) })
@@ -42,8 +42,8 @@ fun <T> Observable<T>.observe(
     onError: (Throwable) -> Unit,
     onComplete: () -> Unit,
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe(
             { onNext(it) },
             { onError(it) },
@@ -53,8 +53,8 @@ fun <T> Observable<T>.observe(
     lifecycle: LifecycleOwner,
     observer: Observer<T>,
 ) {
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe(observer)
 }
 
@@ -107,8 +107,8 @@ fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe { it: T -> onSuccess(it) }
 
 fun <T> Single<T>.observe(
@@ -116,16 +116,16 @@ fun <T> Single<T>.observe(
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe({ onSuccess(it) }, { onError(it) })
 
 fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
     observer: SingleObserver<T>
 ) {
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe(observer)
 }
 // ### Composite Disposable
@@ -165,8 +165,8 @@ fun <T> Maybe<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe { it: T -> onSuccess(it) }
 
 fun <T> Maybe<T>.observe(
@@ -174,16 +174,16 @@ fun <T> Maybe<T>.observe(
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe({ onSuccess(it) }, { onError(it) })
 
 fun <T> Maybe<T>.observe(
     lifecycle: LifecycleOwner,
     observer: MaybeObserver<T>
 ) {
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe(observer)
 }
 // ### Composite Disposable
@@ -222,15 +222,16 @@ val <T> Maybe<T>.value: T?
 fun Completable.observe(
     lifecycle: LifecycleOwner,
 ): Disposable =
-    bindToLifecycle(lifecycle)
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe()
 
 fun Completable.observe(
     lifecycle: LifecycleOwner,
     onComplete: () -> Unit,
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe { onComplete() }
 
 fun Completable.observe(
@@ -238,8 +239,8 @@ fun Completable.observe(
     onComplete: () -> Unit,
     onError: (Throwable) -> Unit,
 ): Disposable =
-    bindToLifecycle(lifecycle)
-        .observeOn(AndroidSchedulers.mainThread())
+    observeOn(AndroidSchedulers.mainThread())
+        .bindToLifecycle(lifecycle)
         .subscribe(
             { onComplete() },
             { onError(it) })
