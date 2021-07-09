@@ -44,7 +44,6 @@ fun <T : Observable<BigDecimal>> Iterable<T>.total(): Observable<BigDecimal> {
                 .map { it.second - it.first }
         }
         .scan(BigDecimal.ZERO, BigDecimal::add)
-        .skip(1)
 }
 
 fun <T> Observable<T>.timeoutOnce(duration: Long, timeUnit: TimeUnit, observableSource: ObservableSource<T> = Observable.error(TimeoutException())): Observable<T> =
