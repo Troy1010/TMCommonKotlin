@@ -24,6 +24,9 @@ private class ReplayNonErrorHelper<T> {
         }
 }
 
+fun <T> Observable<T>.nonLazy() =
+    apply { subscribe({}, {}) }
+
 fun <T> Observable<T>.nonLazy(disposables: CompositeDisposable) =
     apply { disposables += subscribe({}, {}) }
 
@@ -43,6 +46,9 @@ private class CacheNonErrorHelper<T> {
                 .also { semaphore.release() }
         }
 }
+
+fun <T> Single<T>.nonLazy() =
+    apply { subscribe({}, {}) }
 
 fun <T> Single<T>.nonLazy(disposables: CompositeDisposable) =
     apply { disposables += subscribe({}, {}) }
