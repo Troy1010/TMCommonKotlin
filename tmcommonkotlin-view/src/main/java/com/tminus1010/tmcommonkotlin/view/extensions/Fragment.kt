@@ -8,7 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.tminus1010.tmcommonkotlin.view.createViewModelFactory
 
+@Deprecated("use easyToast")
 fun Fragment.toast(msg: String, lengthID: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), msg, lengthID).show()
+}
+
+fun Fragment.easyToast(msg: String, lengthID: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireContext(), msg, lengthID).show()
 }
 
