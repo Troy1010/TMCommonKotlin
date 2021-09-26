@@ -2,22 +2,21 @@ package com.tminus1010.tmcommonkotlin.core
 
 import android.util.Log
 
-const val TAG = "TMLog"
-
-fun logz(any: Any?, e: Throwable? = null) {
-    when (any) {
-        is Throwable -> Log.e(TAG, "TM`Error:", any)
-        else -> Log.d(TAG, "TM`$any", e)
-    }
-}
-
 inline fun <reified T> T.logx(prefix: Any? = null): T {
-    val logWithPrefix = { any:Any? ->
+    return this.apply {
         val prefixLogStr = prefix?.let { "$prefix`" } ?: ""
-        when (any) {
-            is Throwable -> Log.e(TAG, "TM`${prefixLogStr}Error:", any)
-            else -> Log.d(TAG, "TM`${prefixLogStr}$any")
+        try {
+            when (this) {
+                is Throwable -> Log.e("TMLog", "TM`${prefixLogStr}Error:", this)
+                else -> Log.d("TMLog", "TM`${prefixLogStr}$this")
+            }
+        } catch (e2: Throwable) {
+            if (e2.message?.matches(Regex(""".*android.util.Log.d.*""")) ?: false)
+                when (this) {
+                    is Throwable -> println("TM`Error:${this.message}")
+                    else -> println("TM`${prefixLogStr}$this")
+                }
+            else throw e2
         }
     }
-    return this.apply { logWithPrefix(this) }
 }

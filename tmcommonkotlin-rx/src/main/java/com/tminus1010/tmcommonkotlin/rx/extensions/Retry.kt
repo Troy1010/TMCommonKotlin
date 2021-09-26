@@ -9,11 +9,11 @@ import java.util.concurrent.TimeUnit
 /**
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Single<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
+fun <T> Single<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount = 0
         upstreamExceptions.flatMap { throwable ->
-            if (predicate(throwable) && retryCount++ < maxRetries)
+            if (predicate(throwable) && (maxRetries == null || retryCount++ < maxRetries))
                 Flowable.timer(delay, timeUnit)
             else
                 Flowable.error(throwable)
@@ -24,11 +24,11 @@ fun <T> Single<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: In
 /**
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun Completable.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int, predicate: ((Throwable) -> Boolean) = { true }): Completable {
+fun Completable.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Completable {
     return this.retryWhen { upstreamExceptions ->
         var retryCount = 0
         upstreamExceptions.flatMap { throwable ->
-            if (predicate(throwable) && retryCount++ < maxRetries)
+            if (predicate(throwable) && (maxRetries == null || retryCount++ < maxRetries))
                 Flowable.timer(delay, timeUnit)
             else
                 Flowable.error<Unit>(throwable)
@@ -39,11 +39,11 @@ fun Completable.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int,
 /**
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Observable<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
+fun <T> Observable<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount = 0
         upstreamExceptions.flatMap { throwable ->
-            if (predicate(throwable) && retryCount++ < maxRetries)
+            if (predicate(throwable) && (maxRetries == null || retryCount++ < maxRetries))
                 Observable.timer(delay, timeUnit)
             else
                 Observable.error(throwable)
@@ -58,15 +58,15 @@ fun <T> Observable<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries
  * @param maxRetries2 How many times do you want to retry with delay2?
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Single<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int = 1, maxRetries2:Int = 1, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
+fun <T> Single<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount1 = 0
         var retryCount2 = 0
         upstreamExceptions.flatMap { throwable ->
             val predicateResult = predicate(throwable)
-            if (predicateResult && retryCount1++ < maxRetries1)
+            if (predicateResult && (maxRetries1 == null || retryCount1++ < maxRetries1))
                 Flowable.timer(delay1, timeUnit1)
-            else if (predicateResult && retryCount2++ < maxRetries2)
+            else if (predicateResult && (maxRetries2 == null || retryCount2++ < maxRetries2))
                 Flowable.timer(delay2, timeUnit2)
             else
                 Flowable.error(throwable)
@@ -81,15 +81,15 @@ fun <T> Single<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Lo
  * @param maxRetries2 How many times do you want to retry with delay2?
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun Completable.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int = 1, maxRetries2:Int = 1, predicate: ((Throwable) -> Boolean) = { true }): Completable {
+fun Completable.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Completable {
     return this.retryWhen { upstreamExceptions ->
         var retryCount1 = 0
         var retryCount2 = 0
         upstreamExceptions.flatMap { throwable ->
             val predicateResult = predicate(throwable)
-            if (predicateResult && retryCount1++ < maxRetries1)
+            if (predicateResult && (maxRetries1 == null || retryCount1++ < maxRetries1))
                 Flowable.timer(delay1, timeUnit1)
-            else if (predicateResult && retryCount2++ < maxRetries2)
+            else if (predicateResult && (maxRetries2 == null || retryCount2++ < maxRetries2))
                 Flowable.timer(delay2, timeUnit2)
             else
                 Flowable.error(throwable)
@@ -104,15 +104,15 @@ fun Completable.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long
  * @param maxRetries2 How many times do you want to retry with delay2?
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Observable<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int = 1, maxRetries2:Int = 1, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
+fun <T> Observable<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount1 = 0
         var retryCount2 = 0
         upstreamExceptions.flatMap { throwable ->
             val predicateResult = predicate(throwable)
-            if (predicateResult && retryCount1++ < maxRetries1)
+            if (predicateResult && (maxRetries1 == null || retryCount1++ < maxRetries1))
                 Observable.timer(delay1, timeUnit1)
-            else if (predicateResult && retryCount2++ < maxRetries2)
+            else if (predicateResult && (maxRetries2 == null || retryCount2++ < maxRetries2))
                 Observable.timer(delay2, timeUnit2)
             else
                 Observable.error(throwable)

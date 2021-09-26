@@ -20,7 +20,14 @@ fun <T> Observable<T>.boxStartNull(): Observable<Box<T?>> {
         .startWithItem(Box(null))
 }
 
+@Deprecated("use filterNotNullBox", ReplaceWith("this.filterNotNullBox()"))
 fun <T> Observable<Box<T?>>.unbox(): Observable<T> {
+    return this
+        .filter { it.first != null }
+        .map { it.first!! }
+}
+
+fun <T> Observable<Box<T?>>.filterNotNullBox(): Observable<T> {
     return this
         .filter { it.first != null }
         .map { it.first!! }

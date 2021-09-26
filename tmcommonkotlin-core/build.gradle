@@ -16,6 +16,9 @@ android {
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
     compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
     kotlinOptions.jvmTarget = "1.8"
+    // Allows adding to the kotlin package
+    // This is useful for logz, b/c anything in the kotlin package is automatically imported everywhere.
+    kotlinOptions.freeCompilerArgs += "-Xallow-kotlin-package"
 
     defaultConfig {
         minSdkVersion(Misc.minSDK)
@@ -40,6 +43,7 @@ android {
 dependencies {
     // # Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+    implementation("androidx.annotation:annotation:1.2.0")
     // # JUnit
     testImplementation("junit:junit:4.13.2")
 }

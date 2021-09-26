@@ -1,5 +1,6 @@
 package com.tminus1010.tmcommonkotlin.misc
 
+import android.content.res.Resources
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
@@ -25,4 +26,12 @@ fun easySnackbar(
 
 fun generateUniqueID(): String {
     return UUID.randomUUID().toString().replace("-", "").toUpperCase()
+}
+
+fun getScreenWidth(): Int {
+    return Resources.getSystem().displayMetrics.widthPixels
+}
+
+fun getScreenHeight(): Int {
+    return Resources.getSystem().displayMetrics.heightPixels
 }

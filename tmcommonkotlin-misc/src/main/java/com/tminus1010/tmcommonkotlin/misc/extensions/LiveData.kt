@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.core.Observable
 
 suspend fun <T> MutableLiveData<T>.postValue(function: suspend () -> T) {
     val result = function()
@@ -20,3 +21,6 @@ fun <T> LiveData<T>.onlyNew(lifecycleOwner: LifecycleOwner): LiveData<T> {
         LiveDataReactiveStreams.fromPublisher(flowable)
     }
 }
+
+fun <T> LiveData<T>.toObservable(lifecycle: LifecycleOwner): Observable<T> =
+    Observable.fromPublisher(LiveDataReactiveStreams.toPublisher(lifecycle, this))

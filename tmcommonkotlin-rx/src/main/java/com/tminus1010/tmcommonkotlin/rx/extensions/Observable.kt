@@ -4,6 +4,7 @@ import com.tminus1010.tmcommonkotlin.core.logx
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableSource
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -34,6 +35,7 @@ fun <IN, OUT> Observable<IN>.emitIfTimeout(timespan: Long, timeUnit: TimeUnit, i
 
 fun <T : Observable<BigDecimal>> Iterable<T>.total(): Observable<BigDecimal> {
     return Observable.fromIterable(this)
+        .subscribeOn(Schedulers.computation())
         .flatMap {
             it
                 .startWithItem(BigDecimal.ZERO)
