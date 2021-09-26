@@ -13,7 +13,7 @@ fun Fragment.toast(msg: String, lengthID: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(requireContext(), msg, lengthID).show()
 }
 
-fun Fragment.easyToast(msg: String, lengthID: Int = Toast.LENGTH_SHORT) {
+fun Fragment.easyToast(msg: String, lengthID: Int = Toast.LENGTH_LONG) {
     Toast.makeText(requireContext(), msg, lengthID).show()
 }
 
