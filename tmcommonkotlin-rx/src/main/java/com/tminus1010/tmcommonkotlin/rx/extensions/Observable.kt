@@ -13,7 +13,7 @@ fun <T : Any> Observable<T>.pairwise(initialValue: T) = this.startWithItem(initi
 
 fun <T : Any> Observable<T>.pairwise(): Observable<Pair<T, T>> {
     return this
-        .compose {
+        .publish {
             it
                 .skip(1)
                 .zipWith(it) { a, b -> Pair(b, a) }
