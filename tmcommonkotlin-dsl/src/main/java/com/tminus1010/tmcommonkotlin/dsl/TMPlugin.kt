@@ -9,6 +9,10 @@ open class TMPlugin : Plugin<Project> {
         project.afterEvaluate {
             tasks.tryRegisterOrderedPair("clean", "assemble")
                 .configure { group = "build" }
+            tasks.tryRegisterOrderedPair("clean_assemble", "uninstallDebug")
+                .configure { group = "install" }
+            tasks.tryRegisterOrderedPair("clean_assemble_uninstallDebug", "installDebug")
+                .configure { group = "install" }
             if (tasks.contains("publishToMavenLocal"))
                 tasks.tryRegisterOrderedPair("assemble", "publishToMavenLocal")
                     .configure { group = "publishing" }
