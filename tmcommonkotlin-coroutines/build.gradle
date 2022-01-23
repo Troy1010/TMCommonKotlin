@@ -1,0 +1,72 @@
+// # tmcommonkotlin-coroutines
+
+import com.tminus1010.tmcommonkotlin.Misc
+
+plugins {
+    id("com.android.library")
+    id("kotlin-android")
+    id("maven-publish")
+}
+
+android {
+    compileSdkVersion(Misc.targetSDK)
+    buildToolsVersion = "30.0.3"
+
+    compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
+    compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
+    kotlinOptions.jvmTarget = "1.8"
+
+    defaultConfig {
+        minSdkVersion(Misc.minSDK)
+        targetSdkVersion(Misc.targetSDK)
+        versionCode = Misc.versionCode
+        versionName = Misc.versionName
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        getByName("release") {
+            minifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+}
+
+dependencies {
+    // # This Project
+    api(project(":tmcommonkotlin-core"))
+    // # Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+    // # JUnit
+    testImplementation("junit:junit:4.13.2")
+    // # Mockk
+    testImplementation("io.mockk:mockk:1.11.0")
+    // # Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt"
+    // ## Coroutine & Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+}
+
+
+tasks.register("sourceJar", Jar) {
+    from("src/main")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register("mavenPublication", MavenPublication) {
+                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
+                artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
+                groupId = Misc.groupId
+                artifactId = "tmcommonkotlin-coroutines"
+                version = Misc.versionName
+            }
+        }
+    }
+}
