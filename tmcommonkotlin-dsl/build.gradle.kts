@@ -1,6 +1,6 @@
 // # tmcommonkotlin-dsl
 
-import com.tminus1010.tmcommonkotlin.Misc
+import com.tminus1010.tmcommonkotlin.Shared
 
 plugins {
     `kotlin-dsl`
@@ -26,9 +26,9 @@ publishing {
     publications {
         create("pluginPublication", MavenPublication::class) {
             from(project.components["java"])
-            groupId = Misc.groupId
+            groupId = Shared.groupId
             artifactId = "tmcommonkotlin-dsl"
-            version = Misc.versionName
+            version = Shared.versionName
         }
     }
 }

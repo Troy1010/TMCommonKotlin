@@ -1,6 +1,6 @@
 // # tmcommonkotlin-core
 
-import com.tminus1010.tmcommonkotlin.Misc
+import com.tminus1010.tmcommonkotlin.Shared
 
 plugins {
     id("com.android.library")
@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Misc.targetSDK)
+    compileSdkVersion(Shared.targetSDK)
     buildToolsVersion = "30.0.3"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -21,10 +21,10 @@ android {
     kotlinOptions.freeCompilerArgs += "-Xallow-kotlin-package"
 
     defaultConfig {
-        minSdkVersion(Misc.minSDK)
-        targetSdkVersion(Misc.targetSDK)
+        minSdkVersion(Shared.minSDK)
+        targetSdkVersion(Shared.targetSDK)
         versionCode = 1
-        versionName = Misc.versionName
+        versionName = Shared.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,9 +58,9 @@ afterEvaluate {
             register("mavenPublication", MavenPublication) {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
-                groupId = Misc.groupId
+                groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-core"
-                version = Misc.versionName
+                version = Shared.versionName
             }
         }
     }
