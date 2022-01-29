@@ -7,6 +7,9 @@ import org.gradle.api.tasks.TaskProvider
 fun TaskContainer.getByPath(vararg taskNames: String) =
     taskNames.map { this.getByPath(it) }
 
+/**
+ * Returns a newly registered task, or a task that was already registered for the combined name.
+ */
 fun TaskContainer.tryRegisterOrderedPair(
     nameOfFirstTask: String,
     nameOfSecondTask: String
