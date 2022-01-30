@@ -9,6 +9,9 @@ fun TaskContainer.getByPath(vararg taskNames: String) =
 
 /**
  * Returns a newly registered task, or a task that was already registered for the combined name.
+ *
+ * Attempts to create a new task, which runs the first task and then the second.
+ * Unfortunately, when the first task has sub-tasks, it doesn't always work.
  */
 fun TaskContainer.tryRegisterOrderedPair(
     nameOfFirstTask: String,
