@@ -19,6 +19,10 @@ open class TMPlugin : Plugin<Project> {
             if (tasks.contains("publishToMavenLocal"))
                 tasks.tryRegisterOrderedPair("assemble", "publishToMavenLocal")
                     .configure { group = "publishing" }
+            tasks.register("assembleDebug2") {
+                group = "build"
+                dependsOn(tasks.named("assembleDebug"))
+            }
         }
     }
 }
