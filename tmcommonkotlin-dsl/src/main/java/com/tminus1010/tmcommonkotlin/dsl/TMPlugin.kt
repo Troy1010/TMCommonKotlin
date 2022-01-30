@@ -13,6 +13,9 @@ open class TMPlugin : Plugin<Project> {
                 .configure { group = "install" }
             tasks.tryRegisterOrderedPair("clean_assemble_uninstallDebug", "installDebug")
                 .configure { group = "install" }
+            tasks.tryRegisterOrderedPair("clean", "uninstallDebug")
+            tasks.tryRegisterOrderedPair("clean", "uninstallAll")
+            tasks.tryRegisterOrderedPair("clean_uninstallDebug", "assembleDebug")
             if (tasks.contains("publishToMavenLocal"))
                 tasks.tryRegisterOrderedPair("assemble", "publishToMavenLocal")
                     .configure { group = "publishing" }
