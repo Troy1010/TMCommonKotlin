@@ -11,7 +11,12 @@ fun TaskContainer.getByPath(vararg taskNames: String) =
  * Returns a newly registered task, or a task that was already registered for the combined name.
  *
  * Attempts to create a new task, which runs the first task and then the second.
- * Unfortunately, when the first task has sub-tasks, it doesn't always work.
+ *
+ * Unfortunately, when the first task has sub-tasks, it doesn't work. So, when chaining together lots of tasks, always chain from last to first.
+ *
+ * Alternatively, you can use setMustRunAfter() instead. It is a little more confusing, but it works better.
+ * Use laterTask.setMustRunAfter(tasks.named(earlierTask)), and then have a parent task depend on both.
+ * If earlierTask is not in the parent's dependencies, it will not be waited for, even with .setMustRunAfter().
  */
 fun TaskContainer.tryRegisterOrderedPair(
     nameOfFirstTask: String,
