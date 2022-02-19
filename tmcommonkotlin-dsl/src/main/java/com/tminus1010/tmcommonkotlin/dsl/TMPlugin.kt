@@ -23,6 +23,16 @@ open class TMPlugin : Plugin<Project> {
                 group = "build"
                 dependsOn(tasks.named("assembleDebug"))
             }
+            tasks.register("rebuildReinstall") {
+                description = "For debug and androidTest apks"
+                group = "other2"
+                dependsOn("clean", "installDebug", "installDebugAndroidTest")
+            }
+            tasks.register("rebuild") {
+                description = "For debug and androidTest apks"
+                group = "other2"
+                dependsOn("clean", "assembleDebug", "assembleDebugAndroidTest")
+            }
         }
     }
 }
