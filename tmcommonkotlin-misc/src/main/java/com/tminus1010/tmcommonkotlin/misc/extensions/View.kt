@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import com.tminus1010.tmcommonkotlin.rx.extensions.observe
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
@@ -44,3 +45,19 @@ var View.lifecycleOwner: LifecycleOwner?
     set(value) {
         setTag(androidx.lifecycle.runtime.R.id.view_tree_lifecycle_owner, value)
     }
+
+/**
+ * Experimental
+ */
+fun View.widthObservable(): Observable<Int> {
+    return Observable.create<Int> { downstream ->
+        val onLayoutChangeListener = View.OnLayoutChangeListener { _: View, left, _, right, _, _, _, _, _ ->
+            downstream.onNext(right - left)
+        }
+        downstream.onNext(right - left)
+        addOnLayoutChangeListener(onLayoutChangeListener)
+        downstream.setCancellable { removeOnLayoutChangeListener(onLayoutChangeListener) }
+    }.subscribeOn(AndroidSchedulers.mainThread()) // This might not be necessary
+        .filter { it != 0 } // I'm not sure why, but sometimes this emits 0
+        .distinctUntilChanged()
+}
