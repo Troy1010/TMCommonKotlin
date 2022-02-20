@@ -41,7 +41,7 @@ dependencies {
     api(project(":tmcommonkotlin-tuple"))
     api(project(":tmcommonkotlin-core"))
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.30")
     // # JUnit
     testImplementation("junit:junit:4.13.2")
     // # Mockk
@@ -70,6 +70,20 @@ afterEvaluate {
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-rx"
                 version = Shared.versionName
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        def group = ""
+                        if (it.group == "TMCommonKotlin")
+                            group = Shared.groupId
+                        else
+                            group = it.group
+                        dependencyNode.appendNode('groupId', group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
             }
         }
     }
