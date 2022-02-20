@@ -1,6 +1,5 @@
 package com.tminus1010.tmcommonkotlin.rx.extensions
 
-import com.tminus1010.tmcommonkotlin.core.logx
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableSource
 import io.reactivex.rxjava3.core.Single
