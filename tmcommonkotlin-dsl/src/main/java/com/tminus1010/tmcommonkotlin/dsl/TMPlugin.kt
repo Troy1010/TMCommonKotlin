@@ -28,6 +28,9 @@ open class TMPlugin : Plugin<Project> {
                 group = "other2"
                 dependsOn("clean", "installDebug", "installDebugAndroidTest")
             }
+            tasks.named("assembleDebug").configure {
+                mustRunAfter("clean")
+            }
             tasks.register("rebuild") {
                 description = "For debug and androidTest apks"
                 group = "other2"
