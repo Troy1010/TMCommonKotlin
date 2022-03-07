@@ -5,10 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
@@ -17,9 +14,9 @@ inline fun <reified T> Flow<T>.doLogx(prefix: String? = null): Flow<T> {
         .onCompletion { if (it == null) "Completed".logx(prefix) else logz("$prefix`Error:", it) }
 }
 
-inline fun <reified T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, crossinline lambda: suspend (T) -> Unit) {
+inline fun <reified T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, lifecycleState: Lifecycle.State = Lifecycle.State.STARTED, crossinline lambda: suspend (T) -> Unit) {
     lifecycleOwner.lifecycleScope.launch {
-        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        lifecycleOwner.repeatOnLifecycle(lifecycleState) {
             this@observe.collect { lambda(it) }
         }
     }
@@ -27,4 +24,8 @@ inline fun <reified T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, crossinli
 
 fun <T> Flow<T>.observe(coroutineScope: CoroutineScope, lambda: suspend (T) -> Unit) {
     coroutineScope.launch { this@observe.collect { lambda(it) } }
+}
+
+fun <T : Any> Flow<T>.pairwise(): Flow<Pair<T, T>> {
+    return zip(this.drop(1)) { a, b -> Pair(a, b) }
 }
