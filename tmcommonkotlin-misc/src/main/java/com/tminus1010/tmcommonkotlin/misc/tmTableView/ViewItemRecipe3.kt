@@ -3,6 +3,7 @@ package com.tminus1010.tmcommonkotlin.misc.tmTableView
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.tminus1010.tmcommonkotlin.misc.ExposedLifecycleOwner
 import com.tminus1010.tmcommonkotlin.misc.extensions.lifecycleOwner
@@ -13,8 +14,9 @@ import io.reactivex.rxjava3.core.Completable
 data class ViewItemRecipe3<VB : ViewBinding> constructor(
     private val context: Context,
     private val inflate: (LayoutInflater) -> VB,
+    private val inflate2: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
     private val styler: ((VB) -> Unit)? = null,
-    private val bind: ((VB) -> Unit)? = null,
+    private val _bind: ((VB) -> Unit)? = null,
 ) : IViewItemRecipe3 {
     override val intrinsicWidth: Int
         get() = createImpatientlyBoundView().apply { measureUnspecified() }.measuredWidth
@@ -41,15 +43,19 @@ data class ViewItemRecipe3<VB : ViewBinding> constructor(
         inflate(LayoutInflater.from(context))
             .also { styler?.also { styler -> styler(it) } }
 
+    override fun createVB(viewGroup: ViewGroup?): VB =
+        inflate2!!(LayoutInflater.from(context), viewGroup, false)
+            .also { styler?.also { styler -> styler(it) } }
+
     override fun createImpatientlyBoundView(): View =
         createVB().also { bindImpatiently(it) }.root
 
     @Suppress("UNCHECKED_CAST")
     override fun bind(vb: ViewBinding) {
         try {
-            this.bind?.also { it(vb as VB) }
+            _bind?.also { it(vb as VB) }
         } catch (e: android.util.AndroidRuntimeException) { // maybe mainThread is required
-            Completable.fromAction { this.bind?.also { it(vb as VB) } }
+            Completable.fromAction { _bind?.also { it(vb as VB) } }
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .blockingAwait()
         }
