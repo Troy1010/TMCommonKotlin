@@ -20,18 +20,24 @@ sealed class NativeText {
     }
 
     data class Plural(@PluralsRes val id: Int, val number: Int, val args: List<Any>) : NativeText() {
+        constructor(@PluralsRes id: Int, number: Int, vararg args: Any) : this(id, number, args.toList())
+
         override fun toCharSequence(context: Context): CharSequence {
             return context.resources.getQuantityString(id, number, *args.toTypedArray())
         }
     }
 
     data class Arguments(@StringRes val id: Int, val args: List<Any>) : NativeText() {
+        constructor(@StringRes id: Int, vararg args: Any) : this(id, args.toList())
+
         override fun toCharSequence(context: Context): CharSequence {
             return context.getString(id, *args.toTypedArray())
         }
     }
 
     data class Multi(val nativeTexts: List<NativeText>) : NativeText() {
+        constructor(vararg nativeTexts: NativeText) : this(nativeTexts.toList())
+
         override fun toCharSequence(context: Context): CharSequence {
             return StringBuilder()
                 .apply { nativeTexts.forEach { append(it.toCharSequence(context)) } }
