@@ -26,6 +26,10 @@ fun <T> Flow<T>.observe(coroutineScope: CoroutineScope, lambda: suspend (T) -> U
     coroutineScope.launch { this@observe.collect { lambda(it) } }
 }
 
+fun <T> Flow<T>.observe(coroutineScope: CoroutineScope) {
+    coroutineScope.launch { this@observe.collect { } }
+}
+
 fun <T> Flow<T>.pairwise(): Flow<Pair<T, T>> {
     return zip(this.drop(1)) { a, b -> Pair(a, b) }
 }
