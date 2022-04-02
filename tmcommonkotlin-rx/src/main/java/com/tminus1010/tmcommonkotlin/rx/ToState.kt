@@ -20,6 +20,9 @@ fun <T> Observable<T>.toState(compositeDisposable: CompositeDisposable, errorSub
 private class ToStateHelper<T> {
     private val semaphore = Semaphore(1)
     private var cache: Observable<T>? = null
+    // Using cacheOrSource so that, if an error occurs and the observable switches to empty, it will retry during the next subscription.
+    // However using the "next subscription" as the event for retrying is not necessarily a good idea.
+    // It might be better to be explicit about when to retry.
     fun cacheOrSource(source: Observable<T>, compositeDisposable: CompositeDisposable, errorSubject: Subject<Throwable>): Observable<T> {
         return Observable.defer {
             semaphore.acquireUninterruptibly()

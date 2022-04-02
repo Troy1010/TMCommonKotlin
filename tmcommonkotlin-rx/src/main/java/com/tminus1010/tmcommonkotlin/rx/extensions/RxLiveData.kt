@@ -1,7 +1,8 @@
 package com.tminus1010.tmcommonkotlin.rx.extensions
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.trello.rxlifecycle4.android.lifecycle.kotlin.bindToLifecycle
+import com.trello.rxlifecycle4.android.lifecycle.kotlin.bindUntilEvent
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -22,7 +23,16 @@ fun <T> Observable<T>.observe(
     onNext: (T) -> Unit,
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe { onNext(it) }
 
 fun <T> Observable<T>.observe(
@@ -31,7 +41,16 @@ fun <T> Observable<T>.observe(
     onError: (Throwable) -> Unit,
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe(
             { onNext(it) },
             { onError(it) })
@@ -43,7 +62,16 @@ fun <T> Observable<T>.observe(
     onComplete: () -> Unit,
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe(
             { onNext(it) },
             { onError(it) },
@@ -54,7 +82,16 @@ fun <T> Observable<T>.observe(
     observer: Observer<T>,
 ) {
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe(observer)
 }
 
@@ -107,27 +144,22 @@ fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit
 ): Disposable =
-    observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
-        .subscribe { it: T -> onSuccess(it) }
+    toMaybe().observe(lifecycle, onSuccess)
 
 fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
 ): Disposable =
-    observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
-        .subscribe({ onSuccess(it) }, { onError(it) })
+    toMaybe().observe(lifecycle, onSuccess, onError)
 
 fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
-    observer: SingleObserver<T>
+    observer: MaybeObserver<T>
 ) {
-    observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
-        .subscribe(observer)
+    toMaybe().observe(lifecycle, observer)
 }
+
 // ### Composite Disposable
 fun <T> Single<T>.observe(
     compositeDisposable: CompositeDisposable,
@@ -166,7 +198,16 @@ fun <T> Maybe<T>.observe(
     onSuccess: (T) -> Unit
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe { it: T -> onSuccess(it) }
 
 fun <T> Maybe<T>.observe(
@@ -175,7 +216,16 @@ fun <T> Maybe<T>.observe(
     onError: (Throwable) -> Unit
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe({ onSuccess(it) }, { onError(it) })
 
 fun <T> Maybe<T>.observe(
@@ -183,9 +233,19 @@ fun <T> Maybe<T>.observe(
     observer: MaybeObserver<T>
 ) {
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe(observer)
 }
+
 // ### Composite Disposable
 fun <T> Maybe<T>.observe(
     compositeDisposable: CompositeDisposable,
@@ -223,7 +283,16 @@ fun Completable.observe(
     lifecycle: LifecycleOwner,
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe()
 
 fun Completable.observe(
@@ -231,7 +300,16 @@ fun Completable.observe(
     onComplete: () -> Unit,
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe { onComplete() }
 
 fun Completable.observe(
@@ -240,10 +318,20 @@ fun Completable.observe(
     onError: (Throwable) -> Unit,
 ): Disposable =
     observeOn(AndroidSchedulers.mainThread())
-        .bindToLifecycle(lifecycle)
+        .bindUntilEvent(
+            lifecycle,
+            event = when (lifecycle.lifecycle.currentState) {
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
+                else -> Lifecycle.Event.ON_DESTROY
+            }
+        )
         .subscribe(
             { onComplete() },
             { onError(it) })
+
 // ### Composite Disposable
 fun Completable.observe(
     compositeDisposable: CompositeDisposable,

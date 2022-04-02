@@ -60,5 +60,5 @@ fun <T> Observable<T>.toSingle(): Single<T> =
     Single.fromObservable(take(1))
 
 inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
-    doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }
+    doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }.doOnDispose { "Disposed".logx(prefix) }
 
