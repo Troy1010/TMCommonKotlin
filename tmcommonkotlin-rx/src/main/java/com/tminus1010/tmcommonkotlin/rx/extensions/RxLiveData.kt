@@ -108,26 +108,20 @@ fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit
 ): Disposable =
-    observeOn(AndroidSchedulers.mainThread())
-        .bindUntilEvent(lifecycle, Lifecycle.Event.ON_DESTROY)
-        .subscribe { it: T -> onSuccess(it) }
+    toMaybe().observe(lifecycle, onSuccess)
 
 fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
 ): Disposable =
-    observeOn(AndroidSchedulers.mainThread())
-        .bindUntilEvent(lifecycle, Lifecycle.Event.ON_DESTROY)
-        .subscribe({ onSuccess(it) }, { onError(it) })
+    toMaybe().observe(lifecycle, onSuccess, onError)
 
 fun <T> Single<T>.observe(
     lifecycle: LifecycleOwner,
-    observer: SingleObserver<T>
+    observer: MaybeObserver<T>
 ) {
-    observeOn(AndroidSchedulers.mainThread())
-        .bindUntilEvent(lifecycle, Lifecycle.Event.ON_DESTROY)
-        .subscribe(observer)
+    toMaybe().observe(lifecycle, observer)
 }
 
 // ### Composite Disposable
