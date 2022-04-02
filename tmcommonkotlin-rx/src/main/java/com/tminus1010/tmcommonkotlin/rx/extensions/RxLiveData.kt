@@ -26,8 +26,10 @@ fun <T> Observable<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -42,8 +44,10 @@ fun <T> Observable<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -61,8 +65,10 @@ fun <T> Observable<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -79,8 +85,10 @@ fun <T> Observable<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -193,8 +201,10 @@ fun <T> Maybe<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -209,8 +219,10 @@ fun <T> Maybe<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -224,8 +236,10 @@ fun <T> Maybe<T>.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -272,8 +286,10 @@ fun Completable.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -287,8 +303,10 @@ fun Completable.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )
@@ -303,8 +321,10 @@ fun Completable.observe(
         .bindUntilEvent(
             lifecycle,
             event = when (lifecycle.lifecycle.currentState) {
-                Lifecycle.State.RESUMED -> Lifecycle.Event.ON_PAUSE
-                Lifecycle.State.STARTED -> Lifecycle.Event.ON_STOP
+                // confusingly, you are in STARTED state during onResume(). It only switches to RESUMED after onResume() is done.
+                Lifecycle.State.STARTED -> Lifecycle.Event.ON_PAUSE
+                // confusingly, you are in CREATED state during onStart(). It only switches to STARTED after onStart() is done.
+                Lifecycle.State.CREATED -> Lifecycle.Event.ON_STOP
                 else -> Lifecycle.Event.ON_DESTROY
             }
         )

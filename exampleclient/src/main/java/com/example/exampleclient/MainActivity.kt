@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.exampleclient.databinding.ActivityMainBinding
 import com.tminus1010.tmcommonkotlin.misc.extensions.bind
+import com.tminus1010.tmcommonkotlin.rx.extensions.doLogx
 import com.tminus1010.tmcommonkotlin.rx.extensions.observe
 import com.tminus1010.tmcommonkotlin.view.extensions.easyToast
 import io.reactivex.rxjava3.core.Observable
@@ -33,9 +34,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(vb.root)
         // # Events
-        ViewModel.navToChooseFile.observe(this) { launchChooseFile() }
+//        ViewModel.navToChooseFile.observe(this) { launchChooseFile() }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        logz("onStart")
         // # State
         vb.tv.bind(ViewModel.state) { text = it }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        logz("onStop")
     }
 
     override fun onDestroy() {
@@ -52,8 +63,8 @@ class MainActivity : AppCompatActivity() {
                 Observable.empty<String>().delay(15, TimeUnit.SECONDS),
             )
                 .repeat()
-                .doOnNext { logz("state:$it") }
                 .replay(1).autoConnect()
+                .doLogx("state")
         val navToChooseFile =
             Observable.just(Unit).delay(11, TimeUnit.SECONDS)
     }
