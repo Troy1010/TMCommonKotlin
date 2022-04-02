@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(vb.root)
         // # Events
-//        ViewModel.navToChooseFile.observe(this) { launchChooseFile() }
+        ViewModel.navToChooseFile.observe(this) { launchChooseFile() }
     }
 
     override fun onStart() {
