@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.tminus1010.tmcommonkotlin.androidx.extensions.children
+import com.tminus1010.tmcommonkotlin.androidx.extensions.clearItemDecorations
+import com.tminus1010.tmcommonkotlin.androidx.extensions.widthObservable
 import com.tminus1010.tmcommonkotlin.misc.Orientation
 import com.tminus1010.tmcommonkotlin.misc.databinding.TableviewBinding
-import com.tminus1010.tmcommonkotlin.misc.extensions.children
-import com.tminus1010.tmcommonkotlin.misc.extensions.clearItemDecorations
-import com.tminus1010.tmcommonkotlin.misc.extensions.widthObservable
 import com.tminus1010.tmcommonkotlin.rx.extensions.observe
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
