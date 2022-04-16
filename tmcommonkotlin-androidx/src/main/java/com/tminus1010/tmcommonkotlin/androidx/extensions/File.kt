@@ -10,7 +10,7 @@ import java.io.File
 fun File.toByteArray() = org.apache.commons.io.FileUtils.readFileToByteArray(this)
 
 @RequiresApi(Build.VERSION_CODES.Q)
-fun File.toUprightBitmap(): Bitmap {
+fun File.waitForBitmapAndSetUpright(): Bitmap {
     var bitmap: Bitmap? = null
     while (bitmap == null) bitmap = BitmapFactory.decodeFile(this.absolutePath)
     return when (ExifInterface(this).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
@@ -18,5 +18,5 @@ fun File.toUprightBitmap(): Bitmap {
         ExifInterface.ORIENTATION_ROTATE_180 -> bitmap.rotate(180f)
         ExifInterface.ORIENTATION_ROTATE_270 -> bitmap.rotate(270f)
         else -> bitmap
-    }!!
+    }
 }

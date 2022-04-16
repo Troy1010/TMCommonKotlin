@@ -1,9 +1,6 @@
 package com.tminus1010.exampleclient
 
 import android.Manifest
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
 import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
-import com.tminus1010.tmcommonkotlin.androidx.extensions.rotate
+import com.tminus1010.tmcommonkotlin.androidx.extensions.waitForBitmapAndSetUpright
 import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
 import com.tminus1010.tmcommonkotlin.misc.extensions.bind
 import com.tminus1010.tmcommonkotlin.view.extensions.easyToast
@@ -49,17 +46,6 @@ class MainActivity : AppCompatActivity() {
     private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
         if (it) runBlocking { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
-    }
-
-    fun File.waitForBitmapAndSetUpright(): Bitmap {
-        var bitmap: Bitmap? = null
-        while (bitmap == null) bitmap = BitmapFactory.decodeFile(this.absolutePath)
-        return when (ExifInterface(this).getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED)) {
-            ExifInterface.ORIENTATION_ROTATE_90 -> bitmap.rotate(90f)
-            ExifInterface.ORIENTATION_ROTATE_180 -> bitmap.rotate(180f)
-            ExifInterface.ORIENTATION_ROTATE_270 -> bitmap.rotate(270f)
-            else -> bitmap
-        }
     }
 
     private fun uriFromFile(file: File): Uri {
