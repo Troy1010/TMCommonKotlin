@@ -7,8 +7,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import java.io.File
 
-fun File.toByteArray() = org.apache.commons.io.FileUtils.readFileToByteArray(this)
-
 @RequiresApi(Build.VERSION_CODES.Q)
 fun File.waitForBitmapAndSetUpright(): Bitmap {
     var bitmap: Bitmap? = null
