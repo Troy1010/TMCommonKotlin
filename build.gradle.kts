@@ -9,13 +9,13 @@ allprojects {
 }
 
 subprojects {
-    if (tasks.names.contains("publishToMavenLocal"))
+    if (this.getTasksByName("publishToMavenLocal", true).isNotEmpty())
         tasks.register("easyPublishLocal") {
             group = "publishing"
             dependsOn("assemble")
             finalizedBy("publishToMavenLocal")
         }
-    if (tasks.names.contains("easyPublishLocal"))
+    if (this.getTasksByName("easyPublishLocal", true).isNotEmpty())
         tasks.register("easyCleanPublishLocal") {
             group = "publishing"
             dependsOn("clean")
