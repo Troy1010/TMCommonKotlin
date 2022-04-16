@@ -1,5 +1,3 @@
-// # tmcommonkotlin-rx2
-
 import com.tminus1010.tmcommonkotlin.Shared
 
 plugins {
