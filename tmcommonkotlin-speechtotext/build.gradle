@@ -30,6 +30,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    sourceSets {
+        main {
+            assets.srcDirs += "$buildDir/generated/assets"
+        }
+    }
 }
 
 // TODO: clean up
@@ -43,6 +48,13 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
     // ## Coroutine & Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    // ## Coroutines & Rx
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.6.0"
+
+    // # Vosk SpeechToText
+    implementation 'net.java.dev.jna:jna:5.8.0@aar'
+    implementation group: 'com.alphacephei', name: 'vosk-android', version: '0.3.32'
+//    implementation project(':models')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -52,6 +64,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
+tasks.register('genUUID') {
+    def uuid = UUID.randomUUID().toString()
+    def odir = file("$buildDir/generated/assets/model-en-us")
+    def ofile = file("$odir/uuid")
+    doLast {
+        mkdir odir
+        ofile.text = uuid
+    }
+}
+
+preBuild.dependsOn(genUUID)
 
 tasks.register("sourceJar", Jar) {
     from("src/main")
