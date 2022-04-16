@@ -5,11 +5,9 @@ import android.graphics.BitmapFactory
 import android.media.ExifInterface
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.tminus1010.tmcommonkotlin.androidx.extensions.rotate
 import java.io.File
 
 fun File.toByteArray() = org.apache.commons.io.FileUtils.readFileToByteArray(this)
-
 
 @RequiresApi(Build.VERSION_CODES.Q)
 fun File.toUprightBitmap(): Bitmap {

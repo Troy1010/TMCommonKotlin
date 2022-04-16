@@ -45,6 +45,7 @@ dependencies {
     implementation(project(":tmcommonkotlin-misc"))
     implementation(project(":tmcommonkotlin-imagetotext"))
     implementation(project(":tmcommonkotlin-coroutines"))
+    implementation(project(":tmcommonkotlin-androidx"))
 
     // # kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
