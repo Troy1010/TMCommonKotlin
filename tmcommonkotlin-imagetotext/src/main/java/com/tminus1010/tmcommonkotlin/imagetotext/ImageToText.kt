@@ -1,27 +1,27 @@
-package com.example.tmcommonkotlin.imagetotext
+package com.tminus1010.tmcommonkotlin.imagetotext
 
 import android.app.Application
 import android.graphics.Bitmap
+import com.googlecode.tesseract.android.TessBaseAPI
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.rx3.asFlow
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import com.googlecode.tesseract.android.TessBaseAPI
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.rx3.asFlow
 
 class ImageToText constructor(private val application: Application) {
     // TODO: Require 1 thread
-    suspend fun imageToString(bitmap: Bitmap): String? {
+    suspend operator fun invoke(bitmap: Bitmap): String? {
         return tesseract.first().apply { setImage(bitmap) }.utF8Text
     }
 
-    suspend fun imageToString(file: File): String? {
+    suspend operator fun invoke(file: File): String? {
         return tesseract.first().apply { setImage(file) }.utF8Text
     }
 

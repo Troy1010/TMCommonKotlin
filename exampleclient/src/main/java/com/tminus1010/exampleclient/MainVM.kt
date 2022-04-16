@@ -1,4 +1,4 @@
-package com.example.exampleclient
+package com.tminus1010.exampleclient
 
 import androidx.lifecycle.ViewModel
 import com.tminus1010.tmcommonkotlin.rx.extensions.doLogx
@@ -6,6 +6,7 @@ import io.reactivex.rxjava3.core.Observable
 import java.util.concurrent.TimeUnit
 
 class MainVM : ViewModel() {
+    // # State
     val number =
         Observable.merge(
             Observable.just("1"),

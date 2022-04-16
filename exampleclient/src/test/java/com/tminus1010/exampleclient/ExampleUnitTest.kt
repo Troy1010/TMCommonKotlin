@@ -1,4 +1,4 @@
-package com.example.exampleclient
+package com.tminus1010.exampleclient
 
 import org.junit.Test
 
