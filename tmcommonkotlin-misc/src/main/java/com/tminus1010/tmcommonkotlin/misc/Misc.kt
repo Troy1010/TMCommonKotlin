@@ -24,10 +24,6 @@ fun easySnackbar(
         .apply { show() }
 }
 
-fun generateUniqueID(): String {
-    return UUID.randomUUID().toString().replace("-", "").toUpperCase()
-}
-
 fun getScreenWidth(): Int {
     return Resources.getSystem().displayMetrics.widthPixels
 }
