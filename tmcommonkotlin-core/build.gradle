@@ -42,7 +42,7 @@ android {
 
 dependencies {
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.30")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
     implementation("androidx.annotation:annotation:1.2.0")
     // # JUnit
     testImplementation("junit:junit:4.13.2")

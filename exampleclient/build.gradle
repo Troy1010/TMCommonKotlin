@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    // # kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"
     implementation(project(":tmcommonkotlin-core"))
     implementation(project(":tmcommonkotlin-rx"))
     implementation(project(":tmcommonkotlin-view"))
