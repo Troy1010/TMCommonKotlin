@@ -47,7 +47,10 @@ class MainActivity : AppCompatActivity() {
 
     private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
-        if (it) ThrobberSharedVM.launch(lifecycleScope) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
+        if (it)
+            ThrobberSharedVM.launch(lifecycleScope) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
+        else
+            logz("No picture taken")
     }
 
     private fun uriFromFile(file: File): Uri {
