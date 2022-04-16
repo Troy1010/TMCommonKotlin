@@ -7,13 +7,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
 import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
 import com.tminus1010.tmcommonkotlin.androidx.extensions.waitForBitmapAndSetUpright
 import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
 import com.tminus1010.tmcommonkotlin.misc.extensions.bind
 import com.tminus1010.tmcommonkotlin.view.extensions.easyToast
-import kotlinx.coroutines.runBlocking
+import com.tminus1010.tmcommonkotlin.view.extensions.easyVisibility
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logz("!*!*! START")
         setContentView(vb.root)
     }
 
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         vb.buttonImagetotext.setOnClickListener { requestTakePicturePermissionResponseHandler.launch(Manifest.permission.CAMERA) }
         // # State
+        vb.frameProgressbar.bind(ThrobberSharedVM.isVisible) { easyVisibility = it }
         vb.tvNumber.bind(viewModel.number) { text = it }
     }
 
@@ -44,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
     private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
-        if (it) runBlocking { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
+        if (it) ThrobberSharedVM.launch(lifecycleScope) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
     }
 
     private fun uriFromFile(file: File): Uri {
