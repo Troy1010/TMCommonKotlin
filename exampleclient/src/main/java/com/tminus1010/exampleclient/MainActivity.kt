@@ -48,13 +48,12 @@ class MainActivity : AppCompatActivity() {
 
     private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
-        if (it) {
-            runBlocking { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()) }
-        }
+        if (it) runBlocking { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
     }
 
-    fun Bitmap.rotate(degrees: Float) =
-        Bitmap.createBitmap(this, 0, 0, width, height, Matrix().apply { postRotate(degrees) }, true)
+    fun Bitmap.rotate(degrees: Float): Bitmap {
+        return Bitmap.createBitmap(this, 0, 0, width, height, Matrix().apply { postRotate(degrees) }, true)
+    }
 
     fun File.waitForBitmapAndSetUpright(): Bitmap {
         var bitmap: Bitmap? = null
@@ -64,22 +63,14 @@ class MainActivity : AppCompatActivity() {
             ExifInterface.ORIENTATION_ROTATE_180 -> bitmap.rotate(180f)
             ExifInterface.ORIENTATION_ROTATE_270 -> bitmap.rotate(270f)
             else -> bitmap
-        }!!
+        }
     }
 
-    private fun createImageFile(): File {
-        return File.createTempFile(
-            "JPEG_${generateUniqueID()}_",
-            ".jpg",
-            getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!,
-        )
+    fun createImageFile(): File {
+        return File.createTempFile("JPEG_${generateUniqueID()}_", ".jpg", getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!)
     }
 
     private fun uriFromFile(file: File): Uri {
-        return FileProvider.getUriForFile(
-            this,
-            "com.tminus1010.budgetvalue.provider",
-            file,
-        )
+        return FileProvider.getUriForFile(this, "com.tminus1010.exampleclient.provider", file)
     }
 }
