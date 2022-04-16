@@ -22,6 +22,14 @@ inline fun <reified T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, lifecycle
     }
 }
 
+fun <T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, lifecycleState: Lifecycle.State = Lifecycle.State.STARTED) {
+    lifecycleOwner.lifecycleScope.launch {
+        lifecycleOwner.repeatOnLifecycle(lifecycleState) {
+            this@observe.collect()
+        }
+    }
+}
+
 fun <T> Flow<T>.observe(coroutineScope: CoroutineScope, lambda: suspend (T) -> Unit) {
     coroutineScope.launch { this@observe.collect { lambda(it) } }
 }
