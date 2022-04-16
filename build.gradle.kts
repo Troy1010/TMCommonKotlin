@@ -2,7 +2,8 @@
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        google()
         maven { url = uri("https://jitpack.io") }
     }
 }
@@ -22,6 +23,7 @@ subprojects {
             description = "Do not use in main project"
         }
 }
+
 // # easyCleanPublishLocal will stall forever if run by root project
 tasks.register("easyCleanPublishLocal") { enabled = false }
 tasks.register("easyCleanPublishLocalForAll") {
