@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         vb.buttonImagetotext.setOnClickListener { requestTakePicturePermissionResponseHandler.launch(Manifest.permission.CAMERA) }
-        vb.buttonPrerecordedSpeechToText.setOnClickListener { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText").let { ThrobberSharedVM.decorate(it) }.observe(GlobalScope) }
+        vb.buttonPrerecordedSpeechToText.setOnClickListener { ThrobberSharedVM.launch(GlobalScope) { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText") } }
         // # State
         vb.frameProgressbar.bind(ThrobberSharedVM.isVisible) { easyVisibility = it }
         vb.tvNumber.bind(viewModel.number) { text = it }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
         if (it)
-            ThrobberSharedVM.launch(lifecycleScope) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
+            ThrobberSharedVM.launch(GlobalScope) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
         else
             logz("No picture taken")
     }
