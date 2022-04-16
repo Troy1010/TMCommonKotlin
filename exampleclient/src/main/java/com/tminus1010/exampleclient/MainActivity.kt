@@ -19,7 +19,6 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
     private val vb by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val viewModel by viewModels<MainVM>()
-    private var latestImageFile: File? = null
     private val imageToText by lazy { ImageToText(application) }
     private val createImageFile by lazy { CreateImageFile(application) }
 
@@ -50,5 +49,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun uriFromFile(file: File): Uri {
         return FileProvider.getUriForFile(this, "com.tminus1010.exampleclient.provider", file)
+    }
+
+    companion object {
+        private var latestImageFile: File? = null
     }
 }
