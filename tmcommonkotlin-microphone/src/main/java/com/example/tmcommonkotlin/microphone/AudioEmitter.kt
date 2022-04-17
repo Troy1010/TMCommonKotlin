@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
  * It is from: https://github.com/GoogleCloudPlatform/android-docs-samples
  */
 @RequiresApi(Build.VERSION_CODES.M) // AudioRecord requires SDK 23+
-class AudioEmitter(private val partialAudioFormat: PartialAudioFormat) {
+class AudioEmitter(val partialAudioFormat: PartialAudioFormat) {
     private var mAudioRecorder: AudioRecord? = null
     private var mAudioExecutor: ScheduledExecutorService? = null
     private lateinit var mBuffer: ByteArray

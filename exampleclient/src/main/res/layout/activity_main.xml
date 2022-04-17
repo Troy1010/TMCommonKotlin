@@ -47,6 +47,13 @@
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <Button
+        android:id="@+id/buttonMicrophone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Microphone"
+        app:layout_constraintBottom_toTopOf="@id/buttonPrerecordedSpeechToText" />
+
+    <Button
         android:id="@+id/buttonPrerecordedSpeechToText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

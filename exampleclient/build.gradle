@@ -47,6 +47,7 @@ dependencies {
     implementation(project(":tmcommonkotlin-coroutines"))
     implementation(project(":tmcommonkotlin-androidx"))
     implementation(project(":tmcommonkotlin-speechtotext"))
+    implementation(project(":tmcommonkotlin-microphone"))
 
     // # kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.10"

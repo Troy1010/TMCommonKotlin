@@ -1,19 +1,23 @@
 package com.tminus1010.exampleclient
 
 import android.Manifest
+import android.media.AudioFormat
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.lifecycle.lifecycleScope
+import com.example.tmcommonkotlin.microphone.AudioEmitter
+import com.example.tmcommonkotlin.microphone.OpenMicrophoneToTempFileAndPlayback
+import com.example.tmcommonkotlin.microphone.PartialAudioFormat
+import com.example.tmcommonkotlin.microphone.PlayAudioUtil
 import com.example.tmcommonkotlin.speechtotext.SpeechToText
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
+import com.tminus1010.exampleclient.extensions.throbberLaunch
 import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
 import com.tminus1010.tmcommonkotlin.androidx.extensions.waitForBitmapAndSetUpright
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.doLogx
-import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
 import com.tminus1010.tmcommonkotlin.misc.extensions.bind
 import com.tminus1010.tmcommonkotlin.view.extensions.easyToast
@@ -27,6 +31,9 @@ class MainActivity : AppCompatActivity() {
     private val imageToText by lazy { ImageToText(application) }
     private val speechToText by lazy { SpeechToText(application) }
     private val createImageFile by lazy { CreateImageFile(application) }
+    private val openMicrophoneToTempFileAndPlayback by lazy {
+        OpenMicrophoneToTempFileAndPlayback(application, AudioEmitter(PartialAudioFormat(sampleRate = 96000, encoding = AudioFormat.ENCODING_PCM_16BIT)), PlayAudioUtil())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +43,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         vb.buttonImagetotext.setOnClickListener { requestTakePicturePermissionResponseHandler.launch(Manifest.permission.CAMERA) }
-        vb.buttonPrerecordedSpeechToText.setOnClickListener { ThrobberSharedVM.launch(GlobalScope) { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText") } }
+        vb.buttonPrerecordedSpeechToText.setOnClickListener { GlobalScope.throbberLaunch { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText") } }
+        vb.buttonMicrophone.setOnClickListener { GlobalScope.throbberLaunch { openMicrophoneToTempFileAndPlayback() } }
         // # State
         vb.frameProgressbar.bind(ThrobberSharedVM.isVisible) { easyVisibility = it }
         vb.tvNumber.bind(viewModel.number) { text = it }
@@ -53,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
         if (it)
-            ThrobberSharedVM.launch(GlobalScope) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
+            GlobalScope.throbberLaunch { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
         else
             logz("No picture taken")
     }
