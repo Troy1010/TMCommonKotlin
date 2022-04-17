@@ -42,28 +42,36 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        vb.buttonImagetotext.setOnClickListener { requestTakePicturePermissionResponseHandler.launch(Manifest.permission.CAMERA) }
+        vb.buttonImagetotext.setOnClickListener { handlerAskTakePicture.launch(Manifest.permission.CAMERA) }
         vb.buttonPrerecordedSpeechToText.setOnClickListener { GlobalScope.throbberLaunch { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText") } }
-        vb.buttonMicrophone.setOnClickListener { GlobalScope.throbberLaunch { openMicrophoneToTempFileAndPlayback() } }
+        vb.buttonMicrophone.setOnClickListener { handlerAskRecordAudio.launch(Manifest.permission.RECORD_AUDIO) }
         // # State
         vb.frameProgressbar.bind(ThrobberSharedVM.isVisible) { easyVisibility = it }
         vb.tvNumber.bind(viewModel.number) { text = it }
     }
 
-    private val requestTakePicturePermissionResponseHandler = registerForActivityResult(ActivityResultContracts.RequestPermission())
+    private val handlerAskTakePicture = registerForActivityResult(ActivityResultContracts.RequestPermission())
     {
         if (it)
-            takePictureForImageToTextResponseHandler.launch(uriFromFile(createImageFile().also { latestImageFile = it }))
+            handlerTakePicture.launch(uriFromFile(createImageFile().also { latestImageFile = it }))
         else
             easyToast("Camera permission is required for this feature")
     }
 
-    private val takePictureForImageToTextResponseHandler = registerForActivityResult(ActivityResultContracts.TakePicture())
+    private val handlerTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
         if (it)
             GlobalScope.throbberLaunch { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
         else
             logz("No picture taken")
+    }
+
+    private val handlerAskRecordAudio = registerForActivityResult(ActivityResultContracts.RequestPermission())
+    {
+        if (it)
+            GlobalScope.throbberLaunch { openMicrophoneToTempFileAndPlayback() }
+        else
+            easyToast("Microphone permission is required for this feature")
     }
 
     private fun uriFromFile(file: File): Uri {

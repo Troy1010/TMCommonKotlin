@@ -63,7 +63,7 @@ class AudioEmitter(val partialAudioFormat: PartialAudioFormat) {
         mAudioExecutor!!.scheduleAtFixedRate({
             // read audio data
             val read = mAudioRecorder!!.read(mBuffer, 0, mBuffer.size, AudioRecord.READ_BLOCKING)
-            logz("AudioChunk as buffer:${mBuffer.toLogStr()}")
+//            logz("AudioChunk as buffer:${mBuffer.toLogStr()}")
 
             // send next chunk
             if (read > 0) {
