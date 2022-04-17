@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Observable
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-class OpenMicrophoneToTempFileAndPlayback(
+class OpenMicAndPlayback(
     private val application: Application,
     private val audioEmitter: AudioEmitter,
     private val playAudioUtil: PlayAudioUtil,

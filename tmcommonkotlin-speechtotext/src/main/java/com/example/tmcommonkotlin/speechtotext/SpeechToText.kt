@@ -44,7 +44,7 @@ class SpeechToText(private val application: Application) {
                 )
             }
             .flatMapMerge {
-                val results = MutableSharedFlow<Any>()
+                val results = MutableSharedFlow<SpeechToTextResult>()
                 it.start(object : RecognitionListener {
                     override fun onPartialResult(hypothesis: String) {
                         runBlocking { results.emit(SpeechToTextResult.SoFar(hypothesis)) }

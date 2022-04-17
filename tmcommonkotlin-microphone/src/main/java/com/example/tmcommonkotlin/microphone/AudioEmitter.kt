@@ -7,7 +7,6 @@ import android.media.MediaRecorder
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.tmcommonkotlin.microphone.extensions.getAudioRecordMinBufferSize
-import com.example.tmcommonkotlin.microphone.extensions.toLogStr
 import com.google.protobuf.ByteString
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.PublishSubject

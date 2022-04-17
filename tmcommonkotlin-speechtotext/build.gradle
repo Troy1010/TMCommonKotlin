@@ -42,6 +42,7 @@ dependencies {
     // # TMCommonKotlin
     implementation(project(":tmcommonkotlin-core"))
     implementation(project(":tmcommonkotlin-coroutines"))
+    implementation(project(":tmcommonkotlin-microphone"))
 
     // # Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
@@ -54,7 +55,6 @@ dependencies {
     // # Vosk SpeechToText
     implementation 'net.java.dev.jna:jna:5.8.0@aar'
     implementation group: 'com.alphacephei', name: 'vosk-android', version: '0.3.32'
-//    implementation project(':models')
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'

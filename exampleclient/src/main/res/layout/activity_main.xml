@@ -42,15 +42,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Hello World!"
+        android:textSize="22sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <Button
-        android:id="@+id/buttonMicrophone"
+        android:id="@+id/buttonOpenMicForSpeechToText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Microphone"
+        android:text="Open Microphone For SpeechToText"
+        app:layout_constraintBottom_toTopOf="@id/buttonOpenMicAndPlayback" />
+
+    <Button
+        android:id="@+id/buttonOpenMicAndPlayback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Microphone And Playback"
         app:layout_constraintBottom_toTopOf="@id/buttonPrerecordedSpeechToText" />
 
     <Button
