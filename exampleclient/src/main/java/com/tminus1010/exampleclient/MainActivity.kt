@@ -1,7 +1,6 @@
 package com.tminus1010.exampleclient
 
 import android.Manifest
-import android.media.AudioFormat
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.example.tmcommonkotlin.microphone.AudioEmitter
 import com.example.tmcommonkotlin.microphone.OpenMicrophoneToTempFileAndPlayback
-import com.example.tmcommonkotlin.microphone.PartialAudioFormat
 import com.example.tmcommonkotlin.microphone.PlayAudioUtil
+import com.example.tmcommonkotlin.microphone.extensions.getPartialAudioFormatFromMicrophone
 import com.example.tmcommonkotlin.speechtotext.SpeechToText
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
 import com.tminus1010.exampleclient.extensions.throbberLaunch
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private val speechToText by lazy { SpeechToText(application) }
     private val createImageFile by lazy { CreateImageFile(application) }
     private val openMicrophoneToTempFileAndPlayback by lazy {
-        OpenMicrophoneToTempFileAndPlayback(application, AudioEmitter(PartialAudioFormat(sampleRate = 96000, encoding = AudioFormat.ENCODING_PCM_16BIT)), PlayAudioUtil())
+        OpenMicrophoneToTempFileAndPlayback(application, AudioEmitter(application.getPartialAudioFormatFromMicrophone()), PlayAudioUtil())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
