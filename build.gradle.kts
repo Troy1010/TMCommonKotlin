@@ -1,20 +1,21 @@
 // # Root Project
-
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        google()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 subprojects {
-    if (tasks.names.contains("publishToMavenLocal"))
+    if (this.getTasksByName("publishToMavenLocal", true).isNotEmpty())
         tasks.register("easyPublishLocal") {
             group = "publishing"
             dependsOn("assemble")
             finalizedBy("publishToMavenLocal")
         }
-    if (tasks.names.contains("easyPublishLocal"))
+    if (this.getTasksByName("easyPublishLocal", true).isNotEmpty())
         tasks.register("easyCleanPublishLocal") {
             group = "publishing"
             dependsOn("clean")
@@ -22,6 +23,7 @@ subprojects {
             description = "Do not use in main project"
         }
 }
+
 // # easyCleanPublishLocal will stall forever if run by root project
 tasks.register("easyCleanPublishLocal") { enabled = false }
 tasks.register("easyCleanPublishLocalForAll") {

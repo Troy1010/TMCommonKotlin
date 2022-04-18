@@ -1,5 +1,3 @@
-// # tmcommonkotlin-tuple
-
 import com.tminus1010.tmcommonkotlin.Shared
 
 plugins {
@@ -38,7 +36,7 @@ android {
 
 dependencies {
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.30")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
 }
 
 

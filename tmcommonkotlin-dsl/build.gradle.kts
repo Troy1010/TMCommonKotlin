@@ -1,5 +1,3 @@
-// # tmcommonkotlin-dsl
-
 import com.tminus1010.tmcommonkotlin.Shared
 
 plugins {

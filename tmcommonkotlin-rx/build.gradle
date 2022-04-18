@@ -1,5 +1,3 @@
-// # tmcommonkotlin-rx
-
 import com.tminus1010.tmcommonkotlin.Shared
 
 plugins {
@@ -41,7 +39,7 @@ dependencies {
     api(project(":tmcommonkotlin-tuple"))
     api(project(":tmcommonkotlin-core"))
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.30")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
     // # JUnit
     testImplementation("junit:junit:4.13.2")
     // # Mockk

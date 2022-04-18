@@ -6,14 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/frame_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="10dp"
+        tools:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:background="#000" />
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Example Client"
+        android:textSize="42sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="22sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <Button
+        android:id="@+id/buttonOpenMicForSpeechToText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Microphone For SpeechToText"
+        app:layout_constraintBottom_toTopOf="@id/buttonOpenMicAndPlayback" />
+
+    <Button
+        android:id="@+id/buttonOpenMicAndPlayback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Microphone And Playback"
+        app:layout_constraintBottom_toTopOf="@id/buttonPrerecordedSpeechToText" />
+
+    <Button
+        android:id="@+id/buttonPrerecordedSpeechToText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Prerecorded Speech To Text"
+        app:layout_constraintBottom_toTopOf="@id/buttonImagetotext" />
+
+    <Button
+        android:id="@+id/buttonImagetotext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Image To Text"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
