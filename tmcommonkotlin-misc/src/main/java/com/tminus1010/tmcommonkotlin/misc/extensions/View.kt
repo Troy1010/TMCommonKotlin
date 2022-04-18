@@ -4,7 +4,7 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
-import com.tminus1010.tmcommonkotlin.rx.extensions.observe
+import com.tminus1010.tmcommonkotlin.rx3.extensions.observe
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 

@@ -1,5 +1,5 @@
 rootProject.name="TMCommonKotlin"
-include(":tmcommonkotlin-rx")
+include(":tmcommonkotlin-rx3")
 include(":tmcommonkotlin-tuple")
 include(":tmcommonkotlin-misc")
 include(":tmcommonkotlin-view")
