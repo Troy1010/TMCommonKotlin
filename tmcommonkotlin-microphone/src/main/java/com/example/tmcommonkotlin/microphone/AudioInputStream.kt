@@ -10,7 +10,8 @@ import java.io.IOException
 import java.io.InputStream
 
 /**
- * Recording starts on construction
+ * Microphone opens on construction.
+ * Microphone closes on .close()
  */
 class AudioInputStream(
     val sampleRate: Int,
