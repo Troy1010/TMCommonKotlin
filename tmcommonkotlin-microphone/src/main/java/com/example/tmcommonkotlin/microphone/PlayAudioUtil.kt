@@ -10,7 +10,7 @@ import java.io.FileInputStream
 
 
 class PlayAudioUtil {
-    private fun playBytes(file: File, partialAudioFormat: PartialAudioFormat) {
+    fun playBytes(file: File, partialAudioFormat: PartialAudioFormat) {
         val audioFormat =
             AudioFormat.Builder()
                 .setEncoding(partialAudioFormat.encoding)
@@ -34,8 +34,8 @@ class PlayAudioUtil {
         val inputStream = FileInputStream(file)
         val audioData = ByteArray(audioFormat.getAudioTrackMinBufferSize())
         var dataSize = 0
-        while(dataSize != -1) {
-            audioTrack.write(audioData,0, dataSize)
+        while (dataSize != -1) {
+            audioTrack.write(audioData, 0, dataSize)
             dataSize = inputStream.read(audioData)
         }
         audioTrack.stop()

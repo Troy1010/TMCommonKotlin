@@ -8,23 +8,16 @@ import java.util.concurrent.TimeUnit
 
 class OpenMicAndPlayback(
     private val application: Application,
-    private val audioEmitter: AudioEmitter,
-    private val playAudioUtil: PlayAudioUtil,
+    private val playAudioUtil: PlayAudioUtil = PlayAudioUtil(),
 ) {
-    suspend operator fun invoke() {
+    suspend operator fun invoke(closeMicSignal: Observable<Unit>) {
         val tempFile = File.createTempFile(generateUniqueID(), ".file", application.cacheDir).apply { deleteOnExit() }
-        audioEmitter.recordObservable(Observable.just(Unit).delay(3, TimeUnit.SECONDS))
-            .doOnNext {
-                if (it is AudioEmitterResult.AudioChunk)
-                    tempFile.appendBytes(it.byteString.toByteArray())
-            }
-            .filter { it is AudioEmitterResult.End }.take(1)
-            .doOnNext { logz("Record done") }
-            .flatMap {
-                logz("Playback start")
-                playAudioUtil.playBytesObservable(tempFile, audioEmitter.partialAudioFormat)
-                    .doOnNext { logz("Playback done") }
-            }
-            .blockingSubscribe()
+        logz("Recording start")
+        val audioInputStream = AudioInputStream(application)
+        closeMicSignal.take(1).subscribe { audioInputStream.close() }
+        tempFile.appendBytes(audioInputStream.readBytes())
+        logz("Playback start")
+        playAudioUtil.playBytes(tempFile, PartialAudioFormat(audioInputStream.encoding, audioInputStream.sampleRate))
+        logz("Playback done")
     }
 }

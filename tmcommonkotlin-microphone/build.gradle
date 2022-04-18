@@ -37,6 +37,7 @@ dependencies {
     // # TMCommonKotlin
     implementation(project(":tmcommonkotlin-core"))
     implementation(project(":tmcommonkotlin-rx"))
+    implementation(project(":tmcommonkotlin-coroutines"))
     // # Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt"
