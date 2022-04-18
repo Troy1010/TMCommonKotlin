@@ -4,11 +4,10 @@ import android.app.Application
 import com.tminus1010.tmcommonkotlin.core.generateUniqueID
 import io.reactivex.rxjava3.core.Observable
 import java.io.File
-import java.util.concurrent.TimeUnit
 
 class OpenMicAndPlayback(
     private val application: Application,
-    private val playAudioUtil: PlayAudioUtil = PlayAudioUtil(),
+    private val playAudioFile: PlayAudioFile = PlayAudioFile(),
 ) {
     suspend operator fun invoke(closeMicSignal: Observable<Unit>) {
         val tempFile = File.createTempFile(generateUniqueID(), ".file", application.cacheDir).apply { deleteOnExit() }
@@ -17,7 +16,7 @@ class OpenMicAndPlayback(
         closeMicSignal.take(1).subscribe { audioInputStream.close() }
         tempFile.appendBytes(audioInputStream.readBytes())
         logz("Playback start")
-        playAudioUtil.playBytes(tempFile, PartialAudioFormat(audioInputStream.encoding, audioInputStream.sampleRate))
+        playAudioFile(tempFile, PartialAudioFormat(audioInputStream.encoding, audioInputStream.sampleRate))
         logz("Playback done")
     }
 }
