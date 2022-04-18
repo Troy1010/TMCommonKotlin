@@ -42,7 +42,7 @@ android {
 dependencies {
     // # This Project
     implementation(project(":tmcommonkotlin-core"))
-    api(project(":tmcommonkotlin-rx"))
+    api(project(":tmcommonkotlin-rx3"))
     implementation(project(":tmcommonkotlin-coroutines"))
     // # Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")

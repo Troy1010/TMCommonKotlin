@@ -16,7 +16,7 @@ import com.tminus1010.tmcommonkotlin.androidx.extensions.clearItemDecorations
 import com.tminus1010.tmcommonkotlin.androidx.extensions.widthObservable
 import com.tminus1010.tmcommonkotlin.misc.Orientation
 import com.tminus1010.tmcommonkotlin.misc.databinding.TableviewBinding
-import com.tminus1010.tmcommonkotlin.rx.extensions.observe
+import com.tminus1010.tmcommonkotlin.rx3.extensions.observe
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import java.util.concurrent.TimeUnit
