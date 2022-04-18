@@ -8,6 +8,9 @@ import com.example.tmcommonkotlin.microphone.extensions.getAudioTrackMinBufferSi
 import java.io.File
 import java.io.FileInputStream
 
+/**
+ * Plays a file which is just audio bytes, not mp3.
+ */
 class PlayAudioFile {
     operator fun invoke(file: File, partialAudioFormat: PartialAudioFormat) {
         val audioFormat =
@@ -27,8 +30,7 @@ class PlayAudioFile {
                 .setBufferSizeInBytes(audioFormat.getAudioTrackMinBufferSize())
                 .setTransferMode(AudioTrack.MODE_STREAM)
                 .build()
-        // * MODE_STREAM means that play() does not play, it simply opens the stream.
-        audioTrack.play()
+        audioTrack.play() // MODE_STREAM means that play() does not play, it just opens the stream.
 
         val inputStream = FileInputStream(file)
         val audioData = ByteArray(audioFormat.getAudioTrackMinBufferSize())
