@@ -3,6 +3,7 @@ package com.tminus1010.tmcommonkotlin.androidx
 import android.app.Activity
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import com.tminus1010.tmcommonkotlin.androidx.extensions.easyGetLayoutParams
 import com.tminus1010.tmcommonkotlin.view.NativeText
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -17,6 +18,7 @@ class ShowAlertDialog constructor(private val activity: Activity) {
     suspend operator fun invoke(body: NativeText, initialText: CharSequence? = null, onSubmitText: ((CharSequence?) -> Unit)? = null, onNo: (() -> Unit)? = null) = suspendCoroutine<Unit> { downstream ->
         launchOnMainThread {
             val editText = EditText(activity)
+            editText.easyGetLayoutParams()
             editText.setText(initialText)
             AlertDialog.Builder(activity)
                 .setMessage(body.toCharSequence(activity))
