@@ -1,10 +1,12 @@
+import com.tminus1010.tmcommonkotlin.Shared
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 31
+    compileSdk = Shared.targetSDK
 
     defaultConfig {
         applicationId "com.tminus1010.exampleclient"
