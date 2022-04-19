@@ -7,6 +7,12 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.*
 
+val fnName
+    get() = Throwable().stackTrace[1].methodName
+
+fun getFnName(level: Int = 1) {
+    Throwable().stackTrace[level].methodName
+}
 
 fun getToday() : String {
     return SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().time).toString()
