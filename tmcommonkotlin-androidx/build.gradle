@@ -54,15 +54,6 @@ dependencies {
     // # Rx
     api("io.reactivex.rxjava3:rxjava:3.0.7")
     api("io.reactivex.rxjava3:rxandroid:3.0.0")
-    // ## Rx+LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.3.0")
-    // # Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
-    // # Apache Commons
-    implementation("commons-io:commons-io:2.8.0")
-    // # Moshi
-    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
     // # Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
     // # ViewBinding
