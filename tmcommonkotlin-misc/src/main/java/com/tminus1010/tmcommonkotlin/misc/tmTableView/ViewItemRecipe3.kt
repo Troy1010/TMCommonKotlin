@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.tminus1010.tmcommonkotlin.androidx.extensions.measureUnspecified
-import com.tminus1010.tmcommonkotlin.misc.ExposedLifecycleOwner
+import com.tminus1010.tmcommonkotlin.androidx.ExposedLifecycleOwner
 import com.tminus1010.tmcommonkotlin.misc.extensions.lifecycleOwner
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable

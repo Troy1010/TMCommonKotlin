@@ -22,5 +22,5 @@ fun <T> LiveData<T>.onlyNew(lifecycleOwner: LifecycleOwner): LiveData<T> {
     }
 }
 
-fun <T> LiveData<T>.toObservable(lifecycle: LifecycleOwner): Observable<T> =
+fun <T : Any> LiveData<T>.toObservable(lifecycle: LifecycleOwner): Observable<T> =
     Observable.fromPublisher(LiveDataReactiveStreams.toPublisher(lifecycle, this))

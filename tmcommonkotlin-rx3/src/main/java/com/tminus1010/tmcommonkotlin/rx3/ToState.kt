@@ -14,10 +14,10 @@ import java.util.concurrent.Semaphore
  * disposable is given to compositeDisposable.
  * If an error occurs, it is emitted by errorSubject.
  */
-fun <T> Observable<T>.toState(compositeDisposable: CompositeDisposable, errorSubject: Subject<Throwable>) =
+fun <T : Any> Observable<T>.toState(compositeDisposable: CompositeDisposable, errorSubject: Subject<Throwable>) =
     ToStateHelper<T>().cacheOrSource(this, compositeDisposable, errorSubject)
 
-private class ToStateHelper<T> {
+private class ToStateHelper<T : Any> {
     private val semaphore = Semaphore(1)
     private var cache: Observable<T>? = null
     // Using cacheOrSource so that, if an error occurs and the observable switches to empty, it will retry during the next subscription.
@@ -37,5 +37,5 @@ private class ToStateHelper<T> {
     }
 }
 
-fun <T> Single<T>.toState(compositeDisposable: CompositeDisposable, errorSubject: Subject<Throwable>) =
+fun <T : Any> Single<T>.toState(compositeDisposable: CompositeDisposable, errorSubject: Subject<Throwable>) =
     ToStateHelper<T>().cacheOrSource(this.toObservable(), compositeDisposable, errorSubject).toSingle()

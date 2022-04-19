@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc
+package com.tminus1010.tmcommonkotlin.androidx
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding

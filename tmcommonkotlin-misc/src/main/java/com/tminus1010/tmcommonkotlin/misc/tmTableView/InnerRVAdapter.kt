@@ -2,7 +2,7 @@ package com.tminus1010.tmcommonkotlin.misc.tmTableView
 
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.tminus1010.tmcommonkotlin.misc.GenViewHolder
+import com.tminus1010.tmcommonkotlin.androidx.GenViewHolder
 
 class InnerRVAdapter(
     private val recipeGrid: RecipeGrid3,

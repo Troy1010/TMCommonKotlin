@@ -11,3 +11,7 @@ package com.tminus1010.tmcommonkotlin.core.extensions
  */
 val <T> T.exhaustive: T
     get() = this
+
+fun <T> T?.ifNull(lambda: () -> T?): T? {
+    return this ?: lambda()
+}

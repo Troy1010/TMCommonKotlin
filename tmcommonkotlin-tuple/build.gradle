@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Shared.targetSDK)
+    compileSdk = Shared.targetSDK
     buildToolsVersion = "30.0.3"
 
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
@@ -36,7 +36,7 @@ android {
 
 dependencies {
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.20")
 }
 
 

@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc
+package com.tminus1010.tmcommonkotlin.androidx
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
