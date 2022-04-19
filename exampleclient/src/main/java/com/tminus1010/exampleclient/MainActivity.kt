@@ -11,10 +11,10 @@ import com.example.tmcommonkotlin.microphone.OpenMicAndPlayback
 import com.example.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
 import com.example.tmcommonkotlin.speechtotext.SpeechToText
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
-import com.tminus1010.exampleclient.extensions.throbberLaunch
 import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
 import com.tminus1010.tmcommonkotlin.androidx.extensions.waitForBitmapAndSetUpright
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.doLogx
+import com.tminus1010.tmcommonkotlin.coroutines.extensions.launchWithDecorator
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
 import com.tminus1010.tmcommonkotlin.misc.extensions.bind
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         vb.buttonImagetotext.setOnClickListener { handlerAskTakePicture.launch(Manifest.permission.CAMERA) }
-        vb.buttonPrerecordedSpeechToText.setOnClickListener { GlobalScope.throbberLaunch { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText") } }
+        vb.buttonPrerecordedSpeechToText.setOnClickListener { GlobalScope.launchWithDecorator(ThrobberSharedVM) { speechToText(application.assets.open("10001-90210-01803.wav"), 16000f).doLogx("speechToText") } }
         vb.buttonOpenMicAndPlayback.setOnClickListener { handlerAskRecordAudioForPlayback.launch(Manifest.permission.RECORD_AUDIO) }
         vb.buttonOpenMicForSpeechToText.setOnClickListener { handlerAskRecordAudioForSpeechToText.launch(Manifest.permission.RECORD_AUDIO) }
         // # State
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private val handlerTakePicture = registerForActivityResult(ActivityResultContracts.TakePicture())
     {
         if (it)
-            GlobalScope.throbberLaunch { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
+            GlobalScope.launchWithDecorator(ThrobberSharedVM) { imageToText(latestImageFile!!.waitForBitmapAndSetUpright()).logx("imageToText") }
         else
             logz("No picture taken")
     }
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
     private val handlerAskRecordAudioForPlayback = registerForActivityResult(ActivityResultContracts.RequestPermission())
     {
         if (it)
-            GlobalScope.throbberLaunch { openMicAndPlayback(closeMicSignal = Observable.just(Unit).delay(3, TimeUnit.SECONDS)) }
+            GlobalScope.launchWithDecorator(ThrobberSharedVM) { openMicAndPlayback(closeMicSignal = Observable.just(Unit).delay(3, TimeUnit.SECONDS)) }
         else
             easyToast("Microphone permission is required for this feature")
     }

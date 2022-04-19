@@ -1,16 +1,17 @@
 package com.tminus1010.exampleclient
 
+import com.tminus1010.tmcommonkotlin.coroutines.ICoroutineScopeLambdaDecorator
 import io.reactivex.rxjava3.core.Completable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 
-object ThrobberSharedVM {
+object ThrobberSharedVM : ICoroutineScopeLambdaDecorator {
     // # Input
     fun <T> decorate(flow: Flow<T>) = flow.onStart { asyncTaskStarted.emit(Unit) }.onCompletion { asyncTaskEnded.emit(Unit) }
     fun decorate(completable: Completable) = completable.doOnSubscribe { runBlocking { asyncTaskStarted.emit(Unit) } }.doOnTerminate { runBlocking { asyncTaskEnded.emit(Unit) } }
-    fun decorate(lambda: suspend CoroutineScope.() -> Unit): suspend CoroutineScope.() -> Unit = {
+    override fun decorate(lambda: suspend CoroutineScope.() -> Unit): suspend CoroutineScope.() -> Unit = {
         asyncTaskStarted.emit(Unit)
         lambda(this)
         asyncTaskEnded.emit(Unit)
