@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 /**
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Single<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
+fun <T : Any> Single<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount = 0
         upstreamExceptions.flatMap { throwable ->
@@ -39,7 +39,7 @@ fun Completable.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int?
 /**
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Observable<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
+fun <T : Any> Observable<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount = 0
         upstreamExceptions.flatMap { throwable ->
@@ -58,7 +58,7 @@ fun <T> Observable<T>.retryWithDelay(delay: Long, timeUnit: TimeUnit, maxRetries
  * @param maxRetries2 How many times do you want to retry with delay2?
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Single<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
+fun <T : Any> Single<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Single<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount1 = 0
         var retryCount2 = 0
@@ -104,7 +104,7 @@ fun Completable.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long
  * @param maxRetries2 How many times do you want to retry with delay2?
  * @param predicate Exposes the throwable so that you can return true to retry, or false to not retry.
  */
-fun <T> Observable<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
+fun <T : Any> Observable<T>.retryWith2Delays(delay1: Long, timeUnit1: TimeUnit, delay2: Long, timeUnit2: TimeUnit, maxRetries1: Int? = null, maxRetries2: Int? = null, predicate: ((Throwable) -> Boolean) = { true }): Observable<T> {
     return this.retryWhen { upstreamExceptions ->
         var retryCount1 = 0
         var retryCount2 = 0

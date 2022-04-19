@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.kotlin.plusAssign
  */
 // ## Observable
 // ### Lifecycle
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     lifecycle: LifecycleOwner,
     onNext: (T) -> Unit,
 ): Disposable =
@@ -35,7 +35,7 @@ fun <T> Observable<T>.observe(
         )
         .subscribe { onNext(it) }
 
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     lifecycle: LifecycleOwner,
     onNext: (T) -> Unit,
     onError: (Throwable) -> Unit,
@@ -55,7 +55,7 @@ fun <T> Observable<T>.observe(
             { onNext(it) },
             { onError(it) })
 
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     lifecycle: LifecycleOwner,
     onNext: (T) -> Unit,
     onError: (Throwable) -> Unit,
@@ -77,7 +77,7 @@ fun <T> Observable<T>.observe(
             { onError(it) },
             { onComplete() })
 
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     lifecycle: LifecycleOwner,
     observer: Observer<T>,
 ) {
@@ -97,7 +97,7 @@ fun <T> Observable<T>.observe(
 
 // ### Composite Disposable
 
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     compositeDisposable: CompositeDisposable,
     onNext: (T) -> Unit,
 ): Disposable =
@@ -105,7 +105,7 @@ fun <T> Observable<T>.observe(
         .subscribe { onNext(it) }
         .also { compositeDisposable += it }
 
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     compositeDisposable: CompositeDisposable,
     onNext: (T) -> Unit,
     onError: (Throwable) -> Unit,
@@ -114,7 +114,7 @@ fun <T> Observable<T>.observe(
         .subscribe({ onNext(it) }, { onError(it) })
         .also { compositeDisposable += it }
 
-fun <T> Observable<T>.observe(
+fun <T : Any> Observable<T>.observe(
     compositeDisposable: CompositeDisposable,
     onNext: (T) -> Unit,
     onError: (Throwable) -> Unit,
@@ -126,7 +126,7 @@ fun <T> Observable<T>.observe(
 
 //
 
-val <T> Observable<T>.value: T?
+val <T : Any> Observable<T>.value: T?
     get() {
         var returning: T? = null
         var error: Throwable? = null
@@ -140,20 +140,20 @@ val <T> Observable<T>.value: T?
 
 // ## Single
 // ### Lifecycle
-fun <T> Single<T>.observe(
+fun <T : Any> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit
 ): Disposable =
     toMaybe().observe(lifecycle, onSuccess)
 
-fun <T> Single<T>.observe(
+fun <T : Any> Single<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
 ): Disposable =
     toMaybe().observe(lifecycle, onSuccess, onError)
 
-fun <T> Single<T>.observe(
+fun <T : Any> Single<T>.observe(
     lifecycle: LifecycleOwner,
     observer: MaybeObserver<T>
 ) {
@@ -161,7 +161,7 @@ fun <T> Single<T>.observe(
 }
 
 // ### Composite Disposable
-fun <T> Single<T>.observe(
+fun <T : Any> Single<T>.observe(
     compositeDisposable: CompositeDisposable,
     onSuccess: (T) -> Unit
 ): Disposable =
@@ -169,7 +169,7 @@ fun <T> Single<T>.observe(
         .subscribe { it: T -> onSuccess(it) }
         .also { compositeDisposable += it }
 
-fun <T> Single<T>.observe(
+fun <T : Any> Single<T>.observe(
     compositeDisposable: CompositeDisposable,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
@@ -179,7 +179,7 @@ fun <T> Single<T>.observe(
         .also { compositeDisposable += it }
 
 //
-val <T> Single<T>.value: T?
+val <T : Any> Single<T>.value: T?
     get() {
         var returning: T? = null
         var error: Throwable? = null
@@ -193,7 +193,7 @@ val <T> Single<T>.value: T?
 
 // ## Maybe
 // ### Lifecycle
-fun <T> Maybe<T>.observe(
+fun <T : Any> Maybe<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit
 ): Disposable =
@@ -210,7 +210,7 @@ fun <T> Maybe<T>.observe(
         )
         .subscribe { it: T -> onSuccess(it) }
 
-fun <T> Maybe<T>.observe(
+fun <T : Any> Maybe<T>.observe(
     lifecycle: LifecycleOwner,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
@@ -228,7 +228,7 @@ fun <T> Maybe<T>.observe(
         )
         .subscribe({ onSuccess(it) }, { onError(it) })
 
-fun <T> Maybe<T>.observe(
+fun <T : Any> Maybe<T>.observe(
     lifecycle: LifecycleOwner,
     observer: MaybeObserver<T>
 ) {
@@ -247,7 +247,7 @@ fun <T> Maybe<T>.observe(
 }
 
 // ### Composite Disposable
-fun <T> Maybe<T>.observe(
+fun <T : Any> Maybe<T>.observe(
     compositeDisposable: CompositeDisposable,
     onSuccess: (T) -> Unit
 ): Disposable =
@@ -255,7 +255,7 @@ fun <T> Maybe<T>.observe(
         .subscribe { it: T -> onSuccess(it) }
         .also { compositeDisposable += it }
 
-fun <T> Maybe<T>.observe(
+fun <T : Any> Maybe<T>.observe(
     compositeDisposable: CompositeDisposable,
     onSuccess: (T) -> Unit,
     onError: (Throwable) -> Unit
@@ -265,7 +265,7 @@ fun <T> Maybe<T>.observe(
         .also { compositeDisposable += it }
 
 //
-val <T> Maybe<T>.value: T?
+val <T : Any> Maybe<T>.value: T?
     get() {
         var returning: T? = null
         var error: Throwable? = null

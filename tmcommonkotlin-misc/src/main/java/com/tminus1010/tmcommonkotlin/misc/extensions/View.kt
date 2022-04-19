@@ -9,14 +9,14 @@ import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
 
-inline fun <V : View, T> V.bind(observable: Observable<T>, lifecycle: LifecycleOwner? = null, crossinline lambda: V.(T) -> Unit) {
+inline fun <V : View, T : Any> V.bind(observable: Observable<T>, lifecycle: LifecycleOwner? = null, crossinline lambda: V.(T) -> Unit) {
     val lifecycleRedef =
         lifecycle ?: findViewTreeLifecycleOwner()
         ?: error("Could not find lifecycle. This might happen in Recyclerviews or other unattached views.\nEither add a lifecycle to the view, attach to a view with a lifecycle, or specify a lifecycle as argument.")
     observable.observe(lifecycleRedef) { lambda(it) }
 }
 
-inline fun <V : View, reified T> V.bind(flow: Flow<T>, lifecycle: LifecycleOwner? = null, crossinline lambda: V.(T) -> Unit) {
+inline fun <V : View, reified T : Any> V.bind(flow: Flow<T>, lifecycle: LifecycleOwner? = null, crossinline lambda: V.(T) -> Unit) {
     val lifecycleRedef =
         lifecycle ?: findViewTreeLifecycleOwner()
         ?: error("Could not find lifecycle. This might happen in Recyclerviews or other unattached views.\nEither add a lifecycle to the view, attach to a view with a lifecycle, or specify a lifecycle as argument.")

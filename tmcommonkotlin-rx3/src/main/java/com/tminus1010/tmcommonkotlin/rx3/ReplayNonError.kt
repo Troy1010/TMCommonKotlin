@@ -6,10 +6,10 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import java.util.concurrent.Semaphore
 
-fun <T> Observable<T>.replayNonError(bufferSize: Int? = null, shouldForgetOnNoObservers: Boolean = true) =
+fun <T : Any> Observable<T>.replayNonError(bufferSize: Int? = null, shouldForgetOnNoObservers: Boolean = true) =
     ReplayNonErrorHelper<T>().cacheOrSource(this, bufferSize, shouldForgetOnNoObservers)
 
-private class ReplayNonErrorHelper<T> {
+private class ReplayNonErrorHelper<T : Any> {
     private val semaphore = Semaphore(1)
     private var cache: Observable<T>? = null
     fun cacheOrSource(source: Observable<T>, bufferSize: Int?, shouldForgetOnNoObservers: Boolean): Observable<T> =
@@ -24,16 +24,16 @@ private class ReplayNonErrorHelper<T> {
         }
 }
 
-fun <T> Observable<T>.nonLazy() =
+fun <T : Any> Observable<T>.nonLazy() =
     apply { subscribe({}, {}) }
 
-fun <T> Observable<T>.nonLazy(disposables: CompositeDisposable) =
+fun <T : Any> Observable<T>.nonLazy(disposables: CompositeDisposable) =
     apply { disposables += subscribe({}, {}) }
 
-fun <T> Single<T>.cacheNonError() =
+fun <T : Any> Single<T>.cacheNonError() =
     CacheNonErrorHelper<T>().cacheOrSource(this)
 
-private class CacheNonErrorHelper<T> {
+private class CacheNonErrorHelper<T : Any> {
     private val semaphore = Semaphore(1)
     private var cache: Single<T>? = null
     fun cacheOrSource(source: Single<T>): Single<T> =
@@ -47,8 +47,8 @@ private class CacheNonErrorHelper<T> {
         }
 }
 
-fun <T> Single<T>.nonLazy() =
+fun <T : Any> Single<T>.nonLazy() =
     apply { subscribe({}, {}) }
 
-fun <T> Single<T>.nonLazy(disposables: CompositeDisposable) =
+fun <T : Any> Single<T>.nonLazy(disposables: CompositeDisposable) =
     apply { disposables += subscribe({}, {}) }

@@ -19,11 +19,11 @@ fun <T : Any> Observable<T>.pairwise(): Observable<Pair<T, T>> {
         }
 }
 
-fun <T> Observable<T>.noEnd() = this.mergeWith(Observable.never())
-fun <T> Observable<T>.endWith(item: T) = this.concatWith(Observable.just(item))
-fun <T> Observable<T>.startWith(item: T) = this.startWithItem(item)
+fun <T : Any> Observable<T>.noEnd() = this.mergeWith(Observable.never())
+fun <T : Any> Observable<T>.endWith(item: T) = this.concatWith(Observable.just(item))
+fun <T : Any> Observable<T>.startWith(item: T) = this.startWithItem(item)
 
-fun <IN, OUT> Observable<IN>.emitIfTimeout(timespan: Long, timeUnit: TimeUnit, item: OUT): Observable<OUT> {
+fun <IN : Any, OUT : Any> Observable<IN>.emitIfTimeout(timespan: Long, timeUnit: TimeUnit, item: OUT): Observable<OUT> {
     return this
         .take(1)
         .map { false }
@@ -45,7 +45,7 @@ fun <T : Observable<BigDecimal>> Iterable<T>.total(): Observable<BigDecimal> {
         .scan(BigDecimal.ZERO, BigDecimal::add)
 }
 
-fun <T> Observable<T>.timeoutOnce(duration: Long, timeUnit: TimeUnit, observableSource: ObservableSource<T> = Observable.error(TimeoutException())): Observable<T> =
+fun <T : Any> Observable<T>.timeoutOnce(duration: Long, timeUnit: TimeUnit, observableSource: ObservableSource<T> = Observable.error(TimeoutException())): Observable<T> =
     publish { upstream ->
         Observable.merge(
             upstream.take(1).timeout(duration, timeUnit, observableSource),
@@ -56,9 +56,9 @@ fun <T> Observable<T>.timeoutOnce(duration: Long, timeUnit: TimeUnit, observable
 /**
  * Emits the first onNext().
  */
-fun <T> Observable<T>.toSingle(): Single<T> =
+fun <T : Any> Observable<T>.toSingle(): Single<T> =
     Single.fromObservable(take(1))
 
-inline fun <reified T> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
+inline fun <reified T : Any> Observable<T>.doLogx(prefix: Any? = null): Observable<T> =
     doOnNext { it.logx(prefix) }.doOnComplete { "Completed".logx(prefix) }.doOnError { it.logx(prefix) }.doOnDispose { "Disposed".logx(prefix) }
 
