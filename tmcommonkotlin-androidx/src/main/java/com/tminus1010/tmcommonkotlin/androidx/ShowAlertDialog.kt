@@ -49,6 +49,7 @@ class ShowAlertDialog constructor(private val activity: Activity) {
     /**
      * Okay
      */
+    suspend operator fun invoke(body: String) = invoke(NativeText.Simple(body))
     suspend operator fun invoke(body: NativeText) = suspendCoroutine<Unit> { downstream ->
         launchOnMainThread {
             AlertDialog.Builder(activity)
