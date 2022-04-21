@@ -34,12 +34,12 @@ dependencies {
     implementation(project(":tmcommonkotlin-core"))
     implementation(project(":tmcommonkotlin-rx3"))
     // # Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2-native-mt"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
     // ## Coroutine & Lifecycle
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     // ## Coroutines & Rx
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.3.8"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.6.0"
     // # Tesseract
     implementation 'cz.adaptech:tesseract4android:4.1.1'
 }
