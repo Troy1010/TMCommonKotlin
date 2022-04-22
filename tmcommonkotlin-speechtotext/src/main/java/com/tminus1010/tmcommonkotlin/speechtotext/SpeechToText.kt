@@ -1,6 +1,8 @@
 package com.tminus1010.tmcommonkotlin.speechtotext
 
 import android.app.Application
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToTextResult
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,6 +21,7 @@ import java.io.InputStream
 import java.util.concurrent.TimeoutException
 
 class SpeechToText(private val application: Application) {
+    private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
     private val model =
         Single.create<Model> { downstream ->
             StorageService.unpack(
@@ -48,15 +51,15 @@ class SpeechToText(private val application: Application) {
                 val results = MutableSharedFlow<SpeechToTextResult>()
                 it.start(object : RecognitionListener {
                     override fun onPartialResult(hypothesis: String) {
-                        runBlocking { results.emit(SpeechToTextResult.SoFar(hypothesis)) }
+                        runBlocking { results.emit(moshi.adapter(SpeechToTextResult.SoFar::class.java).fromJson(hypothesis)!!) }
                     }
 
                     override fun onResult(hypothesis: String) {
-                        runBlocking { results.emit(SpeechToTextResult.Chunk(hypothesis)) }
+                        runBlocking { results.emit(moshi.adapter(SpeechToTextResult.Chunk::class.java).fromJson(hypothesis)!!) }
                     }
 
                     override fun onFinalResult(hypothesis: String) {
-                        runBlocking { results.emit(SpeechToTextResult.Chunk(hypothesis)) }
+                        runBlocking { results.emit(moshi.adapter(SpeechToTextResult.Chunk::class.java).fromJson(hypothesis)!!) }
                         runBlocking { results.emit(SpeechToTextResult.End) }
                     }
 

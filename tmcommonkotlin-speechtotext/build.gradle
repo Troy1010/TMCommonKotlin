@@ -51,6 +51,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
     // ## Coroutines & Rx
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.6.0"
+    
+    // # Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
 
     // # Vosk SpeechToText
     implementation 'net.java.dev.jna:jna:5.8.0@aar'
