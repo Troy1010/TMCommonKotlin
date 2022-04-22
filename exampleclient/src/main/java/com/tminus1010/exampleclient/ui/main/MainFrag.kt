@@ -41,9 +41,9 @@ class MainFrag : Fragment(R.layout.frag_main) {
         super.onViewCreated(view, savedInstanceState)
         vb = FragMainBinding.bind(view)
         // # Events
-        viewModel.navToImageToText.observe(lifecycleScope) { nav.navigate(R.id.imageToTextFrag) }
-        viewModel.navToOpenMicAndPlayback.observe(lifecycleScope) { askRecordAudioForOpenMicAndPlaybackLauncher.launch(Manifest.permission.RECORD_AUDIO) }
-        viewModel.navToSpeechToText.observe(lifecycleScope) { nav.navigate(R.id.speechToTextFrag) }
+        viewModel.navToImageToText.observe(viewLifecycleOwner) { nav.navigate(R.id.imageToTextFrag) }
+        viewModel.navToOpenMicAndPlayback.observe(viewLifecycleOwner) { askRecordAudioForOpenMicAndPlaybackLauncher.launch(Manifest.permission.RECORD_AUDIO) }
+        viewModel.navToSpeechToText.observe(viewLifecycleOwner) { nav.navigate(R.id.speechToTextFrag) }
         // # State
         vb.recyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
         vb.recyclerview.bind(viewModel.buttons) {
