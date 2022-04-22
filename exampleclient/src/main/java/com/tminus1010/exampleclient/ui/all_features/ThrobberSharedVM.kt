@@ -1,4 +1,4 @@
-package com.tminus1010.exampleclient
+package com.tminus1010.exampleclient.ui.all_features
 
 import com.tminus1010.tmcommonkotlin.coroutines.IJobEvents
 import io.reactivex.rxjava3.core.Completable

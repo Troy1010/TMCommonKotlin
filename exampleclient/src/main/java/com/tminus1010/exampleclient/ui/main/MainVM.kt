@@ -1,4 +1,4 @@
-package com.tminus1010.exampleclient
+package com.tminus1010.exampleclient.ui.main
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.core.Observable

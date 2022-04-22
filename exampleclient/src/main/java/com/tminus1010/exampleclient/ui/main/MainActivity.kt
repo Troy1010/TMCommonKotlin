@@ -1,4 +1,4 @@
-package com.tminus1010.exampleclient
+package com.tminus1010.exampleclient.ui.main
 
 import android.Manifest
 import android.net.Uri
@@ -10,6 +10,7 @@ import androidx.core.content.FileProvider
 import com.example.tmcommonkotlin.microphone.OpenMicAndPlayback
 import com.example.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
 import com.example.tmcommonkotlin.speechtotext.SpeechToText
+import com.tminus1010.exampleclient.ui.all_features.ThrobberSharedVM
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
 import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
 import com.tminus1010.tmcommonkotlin.androidx.extensions.waitForBitmapAndSetUpright
