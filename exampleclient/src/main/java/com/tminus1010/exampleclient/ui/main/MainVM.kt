@@ -10,6 +10,7 @@ class MainVM : ViewModel() {
     // # Events
     val navToImageToText = MutableSharedFlow<Unit>()
     val navToOpenMicAndPlayback = MutableSharedFlow<Unit>()
+    val navToSpeechToText = MutableSharedFlow<Unit>()
 
     // # State
     val buttons =
@@ -24,6 +25,11 @@ class MainVM : ViewModel() {
                     title = "Open Mic And Playback",
                     titleTextSize = 28f,
                     onClick = { runBlocking { navToOpenMicAndPlayback.emit(Unit) } }
+                ),
+                ButtonVMItem(
+                    title = "Speech To Text",
+                    titleTextSize = 28f,
+                    onClick = { runBlocking { navToSpeechToText.emit(Unit) } }
                 ),
             )
         )

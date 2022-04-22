@@ -43,6 +43,7 @@ class MainFrag : Fragment(R.layout.frag_main) {
         // # Events
         viewModel.navToImageToText.observe(lifecycleScope) { nav.navigate(R.id.imageToTextFrag) }
         viewModel.navToOpenMicAndPlayback.observe(lifecycleScope) { askRecordAudioForOpenMicAndPlaybackLauncher.launch(Manifest.permission.RECORD_AUDIO) }
+        viewModel.navToSpeechToText.observe(lifecycleScope) { nav.navigate(R.id.speechToTextFrag) }
         // # State
         vb.recyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
         vb.recyclerview.bind(viewModel.buttons) {

@@ -1,4 +1,4 @@
-package com.tminus1010.exampleclient.ui.imagetotext
+package com.tminus1010.exampleclient.ui.speechtotext
 
 import androidx.lifecycle.ViewModel
 import com.tminus1010.tmcommonkotlin.customviews.vm_item.ButtonVMItem
@@ -10,18 +10,18 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageToTextVM @Inject constructor() : ViewModel() {
+class SpeechToTextVM @Inject constructor() : ViewModel() {
     // # View Events
     // # Events
-    val takePicture = MutableSharedFlow<Unit>()
+    val openMic = MutableSharedFlow<Unit>()
 
     // # State
     val buttons =
         flowOf(
             listOf(
                 ButtonVMItem(
-                    title = "Take Picture",
-                    onClick = { runBlocking { takePicture.emit(Unit) } },
+                    title = "Open Mic",
+                    onClick = { runBlocking { openMic.emit(Unit) } },
                 )
             )
         )

@@ -14,4 +14,9 @@
         android:name="com.tminus1010.exampleclient.ui.main.MainFrag"
         android:label="MainFrag"
         tools:layout="@layout/frag_main" />
+    <fragment
+        android:id="@+id/speechToTextFrag"
+        android:name="com.tminus1010.exampleclient.ui.speechtotext.SpeechToTextFrag"
+        android:label="SpeechToTextFrag"
+        tools:layout="@layout/frag_speechtotext" />
 </navigation>
