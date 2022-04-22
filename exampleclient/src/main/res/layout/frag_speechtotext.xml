@@ -9,16 +9,20 @@
     <TextView
         android:id="@+id/textview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:gravity="center"
         android:text="Speech To Text"
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@id/buttons" />
+        app:layout_constraintBottom_toTopOf="@id/buttons"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.tminus1010.tmcommonkotlin.customviews.ButtonsView
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:itemCount="3"
+        tools:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/item_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

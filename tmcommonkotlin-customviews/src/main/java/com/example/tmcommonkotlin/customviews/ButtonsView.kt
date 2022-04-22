@@ -23,7 +23,7 @@ class ButtonsView @JvmOverloads constructor(
         }
 
     init {
-        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         addItemDecoration(MarginDecoration(7))
         adapter = object : RecyclerView.Adapter<ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
