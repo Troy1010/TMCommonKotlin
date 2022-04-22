@@ -1,7 +1,47 @@
 package com.tminus1010.exampleclient.ui.main
 
-import androidx.navigation.fragment.NavHostFragment
+import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.tminus1010.exampleclient.R
+import com.tminus1010.exampleclient.databinding.FragMainBinding
+import com.tminus1010.exampleclient.databinding.ItemButtonBinding
+import com.tminus1010.exampleclient.ui.all_features.vm_item.ButtonVMItem
+import com.tminus1010.tmcommonkotlin.misc.extensions.bind
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainFrag : NavHostFragment()
+class MainFrag : Fragment(R.layout.frag_main) {
+    private val viewModel by viewModels<MainVM>()
+    lateinit var vb: FragMainBinding
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        vb = FragMainBinding.bind(view)
+        // # State
+        vb.recyclerview.layoutManager = GridLayoutManager(requireContext(), 2)
+        vb.recyclerview.bind(viewModel.buttons) {
+            adapter = object : RecyclerView.Adapter<ViewHolder>() {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+                    ViewHolder(
+                        ItemButtonBinding.inflate(layoutInflater, parent, false).apply {
+                            btn.updateLayoutParams { height = (requireActivity().window.decorView.height * 0.2).toInt() }
+                        }
+                    )
+
+                override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(it[position])
+                override fun getItemCount() = it.size
+            }
+        }
+    }
+
+    class ViewHolder(val vb: ItemButtonBinding) : RecyclerView.ViewHolder(vb.root) {
+        fun bind(buttonVMItem: ButtonVMItem) {
+            buttonVMItem.bind(vb.btn)
+        }
+    }
+}
