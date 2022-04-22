@@ -28,7 +28,7 @@ class MainVM : ViewModel() {
                 ),
                 ButtonVMItem(
                     title = "Speech To Text",
-                    titleTextSize = 28f,
+                    titleTextSize = 32f,
                     onClick = { runBlocking { navToSpeechToText.emit(Unit) } }
                 ),
             )
