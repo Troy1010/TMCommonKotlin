@@ -9,6 +9,7 @@ import kotlinx.coroutines.runBlocking
 class MainVM : ViewModel() {
     // # Events
     val navToImageToText = MutableSharedFlow<Unit>()
+    val navToOpenMicAndPlayback = MutableSharedFlow<Unit>()
 
     // # State
     val buttons =
@@ -18,6 +19,11 @@ class MainVM : ViewModel() {
                     title = "Image To Text",
                     titleTextSize = 32f,
                     onClick = { runBlocking { navToImageToText.emit(Unit) } }
+                ),
+                ButtonVMItem(
+                    title = "Open Mic And Playback",
+                    titleTextSize = 28f,
+                    onClick = { runBlocking { navToOpenMicAndPlayback.emit(Unit) } }
                 ),
             )
         )
