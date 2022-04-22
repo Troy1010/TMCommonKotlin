@@ -1,4 +1,4 @@
-package com.tminus1010.exampleclient.ui.all_features.vm_item
+package com.tminus1010.tmcommonkotlin.customviews.vm_item
 
 import android.view.Menu
 import android.view.View

@@ -1,10 +1,10 @@
-package com.example.tmcommonkotlin.microphone.extensions
+package com.tminus1010.tmcommonkotlin.microphone.extensions
 
 import android.annotation.SuppressLint
 import android.media.AudioRecord
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.tmcommonkotlin.microphone.UnableToBuildAudioRecord
+import com.tminus1010.tmcommonkotlin.microphone.UnableToBuildAudioRecord
 import com.tminus1010.tmcommonkotlin.rx3.extensions.retryWith2Delays
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

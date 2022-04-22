@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.speechtotext
+package com.tminus1010.tmcommonkotlin.speechtotext
 
 sealed class SpeechToTextResult {
     data class SoFar(val x: String) : SpeechToTextResult()

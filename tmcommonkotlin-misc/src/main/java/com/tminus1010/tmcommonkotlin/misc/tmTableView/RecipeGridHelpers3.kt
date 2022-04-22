@@ -1,5 +1,6 @@
 package com.tminus1010.tmcommonkotlin.misc.tmTableView
 
+import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import kotlin.math.max

@@ -1,7 +1,7 @@
-package com.example.tmcommonkotlin.speechtotext
+package com.tminus1010.tmcommonkotlin.speechtotext
 
 import android.app.Application
-import com.example.tmcommonkotlin.microphone.AudioInputStream
+import com.tminus1010.tmcommonkotlin.microphone.AudioInputStream
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

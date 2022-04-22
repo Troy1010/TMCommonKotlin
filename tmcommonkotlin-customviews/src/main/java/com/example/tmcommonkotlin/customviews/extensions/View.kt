@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc.extensions
+package com.tminus1010.tmcommonkotlin.customviews.extensions
 
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
@@ -22,9 +22,3 @@ inline fun <V : View, reified T : Any?> V.bind(flow: Flow<T>, lifecycle: Lifecyc
         ?: error("Could not find lifecycle. This might happen in Recyclerviews or other unattached views.\nEither add a lifecycle to the view, attach to a view with a lifecycle, or specify a lifecycle as argument.")
     flow.observe(lifecycleRedef) { lambda(it) }
 }
-
-var View.lifecycleOwner: LifecycleOwner?
-    get() = findViewTreeLifecycleOwner()
-    set(value) {
-        setTag(androidx.lifecycle.runtime.R.id.view_tree_lifecycle_owner, value)
-    }

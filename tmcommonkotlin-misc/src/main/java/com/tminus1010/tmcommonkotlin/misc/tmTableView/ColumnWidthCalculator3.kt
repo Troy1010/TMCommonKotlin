@@ -1,5 +1,6 @@
 package com.tminus1010.tmcommonkotlin.misc.tmTableView
 
+import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import java.lang.Math.max
 import kotlin.math.floor
 

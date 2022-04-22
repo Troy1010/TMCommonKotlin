@@ -2,6 +2,8 @@ package com.tminus1010.tmcommonkotlin.androidx.extensions
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 
@@ -35,3 +37,9 @@ fun View.widthObservable(): Observable<Int> {
         .filter { it != 0 } // I'm not sure why, but sometimes this emits 0
         .distinctUntilChanged()
 }
+
+var View.lifecycleOwner: LifecycleOwner?
+    get() = findViewTreeLifecycleOwner()
+    set(value) {
+        setTag(androidx.lifecycle.runtime.R.id.view_tree_lifecycle_owner, value)
+    }

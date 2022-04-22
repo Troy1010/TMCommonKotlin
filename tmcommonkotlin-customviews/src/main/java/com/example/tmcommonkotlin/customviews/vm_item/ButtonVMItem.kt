@@ -1,13 +1,13 @@
-package com.tminus1010.exampleclient.ui.all_features.vm_item
+package com.tminus1010.tmcommonkotlin.customviews.vm_item
 
 import android.content.Context
 import android.widget.Button
-import com.tminus1010.exampleclient.databinding.ItemButtonBinding
+import com.tminus1010.tmcommonkotlin.customviews.IHasToViewItemRecipe
+import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
+import com.tminus1010.tmcommonkotlin.customviews.ViewItemRecipe3
+import com.tminus1010.tmcommonkotlin.customviews.extensions.bind
+import com.tminus1010.tmcommonkotlin.androidx.databinding.ItemButtonBinding
 import com.tminus1010.tmcommonkotlin.androidx.extensions.getColorByAttr
-import com.tminus1010.tmcommonkotlin.misc.extensions.bind
-import com.tminus1010.tmcommonkotlin.misc.tmTableView.IHasToViewItemRecipe
-import com.tminus1010.tmcommonkotlin.misc.tmTableView.IViewItemRecipe3
-import com.tminus1010.tmcommonkotlin.misc.tmTableView.ViewItemRecipe3
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 

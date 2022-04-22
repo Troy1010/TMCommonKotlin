@@ -1,14 +1,13 @@
-package com.tminus1010.tmcommonkotlin.misc.tmTableView
+package com.tminus1010.tmcommonkotlin.customviews
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
-import com.tminus1010.tmcommonkotlin.androidx.extensions.measureUnspecified
 import com.tminus1010.tmcommonkotlin.androidx.ExposedLifecycleOwner
 import com.tminus1010.tmcommonkotlin.androidx.extensions.lifecycleOwner
-import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
+import com.tminus1010.tmcommonkotlin.androidx.extensions.measureUnspecified
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 

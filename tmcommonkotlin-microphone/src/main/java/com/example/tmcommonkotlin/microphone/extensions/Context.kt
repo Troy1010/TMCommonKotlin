@@ -1,9 +1,9 @@
-package com.example.tmcommonkotlin.microphone.extensions
+package com.tminus1010.tmcommonkotlin.microphone.extensions
 
 import android.content.Context
 import android.media.AudioFormat
 import android.media.AudioManager
-import com.example.tmcommonkotlin.microphone.PartialAudioFormat
+import com.tminus1010.tmcommonkotlin.microphone.PartialAudioFormat
 
 
 /**

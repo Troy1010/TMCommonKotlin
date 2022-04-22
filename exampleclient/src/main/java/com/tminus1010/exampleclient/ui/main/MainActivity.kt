@@ -1,44 +1,16 @@
 package com.tminus1010.exampleclient.ui.main
 
-import android.Manifest
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
-import androidx.lifecycle.lifecycleScope
-import com.example.tmcommonkotlin.microphone.OpenMicAndPlayback
-import com.example.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
-import com.example.tmcommonkotlin.speechtotext.SpeechToText
 import com.tminus1010.exampleclient.databinding.ActivityMainBinding
 import com.tminus1010.exampleclient.ui.all_features.ThrobberSharedVM
-import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
-import com.tminus1010.tmcommonkotlin.androidx.extensions.waitForBitmapAndSetUpright
-import com.tminus1010.tmcommonkotlin.coroutines.extensions.doLogx
-import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
-import com.tminus1010.tmcommonkotlin.coroutines.extensions.use
-import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
-import com.tminus1010.tmcommonkotlin.misc.extensions.bind
-import com.tminus1010.tmcommonkotlin.view.extensions.easyToast
+import com.tminus1010.tmcommonkotlin.customviews.extensions.bind
 import com.tminus1010.tmcommonkotlin.view.extensions.easyVisibility
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.rxjava3.core.Observable
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.File
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val vb by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val viewModel by viewModels<MainVM>()
-    private val imageToText by lazy { ImageToText(application) }
-    private val speechToText by lazy { SpeechToText(application) }
-    private val createImageFile by lazy { CreateImageFile(application) }
-    private val openMicAndPlayback by lazy { OpenMicAndPlayback(application) }
-    private val openMicForSpeechToText by lazy { OpenMicForSpeechToText(application) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(vb.root)

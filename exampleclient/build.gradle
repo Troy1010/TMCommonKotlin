@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":tmcommonkotlin-androidx"))
     implementation(project(":tmcommonkotlin-speechtotext"))
     implementation(project(":tmcommonkotlin-microphone"))
+    implementation(project(":tmcommonkotlin-customviews"))
 
     // # kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.20"

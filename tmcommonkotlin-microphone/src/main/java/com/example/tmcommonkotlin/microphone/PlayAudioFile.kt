@@ -1,10 +1,10 @@
-package com.example.tmcommonkotlin.microphone
+package com.tminus1010.tmcommonkotlin.microphone
 
 import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioTrack
-import com.example.tmcommonkotlin.microphone.extensions.getAudioTrackMinBufferSize
+import com.tminus1010.tmcommonkotlin.microphone.extensions.getAudioTrackMinBufferSize
 import java.io.File
 import java.io.FileInputStream
 

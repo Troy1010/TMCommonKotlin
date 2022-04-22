@@ -1,4 +1,4 @@
-package com.tminus1010.tmcommonkotlin.misc.tmTableView
+package com.tminus1010.tmcommonkotlin.customviews
 
 import android.content.Context
 

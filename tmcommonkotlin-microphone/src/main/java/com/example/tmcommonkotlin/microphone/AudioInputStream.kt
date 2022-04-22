@@ -1,11 +1,11 @@
-package com.example.tmcommonkotlin.microphone
+package com.tminus1010.tmcommonkotlin.microphone
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.media.AudioFormat
 import android.media.AudioRecord
 import android.media.MediaRecorder
-import com.example.tmcommonkotlin.microphone.extensions.getPartialAudioFormatFromMicrophone
+import com.tminus1010.tmcommonkotlin.microphone.extensions.getPartialAudioFormatFromMicrophone
 import java.io.IOException
 import java.io.InputStream
 

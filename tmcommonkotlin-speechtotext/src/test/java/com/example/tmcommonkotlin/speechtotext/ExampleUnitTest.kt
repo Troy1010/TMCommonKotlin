@@ -1,4 +1,4 @@
-package com.example.tmcommonkotlin.speechtotext
+package com.tminus1010.tmcommonkotlin.speechtotext
 
 import org.junit.Test
 

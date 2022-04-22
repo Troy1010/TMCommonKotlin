@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+// TODO: cleanup
+dependencies {
+    // # This Project
+    implementation(project(":tmcommonkotlin-core"))
+    api(project(":tmcommonkotlin-rx3"))
+    implementation(project(":tmcommonkotlin-coroutines"))
+    implementation(project(":tmcommonkotlin-androidx"))
+    // # Kotlin
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.20")
+    // # Android
+    implementation("androidx.core:core-ktx:1.3.2")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    // # Rx
+    api("io.reactivex.rxjava3:rxjava:3.0.7")
+    api("io.reactivex.rxjava3:rxandroid:3.0.0")
+    // ## Rx+LiveData
+    implementation("androidx.lifecycle:lifecycle-reactivestreams:2.4.1")
+    // # Navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
+    // # Apache Commons
+    implementation("commons-io:commons-io:2.8.0")
+    // # Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
+    // # Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    // # ViewBinding
+    implementation("androidx.databinding:viewbinding:7.1.3")
+    // # Constraint Layout
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+}

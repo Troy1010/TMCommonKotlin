@@ -8,6 +8,7 @@ import android.view.View.MeasureSpec
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
+import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.misc.Orientation
 import com.tminus1010.tmcommonkotlin.misc.R
 
