@@ -1,6 +1,7 @@
 package com.tminus1010.tmcommonkotlin.speechtotext
 
 import android.app.Application
+import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToTextResult
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapMerge

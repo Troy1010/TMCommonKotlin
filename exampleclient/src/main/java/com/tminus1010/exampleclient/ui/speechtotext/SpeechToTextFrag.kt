@@ -8,38 +8,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.tminus1010.exampleclient.R
-import com.tminus1010.exampleclient.databinding.FragImagetotextBinding
-import com.tminus1010.exampleclient.ui.all_features.ThrobberSharedVM
-import com.tminus1010.tmcommonkotlin.coroutines.extensions.doLogx
+import com.tminus1010.exampleclient.databinding.FragSpeechtotextBinding
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import com.tminus1010.tmcommonkotlin.customviews.extensions.bind
-import com.tminus1010.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
 import com.tminus1010.tmcommonkotlin.view.extensions.easyToast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SpeechToTextFrag : Fragment(R.layout.frag_speechtotext) {
-    private lateinit var vb: FragImagetotextBinding
+    private lateinit var vb: FragSpeechtotextBinding
     private val viewModel by viewModels<SpeechToTextVM>()
-
-    @Inject
-    lateinit var openMicForSpeechToText: OpenMicForSpeechToText
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vb = FragImagetotextBinding.bind(view)
+        vb = FragSpeechtotextBinding.bind(view)
         // # Events
-        viewModel.openMic.observe(lifecycleScope) { askRecordAudioForSpeechToTextLauncher.launch(Manifest.permission.RECORD_AUDIO) }
+        viewModel.askRecordAudioForSpeechToText.observe(lifecycleScope) { askRecordAudioForSpeechToTextLauncher.launch(Manifest.permission.RECORD_AUDIO) }
         // # State
+        vb.textview.bind(viewModel.speechToTextString) { text = it }
         vb.buttons.bind(viewModel.buttons) { buttons = it }
     }
 
     private val askRecordAudioForSpeechToTextLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission())
     {
         if (it)
-            openMicForSpeechToText().doLogx("speechToText").let { ThrobberSharedVM.decorate(it) }.observe(GlobalScope)
+            viewModel.recordAudioForSpeechToTextGranted()
         else
             easyToast("Microphone permission is required for this feature")
     }
