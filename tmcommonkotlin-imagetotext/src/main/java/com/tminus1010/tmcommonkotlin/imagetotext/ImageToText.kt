@@ -3,6 +3,7 @@ package com.tminus1010.tmcommonkotlin.imagetotext
 import android.app.Application
 import android.graphics.Bitmap
 import com.googlecode.tesseract.android.TessBaseAPI
+import com.tminus1010.tmcommonkotlin.androidx.extensions.rotate
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,17 @@ import java.io.InputStream
 class ImageToText constructor(private val application: Application) {
     // TODO: Require 1 thread
     suspend operator fun invoke(bitmap: Bitmap): String? {
-        return tesseract.first().apply { setImage(bitmap) }.utF8Text
+        return sequenceOf(
+            tesseract.first().apply { setImage(bitmap) },
+            tesseract.first().apply { setImage(bitmap.rotate(1f)) },
+            tesseract.first().apply { setImage(bitmap.rotate(-1f)) },
+            tesseract.first().apply { setImage(bitmap.rotate(2f)) },
+            tesseract.first().apply { setImage(bitmap.rotate(-2f)) },
+            tesseract.first().apply { setImage(bitmap.rotate(3f)) },
+            tesseract.first().apply { setImage(bitmap.rotate(-3f)) },
+        )
+            .maxByOrNull { it.meanConfidence().logx("meanConfidence") }
+            ?.utF8Text
     }
 
     suspend operator fun invoke(file: File): String? {
