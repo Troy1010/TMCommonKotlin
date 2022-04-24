@@ -5,6 +5,7 @@ import androidx.viewbinding.ViewBinding
 import com.tminus1010.tmcommonkotlin.androidx.extensions.easySetHeight
 import com.tminus1010.tmcommonkotlin.androidx.extensions.easySetWidth
 import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
+import com.tminus1010.tmcommonkotlin.customviews.ViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.misc.databinding.ItemEmptyBinding
 import com.tminus1010.tmcommonkotlin.misc.extensions.pairwise
 
