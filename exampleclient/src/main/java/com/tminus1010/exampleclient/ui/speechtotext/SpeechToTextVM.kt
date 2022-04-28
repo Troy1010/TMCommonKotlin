@@ -43,8 +43,8 @@ class SpeechToTextVM @Inject constructor(
     val speechToTextString =
         speechToTextResults.flatMapLatest {
             when (it) {
-                is SpeechToTextResult.SoFar -> if (it.partial.isNotEmpty()) flowOf(it.partial) else flowOf()
-                is SpeechToTextResult.Chunk -> if (it.text.isNotEmpty()) flowOf(it.text) else flowOf()
+                is SpeechToTextResult.SoFar -> flowOf(it.partial)
+                is SpeechToTextResult.Chunk -> flowOf(it.text)
                 else -> flowOf()
             }
         }
