@@ -19,17 +19,36 @@ import java.io.IOException
 import java.io.InputStream
 import java.util.concurrent.TimeoutException
 
-class SpeechToText(private val application: Application) {
+class SpeechToText(private val application: Application, private val modelProvisionStrategy: ModelProvisionStrategy = ModelProvisionStrategy.ANY) {
+    constructor(application: Application) : this(application, ModelProvisionStrategy.ANY)
+
     private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
     private val model =
         Single.create<Model> { downstream ->
-            StorageService.unpack(
-                application,
-                "model-en-us",
-                "model",
-                { downstream.onSuccess(it) },
-                { downstream.onError(it) },
-            )
+            when (modelProvisionStrategy) {
+                ModelProvisionStrategy.ANY ->
+                    runCatching {
+                        StorageService.unpack(
+                            application,
+                            "model-en-us",
+                            "model",
+                            { downstream.onSuccess(it) },
+                            { downstream.onError(it) },
+                        )
+                    }
+                        .onFailure {
+                            TODO()
+                        }
+                ModelProvisionStrategy.EXTERNAL_VOSK -> TODO()
+                ModelProvisionStrategy.INCLUDED_VOSK ->
+                    StorageService.unpack(
+                        application,
+                        "model-en-us",
+                        "model",
+                        { downstream.onSuccess(it) },
+                        { downstream.onError(it) },
+                    )
+            }
         }
             .toObservable().asFlow()
 
