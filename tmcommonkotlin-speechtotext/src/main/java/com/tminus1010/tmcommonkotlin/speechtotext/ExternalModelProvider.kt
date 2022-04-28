@@ -16,16 +16,27 @@ import java.util.concurrent.Executors
  * Most of this code was copied from [org.vosk.android.StorageService] and adjusted so that assetManager could come from another application.
  */
 class ExternalModelProvider(application: Application) {
+    class UnableToFindVoskModelPackageException(override val cause: Throwable?) : Exception(
+        """
+            
+            Possible solution: Install com.tminus1010.voskmodelservice
+            Possible solution: Use a different ModelProvisionStrategy
+        """.trimIndent()
+    )
+
     val model =
         Single.create<Model> { downstream ->
-            unpack(
-                application,
-                application.packageManager.getResourcesForApplication("com.tminus1010.voskmodelservice").assets,
-                "model-en-us",
-                "model",
-                { downstream.onSuccess(it) },
-                { downstream.onError(it) },
-            )
+            runCatching {
+                unpack(
+                    application,
+                    application.packageManager.getResourcesForApplication("com.tminus1010.voskmodelservice").assets,
+                    "model-en-us",
+                    "model",
+                    { downstream.onSuccess(it) },
+                    { downstream.onError(it) },
+                )
+            }
+                .onFailure { throw UnableToFindVoskModelPackageException(it) }
         }
 
     fun unpack(context: Context, assetManager: AssetManager, sourcePath: String, targetPath: String?, completeCallback: (Model) -> Unit, errorCallback: (IOException) -> Unit) {
