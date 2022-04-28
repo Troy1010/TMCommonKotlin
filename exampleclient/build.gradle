@@ -56,6 +56,7 @@ dependencies {
     implementation(project(":tmcommonkotlin-imagetotext"))
     implementation(project(":tmcommonkotlin-coroutines"))
     implementation(project(":tmcommonkotlin-androidx"))
+    implementation(project(":tmcommonkotlin-speechtotext"))
     implementation(project(":tmcommonkotlin-speechtotext-modelincluded"))
     implementation(project(":tmcommonkotlin-microphone"))
     implementation(project(":tmcommonkotlin-customviews"))

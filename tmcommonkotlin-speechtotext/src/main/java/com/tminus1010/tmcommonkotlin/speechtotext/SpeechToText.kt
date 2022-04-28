@@ -1,9 +1,8 @@
-package com.tminus1010.tmcommonkotlin.speechtotext.modelincluded
+package com.tminus1010.tmcommonkotlin.speechtotext
 
 import android.app.Application
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.SpeechToTextResult
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapMerge
