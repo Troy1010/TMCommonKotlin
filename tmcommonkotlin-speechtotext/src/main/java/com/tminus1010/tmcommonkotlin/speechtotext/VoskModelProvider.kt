@@ -40,8 +40,8 @@ sealed class VoskModelProvider {
         class UnableToFindVoskModelPackageException(override val cause: Throwable?) : Exception(
             """
             
-                Possible solution: Install com.tminus1010.voskmodelservice
-                Possible solution: Add query for package com.tminus1010.voskmodelservice to manifest
+                Possible solution: Install com.tminus1010.voskmodelpackage
+                Possible solution: Add query for package com.tminus1010.voskmodelpackage to manifest
                 Possible solution: Use a different ModelProvisionStrategy
             """.trimIndent()
         )
@@ -51,7 +51,7 @@ sealed class VoskModelProvider {
                 runCatching {
                     unpack(
                         application,
-                        application.packageManager.getResourcesForApplication("com.tminus1010.voskmodelservice").assets,
+                        application.packageManager.getResourcesForApplication("com.tminus1010.voskmodelpackage").assets,
                         "model-en-us",
                         "model",
                         { downstream.onSuccess(it) },
