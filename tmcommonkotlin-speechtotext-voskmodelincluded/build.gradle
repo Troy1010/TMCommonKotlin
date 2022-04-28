@@ -91,7 +91,7 @@ afterEvaluate {
                 artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Shared.groupId
-                artifactId = "tmcommonkotlin-speechtotext-modelincluded"
+                artifactId = "tmcommonkotlin-speechtotext-voskmodelincluded"
                 version = Shared.versionName
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
