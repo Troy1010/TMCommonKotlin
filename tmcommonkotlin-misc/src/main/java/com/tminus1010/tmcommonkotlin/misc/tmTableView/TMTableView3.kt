@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.androidx.extensions.children
 import com.tminus1010.tmcommonkotlin.androidx.extensions.clearItemDecorations
 import com.tminus1010.tmcommonkotlin.androidx.extensions.widthObservable

@@ -3,6 +3,7 @@ package com.tminus1010.tmcommonkotlin.imagetotext
 import android.app.Application
 import android.graphics.Bitmap
 import com.googlecode.tesseract.android.TessBaseAPI
+import com.tminus1010.tmcommonkotlin.androidx.extensions.rotate
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +19,39 @@ import java.io.InputStream
 class ImageToText constructor(private val application: Application) {
     // TODO: Require 1 thread
     suspend operator fun invoke(bitmap: Bitmap): String? {
-        return tesseract.first().apply { setImage(bitmap) }.utF8Text
+        suspend fun keepTransformingUntilDropInConfidence(originalBitmap: Bitmap, transformation: (Bitmap) -> Bitmap): Pair<Int, Bitmap> {
+            logz("keepTransformingUntilDropInConfidence..")
+            var previousConfidence = tesseract.first().apply { setImage(originalBitmap) }.meanConfidence()
+            var previousBitmap = originalBitmap
+            var done = false
+            while (!done) {
+                val curBitmap = transformation(previousBitmap)
+                val curConfidence = tesseract.first().apply { setImage(curBitmap) }.meanConfidence()
+                if (curConfidence < previousConfidence) {
+                    logz("keepTransformingUntilDropInConfidence done. previousConfidence:$previousConfidence curConfidence:$curConfidence")
+                    done = true
+                } else {
+                    logz("keepTransformingUntilDropInConfidence continuing. previousConfidence:$previousConfidence curConfidence:$curConfidence")
+                    previousConfidence = curConfidence
+                    previousBitmap = curBitmap
+                }
+            }
+            return Pair(previousConfidence, previousBitmap)
+        }
+
+        val bestAfterFirstDegree =
+            listOf(
+                keepTransformingUntilDropInConfidence(bitmap) { it.rotate(1f) },
+                keepTransformingUntilDropInConfidence(bitmap) { it.rotate(-1f) },
+            )
+                .maxByOrNull { (confidence, bitmap) -> confidence }!!
+        val bestAfterSecondDegree =
+            listOf(
+                keepTransformingUntilDropInConfidence(bestAfterFirstDegree.second) { it.rotate(0.1f) },
+                keepTransformingUntilDropInConfidence(bestAfterFirstDegree.second) { it.rotate(-0.1f) },
+            )
+                .maxByOrNull { (confidence, bitmap) -> confidence }!!
+        return tesseract.first().apply { setImage(bestAfterSecondDegree.second) }.utF8Text
     }
 
     suspend operator fun invoke(file: File): String? {

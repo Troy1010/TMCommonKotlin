@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph.xml"
+    app:startDestination="@id/mainFrag">
+    <fragment
+        android:id="@+id/imageToTextFrag"
+        android:name="com.tminus1010.exampleclient.ui.imagetotext.ImageToTextFrag"
+        android:label="ImageToTextFrag"
+        tools:layout="@layout/frag_imagetotext" />
+    <fragment
+        android:id="@+id/mainFrag"
+        android:name="com.tminus1010.exampleclient.ui.main.MainFrag"
+        android:label="MainFrag"
+        tools:layout="@layout/frag_main" />
+    <fragment
+        android:id="@+id/speechToTextFrag"
+        android:name="com.tminus1010.exampleclient.ui.speechtotext.SpeechToTextFrag"
+        android:label="SpeechToTextFrag"
+        tools:layout="@layout/frag_speechtotext" />
+</navigation>

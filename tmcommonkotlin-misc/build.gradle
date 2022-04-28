@@ -45,6 +45,7 @@ dependencies {
     api(project(":tmcommonkotlin-rx3"))
     implementation(project(":tmcommonkotlin-coroutines"))
     implementation(project(":tmcommonkotlin-androidx"))
+    implementation(project(":tmcommonkotlin-customviews"))
     // # Kotlin
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.20")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.20")

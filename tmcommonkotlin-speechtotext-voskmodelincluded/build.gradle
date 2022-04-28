@@ -1,0 +1,113 @@
+import com.tminus1010.tmcommonkotlin.Shared
+
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id("maven-publish")
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 26
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    sourceSets {
+        main {
+            assets.srcDirs += "$buildDir/generated/assets"
+        }
+    }
+}
+
+// TODO: clean up
+dependencies {
+    // # TMCommonKotlin
+    implementation(project(":tmcommonkotlin-core"))
+    implementation(project(":tmcommonkotlin-coroutines"))
+    implementation(project(":tmcommonkotlin-microphone"))
+    implementation(project(":tmcommonkotlin-speechtotext"))
+
+    // # Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
+    // ## Coroutine & Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    // ## Coroutines & Rx
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.6.0"
+    
+    // # Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
+
+    // # Vosk SpeechToText
+    implementation 'net.java.dev.jna:jna:5.8.0@aar'
+    implementation group: 'com.alphacephei', name: 'vosk-android', version: '0.3.32'
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+tasks.register('genUUID') {
+    def uuid = UUID.randomUUID().toString()
+    def odir = file("$buildDir/generated/assets/model-en-us")
+    def ofile = file("$odir/uuid")
+    doLast {
+        mkdir odir
+        ofile.text = uuid
+    }
+}
+
+preBuild.dependsOn(genUUID)
+
+tasks.register("sourceJar", Jar) {
+    from("src/main")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register("mavenPublication", MavenPublication) {
+                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
+                artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
+                groupId = Shared.groupId
+                artifactId = "tmcommonkotlin-speechtotext-voskmodelincluded"
+                version = Shared.versionName
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        def group = ""
+                        if (it.group == "TMCommonKotlin")
+                            group = Shared.groupId
+                        else
+                            group = it.group
+                        dependencyNode.appendNode('groupId', group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
