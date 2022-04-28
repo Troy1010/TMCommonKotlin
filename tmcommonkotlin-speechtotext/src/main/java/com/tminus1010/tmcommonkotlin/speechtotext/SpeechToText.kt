@@ -3,64 +3,30 @@ package com.tminus1010.tmcommonkotlin.speechtotext
 import android.app.Application
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.rx3.asFlow
-import org.vosk.Model
 import org.vosk.Recognizer
 import org.vosk.android.RecognitionListener
 import org.vosk.android.SpeechStreamService
-import org.vosk.android.StorageService
 import java.io.IOException
 import java.io.InputStream
 import java.util.concurrent.TimeoutException
 
-class SpeechToText(private val application: Application, private val modelProvisionStrategy: ModelProvisionStrategy = ModelProvisionStrategy.ANY, private val externalModelProvider: ExternalModelProvider) {
-    constructor(application: Application) : this(application, ModelProvisionStrategy.ANY)
-    constructor(application: Application, modelProvisionStrategy: ModelProvisionStrategy = ModelProvisionStrategy.ANY) : this(application, modelProvisionStrategy, ExternalModelProvider(application))
+class SpeechToText(private val voskModelProvider: VoskModelProvider) {
+    constructor(application: Application) : this(VoskModelProvider.Any(application))
 
     private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-    private val model =
-        Single.create<Model> { downstream ->
-            when (modelProvisionStrategy) {
-                ModelProvisionStrategy.ANY ->
-                    runCatching { downstream.onSuccess(externalModelProvider.model.blockingGet()) }
-                        .onFailure {
-                            runCatching {
-                                StorageService.unpack(
-                                    application,
-                                    "model-en-us",
-                                    "model",
-                                    { downstream.onSuccess(it) },
-                                    { downstream.onError(it) },
-                                )
-                            }
-                                .onFailure { downstream.onError(it) }
-                        }
-                ModelProvisionStrategy.EXTERNAL_VOSK -> downstream.onSuccess(externalModelProvider.model.blockingGet())
-                ModelProvisionStrategy.INCLUDED_VOSK ->
-                    StorageService.unpack(
-                        application,
-                        "model-en-us",
-                        "model",
-                        { downstream.onSuccess(it) },
-                        { downstream.onError(it) },
-                    )
-            }
-        }.subscribeOn(Schedulers.io())
-            .toObservable().asFlow()
 
     /**
      * [sampleRate] example: 16000f
      * [inputStream] example: application.assets.open("10001-90210-01803.wav")
      */
     operator fun invoke(inputStream: InputStream, sampleRate: Float) =
-        model
+        voskModelProvider.model.toObservable().asFlow()
             .map {
                 SpeechStreamService(
                     Recognizer(it, sampleRate),
