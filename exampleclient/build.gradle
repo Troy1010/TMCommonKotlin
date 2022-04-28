@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":tmcommonkotlin-coroutines"))
     implementation(project(":tmcommonkotlin-androidx"))
     implementation(project(":tmcommonkotlin-speechtotext"))
+    implementation(project(":tmcommonkotlin-speechtotext-voskmodelincluded"))
     implementation(project(":tmcommonkotlin-microphone"))
     implementation(project(":tmcommonkotlin-customviews"))
 
