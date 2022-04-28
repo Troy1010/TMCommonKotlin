@@ -28,17 +28,18 @@ class SpeechToText(private val application: Application, private val modelProvis
         Single.create<Model> { downstream ->
             when (modelProvisionStrategy) {
                 ModelProvisionStrategy.ANY ->
-                    runCatching {
-                        StorageService.unpack(
-                            application,
-                            "model-en-us",
-                            "model",
-                            { downstream.onSuccess(it) },
-                            { downstream.onError(it) },
-                        )
-                    }
+                    runCatching { downstream.onSuccess(externalModelProvider.model.blockingGet()) }
                         .onFailure {
-                            externalModelProvider.model.blockingGet()
+                            runCatching {
+                                StorageService.unpack(
+                                    application,
+                                    "model-en-us",
+                                    "model",
+                                    { downstream.onSuccess(it) },
+                                    { downstream.onError(it) },
+                                )
+                            }
+                                .onFailure { downstream.onError(it) }
                         }
                 ModelProvisionStrategy.EXTERNAL_VOSK -> externalModelProvider.model.blockingGet()
                 ModelProvisionStrategy.INCLUDED_VOSK ->
