@@ -38,15 +38,18 @@ class SpeechToText(private val voskModelProvider: VoskModelProvider) {
                 val results = MutableSharedFlow<SpeechToTextResult>()
                 it.start(object : RecognitionListener {
                     override fun onPartialResult(hypothesis: String) {
-                        runBlocking { results.emit(moshi.adapter(SpeechToTextResult.SoFar::class.java).fromJson(hypothesis)!!) }
+                        val soFar = moshi.adapter(SpeechToTextResult.SoFar::class.java).fromJson(hypothesis)!!
+                        if (soFar.partial.isNotEmpty()) runBlocking { results.emit(soFar) }
                     }
 
                     override fun onResult(hypothesis: String) {
-                        runBlocking { results.emit(moshi.adapter(SpeechToTextResult.Chunk::class.java).fromJson(hypothesis)!!) }
+                        val chunk = moshi.adapter(SpeechToTextResult.Chunk::class.java).fromJson(hypothesis)!!
+                        if (chunk.text.isNotEmpty()) runBlocking { results.emit(chunk) }
                     }
 
                     override fun onFinalResult(hypothesis: String) {
-                        runBlocking { results.emit(moshi.adapter(SpeechToTextResult.Chunk::class.java).fromJson(hypothesis)!!) }
+                        val chunk = moshi.adapter(SpeechToTextResult.Chunk::class.java).fromJson(hypothesis)!!
+                        if (chunk.text.isNotEmpty()) runBlocking { results.emit(chunk) }
                         runBlocking { results.emit(SpeechToTextResult.End) }
                     }
 
