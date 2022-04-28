@@ -3,7 +3,7 @@
     package="com.tminus1010.exampleclient">
 
     <queries>
-        <package android:name="com.tminus1010.voskmodelservice" />
+        <package android:name="com.tminus1010.voskmodelpackage" />
     </queries>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
