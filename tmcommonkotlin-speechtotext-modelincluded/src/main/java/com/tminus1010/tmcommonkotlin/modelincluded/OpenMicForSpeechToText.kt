@@ -1,8 +1,8 @@
-package com.tminus1010.tmcommonkotlin.speechtotext
+package com.tminus1010.tmcommonkotlin.speechtotext.modelincluded
 
 import android.app.Application
-import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToText
-import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToTextResult
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.SpeechToText
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.SpeechToTextResult
 import com.tminus1010.tmcommonkotlin.microphone.AudioInputStream
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import kotlinx.coroutines.Dispatchers

@@ -2,8 +2,8 @@ package com.tminus1010.exampleclient.all_layers.dependency_injection
 
 import android.app.Application
 import com.tminus1010.tmcommonkotlin.microphone.OpenMicAndPlayback
-import com.tminus1010.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
-import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToText
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.OpenMicForSpeechToText
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.SpeechToText
 import com.tminus1010.tmcommonkotlin.androidx.CreateImageFile
 import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
 import dagger.Module

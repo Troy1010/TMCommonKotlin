@@ -7,9 +7,9 @@ import com.tminus1010.exampleclient.ui.all_features.ThrobberSharedVM
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.doLogx
 import com.tminus1010.tmcommonkotlin.coroutines.extensions.observe
 import com.tminus1010.tmcommonkotlin.customviews.vm_item.ButtonVMItem
-import com.tminus1010.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
-import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToText
-import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToTextResult
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.OpenMicForSpeechToText
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.SpeechToText
+import com.tminus1010.tmcommonkotlin.speechtotext.modelincluded.SpeechToTextResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapLatest
