@@ -28,5 +28,5 @@ object MiscModule {
     fun provideOpenMicAndPlayback(application: Application): OpenMicAndPlayback = OpenMicAndPlayback(application)
 
     @Provides
-    fun provideOpenMicForSpeechToText(application: Application): OpenMicForSpeechToText = OpenMicForSpeechToText(application)
+    fun provideOpenMicForSpeechToText(application: Application): OpenMicForSpeechToText = OpenMicForSpeechToText(application, SpeechToText(application, ModelProvisionStrategy.EXTERNAL_VOSK))
 }

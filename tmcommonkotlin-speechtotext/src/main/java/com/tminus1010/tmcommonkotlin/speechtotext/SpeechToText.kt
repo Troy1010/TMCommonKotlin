@@ -4,6 +4,7 @@ import android.app.Application
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.map
@@ -41,7 +42,7 @@ class SpeechToText(private val application: Application, private val modelProvis
                             }
                                 .onFailure { downstream.onError(it) }
                         }
-                ModelProvisionStrategy.EXTERNAL_VOSK -> externalModelProvider.model.blockingGet()
+                ModelProvisionStrategy.EXTERNAL_VOSK -> downstream.onSuccess(externalModelProvider.model.blockingGet())
                 ModelProvisionStrategy.INCLUDED_VOSK ->
                     StorageService.unpack(
                         application,
@@ -51,7 +52,7 @@ class SpeechToText(private val application: Application, private val modelProvis
                         { downstream.onError(it) },
                     )
             }
-        }
+        }.subscribeOn(Schedulers.io())
             .toObservable().asFlow()
 
     /**
