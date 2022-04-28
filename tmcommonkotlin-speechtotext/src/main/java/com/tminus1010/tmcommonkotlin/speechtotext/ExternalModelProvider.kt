@@ -20,6 +20,7 @@ class ExternalModelProvider(application: Application) {
         """
             
             Possible solution: Install com.tminus1010.voskmodelservice
+            Possible solution: Add query for package com.tminus1010.voskmodelservice to manifest
             Possible solution: Use a different ModelProvisionStrategy
         """.trimIndent()
     )
@@ -39,7 +40,7 @@ class ExternalModelProvider(application: Application) {
                 .onFailure { throw UnableToFindVoskModelPackageException(it) }
         }
 
-    fun unpack(context: Context, assetManager: AssetManager, sourcePath: String, targetPath: String?, completeCallback: (Model) -> Unit, errorCallback: (IOException) -> Unit) {
+    fun unpack(context: Context, assetManager: AssetManager, sourcePath: String, targetPath: String, completeCallback: (Model) -> Unit, errorCallback: (IOException) -> Unit) {
         val executor: Executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())
         executor.execute {
@@ -53,7 +54,7 @@ class ExternalModelProvider(application: Application) {
         }
     }
 
-    fun sync(context: Context, assetManager: AssetManager, sourcePath: String, targetPath: String?): String {
+    fun sync(context: Context, assetManager: AssetManager, sourcePath: String, targetPath: String): String {
         val externalFilesDir = context.getExternalFilesDir(null as String?)
         return if (externalFilesDir == null) {
             throw IOException("cannot get external files dir, external storage state is " + Environment.getExternalStorageState())
