@@ -1,6 +1,8 @@
 package com.tminus1010.tmcommonkotlin.customviews.vm_item
 
+import com.tminus1010.tmcommonkotlin.view.NativeText
+
 data class MenuVMItem(
-    val title: String,
-    val onClick: () -> Unit
+    val text: NativeText,
+    val onClick: () -> Unit,
 )
