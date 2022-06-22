@@ -12,9 +12,9 @@ import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
 data class ButtonVMItem(
-    val title: String? = null,
-    val titleObservable: Observable<String>? = null,
-    val titleTextSize: Float? = null,
+    val text: String? = null,
+    val textObservable: Observable<String>? = null,
+    val textSize: Float? = null,
     val isEnabled: Observable<Boolean>? = null,
     val isEnabled2: Flow<Boolean>? = null,
     val alpha: Flow<Float>? = null,
@@ -25,11 +25,11 @@ data class ButtonVMItem(
     val onClick: () -> Unit,
 ) : IHasToViewItemRecipe {
     fun bind(button: Button) {
-        button.text = title
-        if (titleObservable != null)
-            button.bind(titleObservable) { text = title }
-        if (titleTextSize != null)
-            button.textSize = titleTextSize
+        button.text = text
+        if (textObservable != null)
+            button.bind(textObservable) { text = text }
+        if (textSize != null)
+            button.textSize = textSize
         if (isEnabled != null)
             button.bind(isEnabled) { button.isEnabled = it }
         if (isEnabled2 != null)

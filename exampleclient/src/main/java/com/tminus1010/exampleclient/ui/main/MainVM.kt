@@ -17,18 +17,18 @@ class MainVM : ViewModel() {
         flowOf(
             listOf(
                 ButtonVMItem(
-                    title = "Image To Text",
-                    titleTextSize = 32f,
+                    text = "Image To Text",
+                    textSize = 32f,
                     onClick = { runBlocking { navToImageToText.emit(Unit) } }
                 ),
                 ButtonVMItem(
-                    title = "Open Mic And Playback",
-                    titleTextSize = 28f,
+                    text = "Open Mic And Playback",
+                    textSize = 28f,
                     onClick = { runBlocking { navToOpenMicAndPlayback.emit(Unit) } }
                 ),
                 ButtonVMItem(
-                    title = "Speech To Text",
-                    titleTextSize = 32f,
+                    text = "Speech To Text",
+                    textSize = 32f,
                     onClick = { runBlocking { navToSpeechToText.emit(Unit) } }
                 ),
             )
