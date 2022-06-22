@@ -2,18 +2,19 @@ package com.tminus1010.tmcommonkotlin.customviews.vm_item
 
 import android.content.Context
 import android.widget.Button
+import com.tminus1010.tmcommonkotlin.androidx.databinding.ItemButtonBinding
+import com.tminus1010.tmcommonkotlin.androidx.extensions.getColorByAttr
 import com.tminus1010.tmcommonkotlin.customviews.IHasToViewItemRecipe
 import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.customviews.ViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.customviews.extensions.bind
-import com.tminus1010.tmcommonkotlin.androidx.databinding.ItemButtonBinding
-import com.tminus1010.tmcommonkotlin.androidx.extensions.getColorByAttr
+import com.tminus1010.tmcommonkotlin.view.NativeText
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.flow.Flow
 
 data class ButtonVMItem(
-    val text: String? = null,
-    val textObservable: Observable<String>? = null,
+    val text: NativeText? = null,
+    val textObservable: Observable<NativeText>? = null,
     val textSize: Float? = null,
     val isEnabled: Observable<Boolean>? = null,
     val isEnabled2: Flow<Boolean>? = null,
@@ -25,9 +26,9 @@ data class ButtonVMItem(
     val onClick: () -> Unit,
 ) : IHasToViewItemRecipe {
     fun bind(button: Button) {
-        button.text = text
+        button.text = text?.toCharSequence(button.context)
         if (textObservable != null)
-            button.bind(textObservable) { text = text }
+            button.bind(textObservable) { text = this@ButtonVMItem.text?.toCharSequence(button.context) }
         if (textSize != null)
             button.textSize = textSize
         if (isEnabled != null)
