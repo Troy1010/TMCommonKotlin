@@ -13,7 +13,7 @@ fun logz(any: Any?, e: Throwable? = null) {
     else
         when (any) {
             is Throwable -> println("TM`Error:${any.message}")
-            else -> println("TM`$any${e?.stackTraceToString()}") // TODO: Untested
+            else -> println("TM`$any${e?.stackTraceToString() ?: ""}")
         }
 }
 
