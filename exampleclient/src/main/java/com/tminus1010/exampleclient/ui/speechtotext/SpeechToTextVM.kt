@@ -52,11 +52,11 @@ class SpeechToTextVM @Inject constructor(
         flowOf(
             listOf(
                 ButtonVMItem(
-                    title = "Use Prerecorded file",
+                    text = "Use Prerecorded file",
                     onClick = ::userUsePrerecordedFile,
                 ),
                 ButtonVMItem(
-                    title = "Open Mic",
+                    text = "Open Mic",
                     onClick = { runBlocking { askRecordAudioForSpeechToText.emit(Unit) } },
                 ),
             )

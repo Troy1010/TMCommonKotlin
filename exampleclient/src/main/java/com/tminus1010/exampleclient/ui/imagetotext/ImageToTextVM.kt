@@ -2,7 +2,6 @@ package com.tminus1010.exampleclient.ui.imagetotext
 
 import androidx.lifecycle.ViewModel
 import com.tminus1010.tmcommonkotlin.customviews.vm_item.ButtonVMItem
-import com.tminus1010.tmcommonkotlin.imagetotext.ImageToText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flowOf
@@ -20,7 +19,7 @@ class ImageToTextVM @Inject constructor() : ViewModel() {
         flowOf(
             listOf(
                 ButtonVMItem(
-                    title = "Take Picture",
+                    text = "Take Picture",
                     onClick = { runBlocking { takePicture.emit(Unit) } },
                 )
             )
