@@ -10,6 +10,7 @@ import com.tminus1010.tmcommonkotlin.customviews.vm_item.ButtonVMItem
 import com.tminus1010.tmcommonkotlin.speechtotext.OpenMicForSpeechToText
 import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToText
 import com.tminus1010.tmcommonkotlin.speechtotext.SpeechToTextResult
+import com.tminus1010.tmcommonkotlin.view.NativeText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -52,11 +53,11 @@ class SpeechToTextVM @Inject constructor(
         flowOf(
             listOf(
                 ButtonVMItem(
-                    text = "Use Prerecorded file",
+                    text = NativeText.Simple("Use Prerecorded file"),
                     onClick = ::userUsePrerecordedFile,
                 ),
                 ButtonVMItem(
-                    text = "Open Mic",
+                    text = NativeText.Simple("Open Mic"),
                     onClick = { runBlocking { askRecordAudioForSpeechToText.emit(Unit) } },
                 ),
             )
