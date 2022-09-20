@@ -57,7 +57,6 @@ class TMTableView3 @JvmOverloads constructor(
         if (shouldFitItemWidthsInsideTable)
             widthObservable()
                 .take(1)
-                .timeout(5, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .observe(findViewTreeLifecycleOwner()!!) { width ->
                     inflateAndBind(
