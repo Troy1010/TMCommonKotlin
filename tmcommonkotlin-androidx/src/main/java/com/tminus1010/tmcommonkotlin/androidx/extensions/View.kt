@@ -39,6 +39,14 @@ fun View.widthObservable(): Observable<Int> {
         .distinctUntilChanged()
 }
 
+fun View.addOnFocusChangeListenerDecoration(onFocusChangeListener: View.OnFocusChangeListener) {
+    val oldOnFocusChangeListener = this.onFocusChangeListener
+    this.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+        onFocusChangeListener.onFocusChange(v, hasFocus)
+        oldOnFocusChangeListener?.onFocusChange(v, hasFocus)
+    }
+}
+
 var View.lifecycleOwner: LifecycleOwner?
     get() = findViewTreeLifecycleOwner()
     set(value) {
