@@ -43,3 +43,12 @@ var View.lifecycleOwner: LifecycleOwner?
     set(value) {
         setTag(androidx.lifecycle.runtime.R.id.view_tree_lifecycle_owner, value)
     }
+
+val View.parents
+    get() = sequence<View> {
+        var x = parent
+        while (x as? View != null) {
+            yield(x)
+            x = (x as? View)?.parent
+        }
+    }
