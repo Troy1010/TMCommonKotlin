@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.androidx.extensions.children
 import com.tminus1010.tmcommonkotlin.androidx.extensions.clearItemDecorations
+import com.tminus1010.tmcommonkotlin.androidx.extensions.removeAllViewsAndSetTag
 import com.tminus1010.tmcommonkotlin.androidx.extensions.widthObservable
+import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.misc.Orientation
 import com.tminus1010.tmcommonkotlin.misc.databinding.TableviewBinding
 import com.tminus1010.tmcommonkotlin.rx3.extensions.observe
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
-import java.util.concurrent.TimeUnit
 
 class TMTableView3 @JvmOverloads constructor(
     context: Context,
@@ -48,9 +48,6 @@ class TMTableView3 @JvmOverloads constructor(
         rowFreezeCount: Int = 0,
         noDividers: Boolean = false,
     ) {
-        // For some reason, without this, an empty recipeGrid will result in a no-stacktrace crash after 6s.
-        if (recipeGrid.isEmpty()) removeAllViews().also { return }
-        //
         val recipeGridRedefined = RecipeGrid3.fillToEnsure2dGrid(context, recipeGrid)
         RecipeGrid3.assert2dGrid(recipeGridRedefined)
         //
@@ -88,7 +85,7 @@ class TMTableView3 @JvmOverloads constructor(
         synchronizedScrollListener: SynchronizedScrollListener,
         noDividers: Boolean,
     ) {
-        removeAllViews()
+        removeAllViewsAndSetTag()
         val vb = TableviewBinding.inflate(LayoutInflater.from(context), this, true)
         // # Freeze rows
         if (rowFreezeCount > 1) TODO()

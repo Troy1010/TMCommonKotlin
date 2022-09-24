@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
+import com.tminus1010.tmcommonkotlin.androidx.R
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 
@@ -42,6 +43,12 @@ var View.lifecycleOwner: LifecycleOwner?
     get() = findViewTreeLifecycleOwner()
     set(value) {
         setTag(androidx.lifecycle.runtime.R.id.view_tree_lifecycle_owner, value)
+    }
+
+var View.isRemovingViews: Boolean
+    get() = getTag(R.id.tag_is_removing_view) as? Boolean ?: false
+    set(value) {
+        setTag(R.id.tag_is_removing_view, value)
     }
 
 val View.parents
