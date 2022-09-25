@@ -53,6 +53,9 @@ var View.lifecycleOwner: LifecycleOwner?
         setTag(androidx.lifecycle.runtime.R.id.view_tree_lifecycle_owner, value)
     }
 
+/**
+ * This will only be true if [removeAllViewsAndSetTag] was called.
+ */
 var View.isRemovingViews: Boolean
     get() = getTag(R.id.tag_is_removing_view) as? Boolean ?: false
     set(value) {
