@@ -8,8 +8,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
 
-inline fun <reified T> Flow<T>.doLogx(prefix: String? = null): Flow<T> {
-    return onEach { it.logx(prefix) }
+inline fun <reified T> Flow<T>.doLogx(prefix: String? = null, crossinline transform: (x: T) -> Any? = { it }, z: Unit = Unit): Flow<T> {
+    return onEach { transform(it).logx(prefix) }
         .onCompletion { if (it == null) "Completed".logx(prefix) else logz("$prefix`Error:", it) }
 }
 
