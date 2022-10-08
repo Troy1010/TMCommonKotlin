@@ -41,6 +41,10 @@ fun <T> Flow<T>.pairwise(): Flow<Pair<T, T>> {
     return zip(this.drop(1)) { a, b -> Pair(a, b) }
 }
 
+fun <T> Flow<T>.pairwiseStartNull(): Flow<Pair<T?, T>> {
+    return map { it as T? }.onStart { emit(null) }.zip(this) { a, b -> Pair(a, b) }
+}
+
 fun <T> Flow<T>.divertErrors(mutableSharedFlow: MutableSharedFlow<Throwable>): Flow<T> {
     return this.catch { mutableSharedFlow.emit(it) }
 }
