@@ -22,7 +22,7 @@ object ColumnWidthCalculator3 {
         viewItemRecipe2D: Iterable<Iterable<IViewItemRecipe3>>,
         parentWidth: Int,
     ): List<Int> {
-        val minWidths = generateMinWidths(viewItemRecipe2D.first())
+        val minWidths = generateMinWidths(viewItemRecipe2D.firstOrNull() ?: return emptyList())
         val intrinsicWidths = generateIntrinsicWidths(viewItemRecipe2D)
 
         if (minWidths.sum() > parentWidth)
