@@ -13,6 +13,9 @@ android {
     compileOptions.sourceCompatibility = JavaVersion.VERSION_1_8
     compileOptions.targetCompatibility = JavaVersion.VERSION_1_8
     kotlinOptions.jvmTarget = "1.8"
+    // Allows adding to the kotlin package
+    // This is useful for logz, b/c anything in the kotlin package is automatically imported everywhere.
+    kotlinOptions.freeCompilerArgs += "-Xallow-kotlin-package"
 
     defaultConfig {
         minSdkVersion(Shared.minSDK)
@@ -27,8 +30,8 @@ android {
         getByName("release") {
             minifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }

@@ -7,12 +7,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 
-
-inline fun <reified T> Flow<T>.doLogx(prefix: String? = null, crossinline transform: (x: T) -> Any? = { it }, z: Unit = Unit): Flow<T> {
-    return onEach { transform(it).logx(prefix) }
-        .onCompletion { if (it == null) "Completed".logx(prefix) else logz("$prefix`Error:", it) }
-}
-
 inline fun <reified T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, lifecycleState: Lifecycle.State = Lifecycle.State.STARTED, crossinline lambda: suspend (T) -> Unit) {
     lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(lifecycleState) {
@@ -49,7 +43,7 @@ fun <T> Flow<T>.divertErrors(mutableSharedFlow: MutableSharedFlow<Throwable>): F
     return this.catch { mutableSharedFlow.emit(it) }
 }
 
-fun <T> Flow<T>.takeUntilSignal(signal: Flow<Any>): Flow<T> = flow {
+fun <T> Flow<T>.takeUntil(signal: Flow<Any>): Flow<T> = flow {
     try {
         coroutineScope {
             launch {
