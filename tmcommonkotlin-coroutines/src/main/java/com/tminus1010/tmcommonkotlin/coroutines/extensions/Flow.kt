@@ -58,3 +58,6 @@ fun <T> Flow<T>.takeUntil(signal: Flow<Any>): Flow<T> = flow {
         //ignore
     }
 }
+
+inline fun <reified T> Flow<T>.doLogx(prefix: Any? = null): Flow<T> =
+    onEach { it.logx(prefix) }.onCompletion { (if (it is CancellationException) "Cancelled".logx(prefix) else it ?: "Completed").logx(prefix) }
