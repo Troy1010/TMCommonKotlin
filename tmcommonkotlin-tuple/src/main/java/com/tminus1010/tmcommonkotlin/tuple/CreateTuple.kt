@@ -1,33 +1,33 @@
 package com.tminus1010.tmcommonkotlin.tuple
 
-fun <A> createTuple(a: A): Box<A> {
-    return Box(a)
+fun <A> createTuple(first: A): Box<A> {
+    return Box(first)
 }
 
-fun <A, B> createTuple(a: A, b: B): Pair<A, B> {
-    return Pair(a, b)
+fun <A, B> createTuple(first: A, second: B): Pair<A, B> {
+    return Pair(first, second)
 }
 
-fun <A, B, C> createTuple(a: A, b: B, c: C): Triple<A, B, C> {
-    return Triple(a, b, c)
+fun <A, B, C> createTuple(first: A, second: B, third: C): Triple<A, B, C> {
+    return Triple(first, second, third)
 }
 
-fun <A, B, C, D> createTuple(a: A, b: B, c: C, d: D): Quadruple<A, B, C, D> {
-    return Quadruple(a, b, c, d)
+fun <A, B, C, D> createTuple(first: A, second: B, third: C, fourth: D): Quadruple<A, B, C, D> {
+    return Quadruple(first, second, third, fourth)
 }
 
-fun <A, B, C, D, E> createTuple(a: A, b: B, c: C, d: D, e: E): Quintuple<A, B, C, D, E> {
-    return Quintuple(a, b, c, d, e)
+fun <A, B, C, D, E> createTuple(first: A, second: B, third: C, fourth: D, fifth: E): Quintuple<A, B, C, D, E> {
+    return Quintuple(first, second, third, fourth, fifth)
 }
 
-fun <A, B, C, D, E, F> createTuple(a: A, b: B, c: C, d: D, e: E, f: F): Sextuple<A, B, C, D, E, F> {
-    return Sextuple(a, b, c, d, e, f)
+fun <A, B, C, D, E, F> createTuple(first: A, second: B, third: C, fourth: D, fifth: E, sixth: F): Sextuple<A, B, C, D, E, F> {
+    return Sextuple(first, second, third, fourth, fifth, sixth)
 }
 
-fun <A, B, C, D, E, F, G> createTuple(a: A, b: B, c: C, d: D, e: E, f: F, g: G): Septuple<A, B, C, D, E, F, G> {
-    return Septuple(a, b, c, d, e, f, g)
+fun <A, B, C, D, E, F, G> createTuple(first: A, second: B, third: C, fourth: D, fifth: E, sixth: F, seventh: G): Septuple<A, B, C, D, E, F, G> {
+    return Septuple(first, second, third, fourth, fifth, sixth, seventh)
 }
 
-fun <A, B, C, D, E, F, G, H> createTuple(a: A, b: B, c: C, d: D, e: E, f: F, g: G, h: H): Octuple<A, B, C, D, E, F, G, H> {
-    return Octuple(a, b, c, d, e, f, g, h)
+fun <A, B, C, D, E, F, G, H> createTuple(first: A, second: B, third: C, fourth: D, fifth: E, sixth: F, seventh: G, eighth: H): Octuple<A, B, C, D, E, F, G, H> {
+    return Octuple(first, second, third, fourth, fifth, sixth, seventh, eighth)
 }
