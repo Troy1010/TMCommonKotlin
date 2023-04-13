@@ -47,6 +47,22 @@ class ShowAlertDialog constructor(private val activity: Activity) {
 
 
     /**
+     * Cancel/Continue Anyway/Yes
+     */
+    suspend operator fun invoke(body: NativeText, onCancel: (() -> Unit)? = null, onContinue: (() -> Unit)? = null, onYes: (() -> Unit)? = null) = suspendCoroutine<Unit> { downstream ->
+        launchOnMainThread {
+            AlertDialog.Builder(activity)
+                .setMessage(body.toCharSequence(activity))
+                .setNeutralButton("Cancel") { _, _ -> onCancel?.invoke() }
+                .setNegativeButton("Continue Anyway") { _, _ -> onContinue?.invoke() }
+                .setPositiveButton("Yes") { _, _ -> onYes?.invoke() }
+                .setOnDismissListener { downstream.resume(Unit) }
+                .show()
+        }
+    }
+
+
+    /**
      * Okay
      */
     suspend operator fun invoke(body: String) = invoke(NativeText.Simple(body))
