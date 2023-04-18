@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.Button
 import com.tminus1010.tmcommonkotlin.androidx.databinding.ItemButtonBinding
 import com.tminus1010.tmcommonkotlin.androidx.extensions.getColorByAttr
-import com.tminus1010.tmcommonkotlin.customviews.IHasToViewItemRecipe
+import com.tminus1010.tmcommonkotlin.customviews.ViewItemRecipeFactory
 import com.tminus1010.tmcommonkotlin.customviews.IViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.customviews.ViewItemRecipe3
 import com.tminus1010.tmcommonkotlin.customviews.extensions.bind
@@ -24,7 +24,7 @@ data class ButtonVMItem(
     val menuVMItemsFlow: Flow<MenuVMItems>? = null,
     val onLongClick: (() -> Unit)? = null,
     val onClick: () -> Unit,
-) : IHasToViewItemRecipe {
+) : ViewItemRecipeFactory {
     fun bind(button: Button) {
         button.text = text?.toCharSequence(button.context)
         if (textObservable != null)
