@@ -46,8 +46,8 @@ dependencies {
     implementation(project(":tmcommonkotlin-androidx"))
     implementation(project(":tmcommonkotlin-customviews"))
     // # Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.20")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.20")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
     // # Android
     implementation("androidx.core:core-ktx:1.3.2")
     implementation("androidx.appcompat:appcompat:1.2.0")
