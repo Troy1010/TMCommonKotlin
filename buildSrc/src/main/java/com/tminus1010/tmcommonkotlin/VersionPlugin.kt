@@ -17,13 +17,8 @@ open class VersionPlugin : Plugin<Project> {
     }
 
     open class VersionProvider(private val project: Project) {
-        // TODO: Should this have caching?
-        val versionName
-            get() = getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
-
-        // TODO: Should this have caching?
-        val versionCode
-            get() = getVersionCodeAndNameFromBranch(project)?.first ?: 0 // TODO: Is this a good default?
+        val versionName = getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
+        val versionCode = getVersionCodeAndNameFromBranch(project)?.first ?: 0 // TODO: Is this a good default?
     }
 
     companion object {
