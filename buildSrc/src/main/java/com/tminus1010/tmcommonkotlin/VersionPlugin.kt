@@ -7,11 +7,11 @@ import org.gradle.kotlin.dsl.get
 open class VersionPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.extensions.create(VersionProvider::class.java.name, VersionProvider::class.java, project)
-        project.tasks.register("printVersionName") {
+        project.tasks.register("printVersionCodeAndName") {
             group = "other2"
             doLast {
                 val versionProvider = (project.extensions[VersionProvider::class.java.name] as VersionProvider)
-                println(versionProvider.versionName)
+                println("versionCode:${versionProvider.versionCode}\nversionName:${versionProvider.versionName}")
             }
         }
     }
