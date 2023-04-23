@@ -11,19 +11,19 @@ open class FindVersionCodeAndNamePlugin : Plugin<Project> {
             group = "other2"
             doLast {
                 val findVersionCodeAndNameExtension = (project.extensions[FindVersionCodeAndNameExtension::class.java.name] as FindVersionCodeAndNameExtension)
-                println(findVersionCodeAndNameExtension.versionName())
+                println(findVersionCodeAndNameExtension.versionName)
             }
         }
     }
 
     open class FindVersionCodeAndNameExtension(private val project: Project) {
-        fun versionName(): String {
-            return getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
-        }
+        // TODO: Should this have caching?
+        val versionName
+            get() = getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
 
-        fun versionCode(): Int {
-            return getVersionCodeAndNameFromBranch(project)?.first ?: 0 // TODO: Is this a good default?
-        }
+        // TODO: Should this have caching?
+        val versionCode
+            get() = getVersionCodeAndNameFromBranch(project)?.first ?: 0 // TODO: Is this a good default?
     }
 
     companion object {
