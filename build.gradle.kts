@@ -1,3 +1,5 @@
+import com.tminus1010.tmcommonkotlin.PlaygroundPlugin
+
 // # Root Project
 allprojects {
     repositories {
@@ -8,6 +10,14 @@ allprojects {
 }
 
 subprojects {
+    plugins.apply(PlaygroundPlugin::class)
+    tasks.register("helloWorldTask") {
+        group = "other2"
+        doLast {
+            val helloWorldExtension = (this@subprojects.extensions[PlaygroundPlugin.HelloWorldExtension::class.java.name] as PlaygroundPlugin.HelloWorldExtension)
+            helloWorldExtension.helloWorld()
+        }
+    }
     if (this.getTasksByName("publishToMavenLocal", true).isNotEmpty())
         tasks.register("easyPublishLocal") {
             group = "publishing"
