@@ -17,16 +17,30 @@ open class FindVersionCodeAndNamePlugin : Plugin<Project> {
     }
 
     open class FindVersionCodeAndNameExtension(private val project: Project) {
-        fun versionName(): String? {
-            return getVersionCodeAndNameFromBranch(project)?.second
+        fun versionName(): String {
+            return getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
         }
 
-        fun versionCode(): Int? {
-            return getVersionCodeAndNameFromBranch(project)?.first
+        fun versionCode(): Int {
+            return getVersionCodeAndNameFromBranch(project)?.first ?: 0 // TODO: Is this a good default?
         }
     }
 
     companion object {
+        private fun getSnapshotVersionNameFromCommit(project: Project): String {
+            return try {
+                val byteOut = java.io.ByteArrayOutputStream()
+                project.exec {
+                    commandLine = "git rev-parse --short HEAD".split(" ")
+                    standardOutput = byteOut
+                }
+                "SNAPSHOT-${String(byteOut.toByteArray()).trim()}"
+            } catch (e: Exception) {
+                "SNAPSHOT-DEFAULT"
+                    .also { project.logger.warn("Using default:$it for getSnapshotVersionNameFromCommit because", e) }
+            }
+        }
+
         /**
          * Utility function to retrieve the name of the current git branch.
          * Will not work if build tool detaches head after checkout, which some do!
@@ -39,13 +53,13 @@ open class FindVersionCodeAndNamePlugin : Plugin<Project> {
                     standardOutput = byteOut
                 }
                 String(byteOut.toByteArray()).trim()
-//                .also {
-//                    if (it == "HEAD")
-//                        logger.warn("Unable to determine current branch: Project is checked out with detached head!")
-//                }
+                    .also {
+                        if (it == "HEAD")
+                            project.logger.warn("Unable to determine current branch: Project is checked out with detached head!")
+                    }
                     .versionCodeAndName()
             } catch (e: Exception) {
-//            logger.warn("Unable to getVersionCodeAndName", e)
+                project.logger.warn("Unable to getVersionCodeAndName", e)
                 null
             }
         }
