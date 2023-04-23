@@ -4,19 +4,19 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
 
-open class FindVersionCodeAndNamePlugin : Plugin<Project> {
+open class VersionPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.extensions.create(FindVersionCodeAndNameExtension::class.java.name, FindVersionCodeAndNameExtension::class.java, project)
+        project.extensions.create(VersionProvider::class.java.name, VersionProvider::class.java, project)
         project.tasks.register("printVersionName") {
             group = "other2"
             doLast {
-                val findVersionCodeAndNameExtension = (project.extensions[FindVersionCodeAndNameExtension::class.java.name] as FindVersionCodeAndNameExtension)
-                println(findVersionCodeAndNameExtension.versionName)
+                val versionProvider = (project.extensions[VersionProvider::class.java.name] as VersionProvider)
+                println(versionProvider.versionName)
             }
         }
     }
 
-    open class FindVersionCodeAndNameExtension(private val project: Project) {
+    open class VersionProvider(private val project: Project) {
         // TODO: Should this have caching?
         val versionName
             get() = getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
