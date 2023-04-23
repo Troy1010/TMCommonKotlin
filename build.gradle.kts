@@ -1,3 +1,4 @@
+import com.tminus1010.tmcommonkotlin.FindVersionCodeAndNamePlugin
 import com.tminus1010.tmcommonkotlin.PlaygroundPlugin
 
 // # Root Project
@@ -18,6 +19,7 @@ subprojects {
             helloWorldExtension.helloWorld()
         }
     }
+    plugins.apply(FindVersionCodeAndNamePlugin::class)
     if (this.getTasksByName("publishToMavenLocal", true).isNotEmpty())
         tasks.register("easyPublishLocal") {
             group = "publishing"
