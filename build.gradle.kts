@@ -10,6 +10,12 @@ allprojects {
     }
 }
 
+ext {
+    val versionCodeAndName = VersionPlugin.getVersionCodeAndName(project)
+    set("versionCode", versionCodeAndName.first)
+    set("versionName", versionCodeAndName.second)
+}
+
 subprojects {
     plugins.apply(PlaygroundPlugin::class)
     tasks.register("helloWorldTask") {
@@ -19,7 +25,6 @@ subprojects {
             helloWorldExtension.helloWorld()
         }
     }
-    plugins.apply(VersionPlugin::class)
     if (this.getTasksByName("publishToMavenLocal", true).isNotEmpty())
         tasks.register("easyPublishLocal") {
             group = "publishing"

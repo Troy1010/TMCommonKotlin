@@ -17,12 +17,35 @@ open class VersionPlugin : Plugin<Project> {
     }
 
     open class VersionProvider(private val project: Project) {
-        val versionName = getVersionCodeAndNameFromBranch(project)?.second ?: getSnapshotVersionNameFromCommit(project)
-        val versionCode = getVersionCodeAndNameFromBranch(project)?.first ?: 0 // TODO: Is this a good default?
+        private val versionCodeAndName = getVersionCodeAndName(project)
+        val versionCode get() = versionCodeAndName.first
+        val versionName get() = versionCodeAndName.second
     }
 
     companion object {
-        private fun getSnapshotVersionNameFromCommit(project: Project): String {
+        @JvmStatic
+        fun getVersionCodeAndName(project: Project): Pair<Int, String> {
+            return getVersionCodeAndNameFromTag(project)
+                ?: getVersionCodeAndNameFromBranch(project)
+                ?: Pair(1, getVersionNameFromCommit(project))
+        }
+
+        private fun getVersionCodeAndNameFromTag(project: Project): Pair<Int, String>? {
+            return try {
+                val byteOut = java.io.ByteArrayOutputStream()
+                project.exec {
+                    commandLine = "git tag --points-at HEAD".split(" ")
+                    standardOutput = byteOut
+                }
+                String(byteOut.toByteArray()).trim()
+                    .versionCodeAndName()
+            } catch (e: Exception) {
+                null
+                    .also { project.logger.warn("Using default:$it for getVersionCodeAndNameFromTag because", e) }
+            }
+        }
+
+        private fun getVersionNameFromCommit(project: Project): String {
             return try {
                 val byteOut = java.io.ByteArrayOutputStream()
                 project.exec {
