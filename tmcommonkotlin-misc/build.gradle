@@ -36,6 +36,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.tminus1010.tmcommonkotlin.misc'
 }
 
 dependencies {

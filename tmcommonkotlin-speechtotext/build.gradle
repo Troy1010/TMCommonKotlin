@@ -35,6 +35,7 @@ android {
             assets.srcDirs += "$buildDir/generated/assets"
         }
     }
+    namespace 'com.tminus1010.tmcommonkotlin.speechtotext'
 }
 
 // TODO: clean up

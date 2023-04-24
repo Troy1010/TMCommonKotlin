@@ -35,6 +35,7 @@ android {
             )
         }
     }
+    namespace 'com.tminus1010.tmcommonkotlin.core'
 }
 
 dependencies {

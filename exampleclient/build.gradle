@@ -45,6 +45,7 @@ android {
             useJUnitPlatform()
         }
     }
+    namespace 'com.tminus1010.exampleclient'
 }
 
 dependencies {
