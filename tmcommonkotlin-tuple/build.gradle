@@ -16,8 +16,6 @@ android {
     defaultConfig {
         minSdkVersion(Shared.minSDK)
         targetSdkVersion(Shared.targetSDK)
-        versionCode = Shared.versionCode
-        versionName = "1.0.36"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,7 +50,7 @@ afterEvaluate {
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-tuple"
-                version = Shared.versionName
+                version = rootProject.ext["versionName"]
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
                     configurations.implementation.allDependencies.each {

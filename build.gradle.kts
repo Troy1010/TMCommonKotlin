@@ -1,3 +1,4 @@
+import com.tminus1010.tmcommonkotlin.VersionPlugin
 import com.tminus1010.tmcommonkotlin.PlaygroundPlugin
 
 // # Root Project
@@ -7,6 +8,12 @@ allprojects {
         google()
         maven { url = uri("https://jitpack.io") }
     }
+}
+
+ext {
+    val versionCodeAndName = VersionPlugin.getVersionCodeAndName(project)
+    set("versionCode", versionCodeAndName.first)
+    set("versionName", versionCodeAndName.second)
 }
 
 subprojects {

@@ -26,7 +26,7 @@ publishing {
             from(project.components["java"])
             groupId = Shared.groupId
             artifactId = "tmcommonkotlin-dsl"
-            version = Shared.versionName
+            version = rootProject.ext["versionName"] as String
         }
     }
 }
