@@ -1,4 +1,5 @@
 import com.tminus1010.tmcommonkotlin.Shared
+import com.tminus1010.tmcommonkotlin.VersionPlugin
 
 plugins {
     id 'com.android.library'
@@ -16,8 +17,6 @@ android {
     defaultConfig {
         minSdkVersion(29)
         targetSdkVersion(Shared.targetSDK)
-        versionCode = Shared.versionCode
-        versionName = Shared.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,7 +57,7 @@ afterEvaluate {
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-imagetotext"
-                version = Shared.versionName
+                version = rootProject.ext["versionName"]
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
                     configurations.implementation.allDependencies.each {

@@ -78,7 +78,7 @@ afterEvaluate {
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-customviews"
-                version = Shared.versionName
+                version = rootProject.ext["versionName"]
                 pom.withXml {
                     def dependenciesNode = asNode().appendNode('dependencies')
                     configurations.implementation.allDependencies.each {
