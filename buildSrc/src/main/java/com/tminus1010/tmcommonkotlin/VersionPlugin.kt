@@ -1,5 +1,6 @@
 package com.tminus1010.tmcommonkotlin
 
+import com.android.build.gradle.internal.coverage.JacocoReportTask.JacocoReportWorkerAction.Companion.logger
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
@@ -38,7 +39,7 @@ open class VersionPlugin : Plugin<Project> {
                     standardOutput = byteOut
                 }
                 String(byteOut.toByteArray()).trim()
-                    .versionCodeAndName()
+                    .versionCodeAndName2()
             } catch (e: Exception) {
                 null
                     .also { project.logger.warn("Using default:$it for getVersionCodeAndNameFromTag because", e) }
@@ -75,7 +76,7 @@ open class VersionPlugin : Plugin<Project> {
                         if (it == "HEAD")
                             project.logger.warn("Unable to determine current branch: Project is checked out with detached head!")
                     }
-                    .versionCodeAndName()
+                    .versionCodeAndName2()
             } catch (e: Exception) {
                 project.logger.warn("Unable to getVersionCodeAndName", e)
                 null
@@ -101,6 +102,30 @@ open class VersionPlugin : Plugin<Project> {
 //                .also { logger.lifecycle("versionName:$it") }
                 } catch (e: Exception) {
 //            logger.lifecycle("Unable to get versionName", e)
+                    return null
+                }
+            return Pair(versionCode, versionName)
+        }
+
+        private fun String.versionCodeAndName2(): Pair<Int, String>? {
+            val s = this
+//            logger.lifecycle("start:$s")
+            val groupValues = Regex("""(\d+)\.(\d+)\.(\d+).*""").find(s)?.groupValues ?: return null
+//            logger.lifecycle("groups:$groupValues")
+            val versionCode =
+                try {
+                    (groupValues[1].toInt() * 100000000 + groupValues[2].toInt() * 10000 + groupValues[3].toInt())
+                        .also { logger.lifecycle("versionCode:$it") }
+                } catch (e: Exception) {
+                    logger.lifecycle("Unable to get versionCode", e)
+                    return null
+                }
+            val versionName =
+                try {
+                    groupValues[0]
+                        .also { logger.lifecycle("versionName:$it") }
+                } catch (e: Exception) {
+                    logger.lifecycle("Unable to get versionName", e)
                     return null
                 }
             return Pair(versionCode, versionName)
