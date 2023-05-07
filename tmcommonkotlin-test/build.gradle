@@ -1,0 +1,83 @@
+import com.tminus1010.tmcommonkotlin.Shared
+
+plugins {
+    id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    id("maven-publish")
+    id("de.mannodermaus.android-junit5")
+}
+
+
+android {
+    namespace 'com.tminus1010.tmcommonkotlin.test'
+    compileSdk = Shared.targetSDK
+
+    defaultConfig {
+        minSdkVersion(Shared.minSDK)
+        targetSdkVersion(Shared.targetSDK)
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+    buildTypes {
+        getByName("release") {
+            minifyEnabled = false
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    // # Android
+    implementation 'androidx.core:core-ktx:1.8.0'
+    // # JUnit
+    // ## JUnit5
+    implementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
+    runtimeOnly "org.junit.jupiter:junit-jupiter-engine:5.8.2"
+    implementation "org.junit.jupiter:junit-jupiter-params:5.8.2"
+    // # Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.0"
+}
+
+
+tasks.register("sourceJar", Jar) {
+    from("src/main")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register("mavenPublication", MavenPublication) {
+                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
+                artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
+                groupId = Shared.groupId
+                artifactId = "tmcommonkotlin-test"
+                version = rootProject.ext["versionName"]
+                pom.withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each {
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        def group = ""
+                        if (it.group == "TMCommonKotlin")
+                            group = Shared.groupId
+                        else
+                            group = it.group
+                        dependencyNode.appendNode('groupId', group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+                }
+            }
+        }
+    }
+}
