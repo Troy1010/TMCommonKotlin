@@ -1,6 +1,8 @@
 package com.tminus1010.tmcommonkotlin.testoverridelog
 
 import android.util.Log
+import com.tminus1010.tmcommonkotlin.test.TestParamsA
+import com.tminus1010.tmcommonkotlin.test.toDynamicTests
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 
@@ -43,20 +45,18 @@ class LogTest {
                 givenLogLevel = Log.VERBOSE,
                 givenLogLevelSetting = Log.INFO,
             ),
-        ).map { (tag, msg, tr, logLevel, logLevelSetting) ->
-            DynamicTest.dynamicTest("Given tag:$tag msg:$msg tr:${if (tr == null) "null" else tr::class.java.simpleName} logLevel:$logLevel logLevelSetting:$logLevelSetting") {
-                // # When
-                TestOverrideLogConfig.logLevel = logLevelSetting
-                when (logLevel) {
-                    Log.INFO -> Log.i(tag, msg, tr)
-                    Log.DEBUG -> Log.d(tag, msg, tr)
-                    Log.ERROR -> Log.e(tag, msg, tr)
-                    Log.VERBOSE -> Log.v(tag, msg, tr)
-                    Log.WARN -> Log.w(tag, msg, tr)
-                }
-                // # Then
-                // Manually read the println
+        ).toDynamicTests { (tag, msg, tr, logLevel, logLevelSetting) ->
+            // # When
+            TestOverrideLogConfig.logLevel = logLevelSetting
+            when (logLevel) {
+                Log.INFO -> Log.i(tag, msg, tr)
+                Log.DEBUG -> Log.d(tag, msg, tr)
+                Log.ERROR -> Log.e(tag, msg, tr)
+                Log.VERBOSE -> Log.v(tag, msg, tr)
+                Log.WARN -> Log.w(tag, msg, tr)
             }
+            // # Then
+            // Manually read the println
         }
     }
 
@@ -66,7 +66,7 @@ class LogTest {
         val givenThrowable: Throwable?,
         val givenLogLevel: Int,
         val givenLogLevelSetting: Int,
-    )
+    ) : TestParamsA()
 
     @TestFactory
     fun testMsg(): List<DynamicTest> {
@@ -101,20 +101,18 @@ class LogTest {
                 givenLogLevel = Log.VERBOSE,
                 givenLogLevelSetting = Log.INFO,
             ),
-        ).map { (tag, msg, logLevel, logLevelSetting) ->
-            DynamicTest.dynamicTest("Given tag:$tag msg:$msg logLevel:$logLevel") {
-                // # When
-                TestOverrideLogConfig.logLevel = logLevelSetting
-                when (logLevel) {
-                    Log.INFO -> Log.i(tag, msg)
-                    Log.DEBUG -> Log.d(tag, msg)
-                    Log.ERROR -> Log.e(tag, msg)
-                    Log.VERBOSE -> Log.v(tag, msg)
-                    Log.WARN -> Log.w(tag, msg)
-                }
-                // # Then
-                // Manually read the println
+        ).toDynamicTests { (tag, msg, logLevel, logLevelSetting) ->
+            // # When
+            TestOverrideLogConfig.logLevel = logLevelSetting
+            when (logLevel) {
+                Log.INFO -> Log.i(tag, msg)
+                Log.DEBUG -> Log.d(tag, msg)
+                Log.ERROR -> Log.e(tag, msg)
+                Log.VERBOSE -> Log.v(tag, msg)
+                Log.WARN -> Log.w(tag, msg)
             }
+            // # Then
+            // Manually read the println
         }
     }
 
@@ -123,5 +121,5 @@ class LogTest {
         val givenMsg: String,
         val givenLogLevel: Int,
         val givenLogLevelSetting: Int,
-    )
+    ) : TestParamsA()
 }
