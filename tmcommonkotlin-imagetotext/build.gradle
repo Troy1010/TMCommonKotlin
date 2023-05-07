@@ -53,8 +53,8 @@ afterEvaluate {
     publishing {
         publications {
             register("mavenPublication", MavenPublication) {
-                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
-                artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
+                artifact bundleReleaseAar
+                artifact sourceJar
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-imagetotext"
                 version = rootProject.ext["versionName"]
