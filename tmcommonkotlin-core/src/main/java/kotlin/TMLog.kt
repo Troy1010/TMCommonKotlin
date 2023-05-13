@@ -4,6 +4,10 @@ package kotlin
 import android.util.Log
 import com.tminus1010.tmcommonkotlin.core.isNonInstrumentationTest
 
+fun logq(msg: Any?) {
+    Log.d("LOGQ", "LQ`$msg")
+}
+
 fun logz(any: Any?, e: Throwable? = null) {
     if (isNonInstrumentationTest)
         when (any) {
