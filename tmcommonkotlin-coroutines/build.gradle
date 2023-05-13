@@ -60,25 +60,25 @@ afterEvaluate {
     publishing {
         publications {
             register("mavenPublication", MavenPublication) {
-                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
+                from components.release
                 artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-coroutines"
                 version = rootProject.ext["versionName"]
-                pom.withXml {
-                    def dependenciesNode = asNode().appendNode('dependencies')
-                    configurations.implementation.allDependencies.each {
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        def group = ""
-                        if (it.group == "TMCommonKotlin")
-                            group = Shared.groupId
-                        else
-                            group = it.group
-                        dependencyNode.appendNode('groupId', group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                    }
-                }
+//                pom.withXml {
+//                    def dependenciesNode = asNode().appendNode('dependencies')
+//                    configurations.implementation.allDependencies.each {
+//                        def dependencyNode = dependenciesNode.appendNode('dependency')
+//                        def group = ""
+//                        if (it.group == "TMCommonKotlin")
+//                            group = Shared.groupId
+//                        else
+//                            group = it.group
+//                        dependencyNode.appendNode('groupId', group)
+//                        dependencyNode.appendNode('artifactId', it.name)
+//                        dependencyNode.appendNode('version', it.version)
+//                    }
+//                }
             }
         }
     }
