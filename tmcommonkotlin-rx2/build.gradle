@@ -54,8 +54,8 @@ afterEvaluate {
     publishing {
         publications {
             register("mavenPublication", MavenPublication) {
-                artifact bundleReleaseAar
-                artifact sourceJar
+                artifact("$buildDir/outputs/aar/${artifactId}-release.aar")
+                artifact(tasks.getByName("sourceJar")) { classifier = "sources" }
                 groupId = Shared.groupId
                 artifactId = "tmcommonkotlin-rx2"
                 version = rootProject.ext["versionName"]
