@@ -3,6 +3,10 @@ package kotlin
 
 import android.util.Log
 
+fun String.tempPrefix(): String {
+    return "TEMP`$this"
+}
+
 /**
  * This is meant as a convenience method if you don't want to bother specifying a tag.
  *
@@ -12,8 +16,8 @@ import android.util.Log
  */
 fun logv(any: Any?, e: Throwable? = null) {
     when (any) {
-        is Throwable -> Log.v("TAG", "`Error:", any)
-        else -> Log.v("TAG", "`$any", e)
+        is Throwable -> Log.v("TAG", "LV`Error:", any)
+        else -> Log.v("TAG", "LV`$any", e)
     }
 }
 
@@ -21,8 +25,8 @@ inline fun <reified T> T.logvx(prefix: Any? = null): T {
     return this.apply {
         val prefixLogStr = prefix?.let { "$prefix`" } ?: ""
         when (this) {
-            is Throwable -> Log.v("TAG", "`${prefixLogStr}Error:", this)
-            else -> Log.v("TAG", "`${prefixLogStr}$this")
+            is Throwable -> Log.v("TAG", "LV`${prefixLogStr}Error:", this)
+            else -> Log.v("TAG", "LV`${prefixLogStr}$this")
         }
     }
 }
@@ -36,8 +40,8 @@ inline fun <reified T> T.logvx(prefix: Any? = null): T {
  */
 fun logd(any: Any?, e: Throwable? = null) {
     when (any) {
-        is Throwable -> Log.d("TAG", "`Error:", any)
-        else -> Log.d("TAG", "`$any", e)
+        is Throwable -> Log.d("TAG", "LD`Error:", any)
+        else -> Log.d("TAG", "LD`$any", e)
     }
 }
 
@@ -45,8 +49,8 @@ inline fun <reified T> T.logdx(prefix: Any? = null): T {
     return this.apply {
         val prefixLogStr = prefix?.let { "$prefix`" } ?: ""
         when (this) {
-            is Throwable -> Log.d("TAG", "`${prefixLogStr}Error:", this)
-            else -> Log.d("TAG", "`${prefixLogStr}$this")
+            is Throwable -> Log.d("TAG", "LD`${prefixLogStr}Error:", this)
+            else -> Log.d("TAG", "LD`${prefixLogStr}$this")
         }
     }
 }
