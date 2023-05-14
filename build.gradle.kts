@@ -13,7 +13,9 @@ allprojects {
 ext {
     val versionCodeAndName = VersionPlugin.getVersionCodeAndName(project)
     set("versionCode", versionCodeAndName.first)
+    println("versionCodeAndName.first:${versionCodeAndName.first}")
     set("versionName", versionCodeAndName.second)
+    println("versionCodeAndName.second:${versionCodeAndName.second}")
 }
 
 subprojects {
