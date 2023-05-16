@@ -7,5 +7,5 @@ object Shared {
     const val targetSDK = 31
     const val minSDK = 22
     @JvmStatic
-    val java = JavaVersion.VERSION_16
+    val java = JavaVersion.VERSION_11
 }
