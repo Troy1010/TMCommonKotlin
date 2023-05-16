@@ -6,5 +6,5 @@ object Shared {
     const val groupId = "com.tminus1010.tmcommonkotlin"
     const val targetSDK = 31
     const val minSDK = 22
-    val java = JavaVersion.VERSION_17
+    val java = JavaVersion.VERSION_16
 }
