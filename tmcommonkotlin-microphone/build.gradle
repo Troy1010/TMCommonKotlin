@@ -24,11 +24,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility Shared.java
+        targetCompatibility Shared.java
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
+        jvmTarget = Shared.java.toString()
     }
     namespace 'com.tminus1010.tmcommonkotlin.microphone'
 }

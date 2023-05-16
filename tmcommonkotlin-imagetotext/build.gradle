@@ -10,9 +10,9 @@ plugins {
 android {
     compileSdk = Shared.targetSDK
 
-    compileOptions.sourceCompatibility = JavaVersion.VERSION_17
-    compileOptions.targetCompatibility = JavaVersion.VERSION_17
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+    compileOptions.sourceCompatibility = Shared.java
+    compileOptions.targetCompatibility = Shared.java
+    kotlinOptions.jvmTarget = Shared.java.toString()
 
     defaultConfig {
         minSdkVersion(29)

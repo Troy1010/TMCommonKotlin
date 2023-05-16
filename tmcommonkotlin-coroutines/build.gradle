@@ -9,9 +9,9 @@ plugins {
 android {
     compileSdk = Shared.targetSDK
 
-    compileOptions.sourceCompatibility = JavaVersion.VERSION_17
-    compileOptions.targetCompatibility = JavaVersion.VERSION_17
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
+    compileOptions.sourceCompatibility = Shared.java
+    compileOptions.targetCompatibility = Shared.java
+    kotlinOptions.jvmTarget = Shared.java.toString()
     // Allows adding to the kotlin package
     // This is useful for logz, b/c anything in the kotlin package is automatically imported everywhere.
     kotlinOptions.freeCompilerArgs += "-Xallow-kotlin-package"
