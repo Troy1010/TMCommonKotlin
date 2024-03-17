@@ -42,8 +42,8 @@ class ShowAlertDialog constructor(private val activity: Activity) {
                 .setMessage(body.toCharSequence(activity))
                 .setView(editText)
                 .setPositiveButton("Submit") { _, _ -> onSubmitText?.invoke(editText.text) }
-                .setNeutralButton("Skip") { _, _ -> onSkip?.invoke() }
-                .setNegativeButton("Cancel") { _, _ -> onCancel?.invoke() }
+                .setNegativeButton("Skip") { _, _ -> onSkip?.invoke() }
+                .setNeutralButton("Cancel") { _, _ -> onCancel?.invoke() }
                 .setOnDismissListener { downstream.resume(Unit) }
                 .show()
         }
