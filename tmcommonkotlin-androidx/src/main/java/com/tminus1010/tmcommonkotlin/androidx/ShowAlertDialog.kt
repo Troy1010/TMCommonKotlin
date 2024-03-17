@@ -15,7 +15,7 @@ class ShowAlertDialog constructor(private val activity: Activity) {
     /**
      * EditText
      */
-    suspend operator fun invoke(body: NativeText, initialText: CharSequence? = null, onSubmitText: ((CharSequence?) -> Unit)? = null, onNo: (() -> Unit)? = null) = suspendCoroutine<Unit> { downstream ->
+    suspend operator fun invoke(body: NativeText, initialText: CharSequence? = null, onSubmitText: ((CharSequence?) -> Unit)? = null, onCancel: (() -> Unit)? = null) = suspendCoroutine<Unit> { downstream ->
         launchOnMainThread {
             val editText = EditText(activity)
             editText.easyGetLayoutParams()
@@ -24,7 +24,26 @@ class ShowAlertDialog constructor(private val activity: Activity) {
                 .setMessage(body.toCharSequence(activity))
                 .setView(editText)
                 .setPositiveButton("Submit") { _, _ -> onSubmitText?.invoke(editText.text) }
-                .setNegativeButton("Cancel") { _, _ -> onNo?.invoke() }
+                .setNegativeButton("Cancel") { _, _ -> onCancel?.invoke() }
+                .setOnDismissListener { downstream.resume(Unit) }
+                .show()
+        }
+    }
+
+    /**
+     * EditText with skip
+     */
+    suspend operator fun invoke(body: NativeText, initialText: CharSequence? = null, onSubmitText: ((CharSequence?) -> Unit)? = null, onSkip: (() -> Unit)? = null, onCancel: (() -> Unit)? = null) = suspendCoroutine<Unit> { downstream ->
+        launchOnMainThread {
+            val editText = EditText(activity)
+            editText.easyGetLayoutParams()
+            editText.setText(initialText)
+            AlertDialog.Builder(activity)
+                .setMessage(body.toCharSequence(activity))
+                .setView(editText)
+                .setPositiveButton("Submit") { _, _ -> onSubmitText?.invoke(editText.text) }
+                .setNeutralButton("Skip") { _, _ -> onSkip?.invoke() }
+                .setNegativeButton("Cancel") { _, _ -> onCancel?.invoke() }
                 .setOnDismissListener { downstream.resume(Unit) }
                 .show()
         }
